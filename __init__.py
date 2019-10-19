@@ -1,11 +1,12 @@
 import sys
 import os
 
-encogpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'encog-core-3.4.jar')
-if not encogpath in sys.path:
-    sys.path.append(encogpath)
+libdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib')
+fns = os.listdir(libdir)
+for fn in fns:
+    fpath = os.path.join(libdir, fn)
+    if os.path.isfile(fpath) and fn.endswith('.jar'):
+        if not fpath in sys.path:
+            sys.path.append(fpath)
     
-version = '0.1'
-
-from miml.ffnetwork import FeedforwardNetwork
-from miml.mlutil import MinMaxScaler
+version = '0.2'
