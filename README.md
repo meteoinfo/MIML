@@ -1,2 +1,2 @@
 # miml
-MeteoInfo machine learning toolbox based on Encog
+MeteoInfo machine learning toolbox based on Smile and Encog
