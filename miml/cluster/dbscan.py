@@ -20,26 +20,41 @@ class DBSCAN(Cluster):
     this point might later be found in a sufficiently sized radius-environment
     of a different point and hence be made part of a cluster.
     
-    :param data: (*array*) The data set.
+    :param distance: (*string*) The distance.
     :param min_pts: (*int*) the minimum number of neighbors for a core data point.
     :param radius: (*float*) the neighborhood radius.
     '''
     
-    def __init__(self, data, distance='euclidean', min_pts=None, radius=None):
-        self._data = data
+    def __init__(self, distance='euclidean', min_pts=None, radius=None):
+        super(DBSCAN, self).__init__()
+        
         self._distance = distance
         self._min_pts = min_pts
-        self._radius = radius
-        distance = smile_util.get_distance(self._distance) 
-        self._model = JDBSCAN(self._data.tojarray('double'), distance,
-            self._min_pts, self._radius)
-
-    def get_cluster_label(self):
-        '''
-        Returns the cluster labels of data.
+        self._radius = radius 
         
-        :returns: (*array*) The cluster labels of data.
-        '''
+    def fit(self, x):
+        """
+        Fitting data.
+        
+        :param x: (*array*) Input data.
+        
+        :returns: self.
+        """
+        distance = smile_util.get_distance(self._distance) 
+        self._model = JDBSCAN(x.tojarray('double'), distance,
+            self._min_pts, self._radius)
+        return self
+    
+    def fit_predict(self, x):
+        """
+        Fitting and cluster data.
+
+        :param x: (*array*) Input data.
+        
+        :returns: (*array*) The cluster labels.
+        """
+        self.fit(x)
+        
         r = self._model.getClusterLabel()
         return np.array(r)
         

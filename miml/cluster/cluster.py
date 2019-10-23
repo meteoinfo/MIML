@@ -1,3 +1,5 @@
+from abc import abstractmethod
+import mipylib.numeric as np
 
 class Cluster(object):
     '''
@@ -8,18 +10,30 @@ class Cluster(object):
         self._model = None
     
     def __str__(self):
-        return self._model.toString()
+        _str = self.__class__.__name__
+        if not self._model is None:
+            _str = _str + '\n' + self._model.toString()
+        return _str
         
     def __repr__(self):
-        return self._model.toString()
-    
-    def predict(self, x):
-        """
-        Cluster a new instance.
-
-        :param x: (*array*) A new instance.
+        return self.__str__()
         
-        :returns: (*int*) The cluster label.
+    def fit(self, x):
         """
-        r = self._model.predict(x.tojarray('double'))
-        return r
+        Fitting data.
+        
+        :param x: (*array*) Input data.
+        
+        :returns: self.
+        """
+        pass
+    
+    def fit_predict(self, x):
+        """
+        Fitting and cluster data.
+
+        :param x: (*array*) Input data.
+        
+        :returns: (*array*) The cluster labels.
+        """
+        pass

@@ -17,9 +17,7 @@ class LinearDiscriminantAnalysis(Classifer):
 
     The fitted model can also be used to reduce the dimensionality of the input by projecting it to 
     the most discriminative directions.
-    
-    :param x: (*array*) Training samples. 2D array.
-    :param y: (*array*) Training labels in [0, c), where c is the number of classes.
+
     :param priori: (*array*) The priori probability of each class.
     :param tol: (*float*) a tolerance to decide if a covariance matrix is singular; it will reject 
         variables whose variance is less than tol^2.
@@ -27,42 +25,24 @@ class LinearDiscriminantAnalysis(Classifer):
     :returns: 
     '''
     
-    def __init__(self, x=None, y=None, priori=None, tol=0.0001):
-        self._x = x
-        self._y = y
+    def __init__(self, priori=None, tol=0.0001):
+        super(LinearDiscriminantAnalysis, self).__init__()
+        
         self._priori = priori
         self._tol = tol
-        if x is None or y is None:
-            self._model = None
-        else:
-            self._learn()
     
-    def _learn(self):
-        if self._priori is None:
-            self._model = LDA(self._x.tojarray('double'), self._y.tojarray('int'), self._tol)
-        else:
-            self._model = LDA(self._x.tojarray('double'), self._y.tojarray('int'), 
-                self._priori.tojarray('double'), self._tol)
-    
-    def learn(self, x=None, y=None, priori=None, tol=None):
+    def fit(self, x, y):
         """
         Learn from input data and labels.
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
-        :param priori: (*array*) The priori probability of each class.
-        :param tol: (*float*) a tolerance to decide if a covariance matrix is singular; it will reject 
-            variables whose variance is less than tol^2.
         """
-        if not x is None:
-            self._x = x
-        if not y is None:
-            self._y = y
-        if not priori is None:
-            self._priori = priori
-        if not tol is None:
-            self._tol = tol
-        self._learn()
+        if self._priori is None:
+            self._model = LDA(x.tojarray('double'), y.tojarray('int'), self._tol)
+        else:
+            self._model = LDA(x.tojarray('double'), y.tojarray('int'), 
+                self._priori.tojarray('double'), self._tol)
         
         
 ##################################################

@@ -1,3 +1,4 @@
+from abc import abstractmethod
 import mipylib.numeric as np
 
 class Regressor(object):
@@ -9,10 +10,23 @@ class Regressor(object):
         self._model = None
     
     def __str__(self):
-        return self._model.toString()
+        _str = self.__class__.__name__
+        if not self._model is None:
+            _str = _str + '\n' + self._model.toString()
+        return _str
         
     def __repr__(self):
-        return self._model.toString()
+        return self.__str__()
+        
+    @abstractmethod
+    def fit(self, x, y):
+        '''
+        Learn from input data and labels.
+        
+        :param x: (*array*) Training samples. 2D array.
+        :param y: (*array*) Training labels in [0, c), where c is the number of classes.
+        '''
+        pass        
     
     def predict(self, x):
         """

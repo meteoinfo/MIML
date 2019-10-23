@@ -17,8 +17,6 @@ class RandomForest(Classifer):
     majority vote of individual trees. The method combines bagging idea and the random selection 
     of features.
 
-    :param x: (*array*) Training samples. 2D array.
-    :param y: (*array*) Training labels in [0, c), where c is the number of classes.
     :param attributes: (*array*) Attribute properties.
     :param ntrees: (*int*) The number of trees.
     :param max_nodes: (*int*) The maximum number of leaf nodes in the tree.
@@ -32,10 +30,10 @@ class RandomForest(Classifer):
     :param class_weight: (*array*) Priors of the classes.
     '''
     
-    def __init__(self, x=None, y=None, attributes=None, ntrees=500, max_nodes=-1, node_size=1,
+    def __init__(self, attributes=None, ntrees=500, max_nodes=-1, node_size=1,
             mtry=-1, sub_sample=1.0, split_rule='gini', class_weight=None):
-        self._x = x
-        self._y = y        
+        super(RandomForest, self).__init__()
+        
         self._attributes = attributes
         self._ntrees = ntrees        
         self._max_nodes = max_nodes
@@ -44,36 +42,25 @@ class RandomForest(Classifer):
         self._sub_sample = sub_sample
         self._split_rule = split_rule    
         self._class_weight = class_weight
-        if x is None or y is None:
-            self._model = None
-        else:
-            self._learn()
-        
-    def _learn(self):
-        p = self._x.shape[1]
-        if self._attributes is None:
-            self._attributes = numeric_attributes(p)
-        m = int(math.floor(math.sqrt(p))) if self._mtry <= 0 else self._mtry
-        j = self._x.shape[0] / self._node_size if self._max_nodes <= 1 else self._max_nodes
-        split_rule = DecisionTree.SplitRule.valueOf(self._split_rule.upper())
-        k = int(self._y.max()) + 1
-        weight = np.ones(k, dtype='int') if self._class_weight is None  else self._class_weight
-        self._model = JRandomForest(self._attributes, self._x.tojarray('double'),
-            self._y.tojarray('int'), self._ntrees, j, self._node_size, m, 
-            self._sub_sample, split_rule, weight.tojarray('int'))
     
-    def learn(self, x=None, y=None):
+    def fit(self, x, y):
         """
         Learn from input data and labels.
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """ 
-        if not x is None:
-            self._x = x
-        if not y is None:
-            self._y = y
-        self._learn()
+        p = x.shape[1]
+        if self._attributes is None:
+            self._attributes = numeric_attributes(p)
+        m = int(math.floor(math.sqrt(p))) if self._mtry <= 0 else self._mtry
+        j = x.shape[0] / self._node_size if self._max_nodes <= 1 else self._max_nodes
+        split_rule = DecisionTree.SplitRule.valueOf(self._split_rule.upper())
+        k = int(y.max()) + 1
+        weight = np.ones(k, dtype='int') if self._class_weight is None  else self._class_weight
+        self._model = JRandomForest(self._attributes, x.tojarray('double'),
+            y.tojarray('int'), self._ntrees, j, self._node_size, m, 
+            self._sub_sample, split_rule, weight.tojarray('int'))
         
         
 ##################################################

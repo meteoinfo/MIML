@@ -9,4 +9,4 @@ for fn in fns:
         if not fpath in sys.path:
             sys.path.append(fpath)
     
-version = '0.2'
+version = '0.2.5'

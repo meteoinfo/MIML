@@ -13,22 +13,36 @@ class GMeans(Cluster):
     data follows a Gaussian distribution. G-means runs k-means with increasing k in a hierarchical 
     fashion until the test accepts the hypothesis that the data assigned to each k-means center are 
     Gaussian.
-    
-    :param data: (*array*) The data set.
+
     :param k_max: (*int*) The maximum number of clusters.
     '''
     
-    def __init__(self, data, k_max=100):
-        self._data = data
-        self._k_max = k_max
-        self._model = JGMeans(self._data.tojarray('double'), self._k_max)
-
-    def get_cluster_label(self):
-        '''
-        Returns the cluster labels of data.
+    def __init__(self, k_max=100):
+        super(GMeans, self).__init__()
         
-        :returns: (*array*) The cluster labels of data.
-        '''
+        self._k_max = k_max
+        
+    def fit(self, x):
+        """
+        Fitting data.
+        
+        :param x: (*array*) Input data.
+        
+        :returns: self.
+        """
+        self._model = JGMeans(x.tojarray('double'), self._k_max)
+        return self
+    
+    def fit_predict(self, x):
+        """
+        Fitting and cluster data.
+
+        :param x: (*array*) Input data.
+        
+        :returns: (*array*) The cluster labels.
+        """
+        self.fit(x)
+        
         r = self._model.getClusterLabel()
         return np.array(r)
         

@@ -15,36 +15,23 @@ class OLS(Regressor):
     and the true value of the dependent variable. Ordinary least squares obtains parameter 
     estimates that minimize the sum of squared residuals, SSE (also denoted RSS).
 
-    :param x: (*array*) Training samples. 2D array.
-    :param y: (*array*) Training labels in [0, c), where c is the number of classes.
     :param method: (*string*) ['qr' | 'svd'].
     '''
     
-    def __init__(self, x=None, y=None, method='qr'):
-        self._x = x
-        self._y = y        
-        self._method = method
-        if x is None or y is None:
-            self._model = None
-        else:
-            self._learn()
+    def __init__(self, method='qr'):
+        super(OLS, self).__init__()
         
-    def _learn(self):
-        self._model = JOLS(self._x.tojarray('double'), self._y.tojarray('double'), 
-            self._method=='svd')
+        self._method = method
     
-    def learn(self, x=None, y=None):
+    def fit(self, x, y):
         """
         Learn from input data and labels.
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """ 
-        if not x is None:
-            self._x = x
-        if not y is None:
-            self._y = y
-        self._learn()
+        self._model = JOLS(x.tojarray('double'), y.tojarray('double'), 
+            self._method=='svd')
         
         
 ##################################################

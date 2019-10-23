@@ -15,8 +15,7 @@ class DENCLUE(Cluster):
     Clearly, DENCLUE doesn't work on data with uniform distribution. In high dimensional space, the 
     data always look like uniformly distributed because of the curse of dimensionality. Therefore, 
     DENCLUDE doesn't work well on high-dimensional data in general.
-    
-    :param data: (*array*) The data set.
+
     :param sigma: (*float*) the smooth parameter in the Gaussian kernel. The user can choose sigma 
         such that number of density attractors is constant for a long interval of sigma.
     :param m: (*int*) the number of selected samples used in the iteration. This number should be 
@@ -24,18 +23,33 @@ class DENCLUE(Cluster):
         large enough to capture the sufficient information of underlying distribution.
     '''
     
-    def __init__(self, data, sigma=None, m=None):
-        self._data = data
+    def __init__(self, sigma=None, m=None):
+        super(DENCLUE, self).__init__()
+        
         self._sigma = sigma
         self._m = m
-        self._model = JDENCLUE(self._data.tojarray('double'), self._sigma, self._m)
-
-    def get_cluster_label(self):
-        '''
-        Returns the cluster labels of data.
         
-        :returns: (*array*) The cluster labels of data.
-        '''
+    def fit(self, x):
+        """
+        Fitting data.
+        
+        :param x: (*array*) Input data.
+        
+        :returns: self.
+        """
+        self._model = JDENCLUE(x.tojarray('double'), self._sigma, self._m)
+        return self
+    
+    def fit_predict(self, x):
+        """
+        Fitting and cluster data.
+
+        :param x: (*array*) Input data.
+        
+        :returns: (*array*) The cluster labels.
+        """
+        self.fit(x)
+        
         r = self._model.getClusterLabel()
         return np.array(r)
         

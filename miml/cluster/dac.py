@@ -13,25 +13,39 @@ class DeterministicAnnealing(Cluster):
     of K-Means, making local decisions about which subset of the current centroids should split 
     themselves in order to better fit the data. The splitting decision is done by computing the 
     Bayesian Information Criterion (BIC).
-    
-    :param data: (*array*) The data set.
+
     :param k_max: (*int*) The maximum number of clusters.
     :param alpha: (*float*) The temperature T is decreasing as T = T * alpha. alpha has to be 
         in (0, 1).
     '''
     
-    def __init__(self, data, k_max, alpha=0.9):
-        self._data = data
-        self._k_max = k_max
-        self._alpha = alpha
-        self._model = JDeterministicAnnealing(self._data.tojarray('double'), self._k_max, self._alpha)
-
-    def get_cluster_label(self):
-        '''
-        Returns the cluster labels of data.
+    def __init__(self, k_max, alpha=0.9):
+        super(DeterministicAnnealing, self).__init__()
         
-        :returns: (*array*) The cluster labels of data.
-        '''
+        self._k_max = k_max
+        self._alpha = alpha        
+        
+    def fit(self, x):
+        """
+        Fitting data.
+        
+        :param x: (*array*) Input data.
+        
+        :returns: self.
+        """
+        self._model = JDeterministicAnnealing(x.tojarray('double'), self._k_max, self._alpha)
+        return self
+    
+    def fit_predict(self, x):
+        """
+        Fitting and cluster data.
+
+        :param x: (*array*) Input data.
+        
+        :returns: (*array*) The cluster labels.
+        """
+        self.fit(x)
+        
         r = self._model.getClusterLabel()
         return np.array(r)
         

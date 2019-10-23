@@ -19,28 +19,42 @@ class MEC(Cluster):
     a cluster is started. Otherwise, the point is labeled as noise. Note that
     this point might later be found in a sufficiently sized radius-environment
     of a different point and hence be made part of a cluster.
-    
-    :param data: (*array*) The data set.
+
+    :param distance: (*string*) The distance.
     :param k: (*int*) the number of clusters. Note that this is just a hint. 
         The final number of clusters may be less.
     :param radius: (*float*) the neighborhood radius.
     '''
     
-    def __init__(self, data, distance='euclidean', k=None, radius=None):
-        self._data = data
+    def __init__(self, distance='euclidean', k=None, radius=None):
+        super(MEC, self).__init__()
+        
         self._distance = distance
         self._k = k
-        self._radius = radius
-        distance = smile_util.get_distance(self._distance) 
-        self._model = JMEC(self._data.tojarray('double'), distance,
-            self._k, self._radius)
-
-    def get_cluster_label(self):
-        '''
-        Returns the cluster labels of data.
+        self._radius = radius        
         
-        :returns: (*array*) The cluster labels of data.
-        '''
+    def fit(self, x):
+        """
+        Fitting data.
+        
+        :param x: (*array*) Input data.
+        
+        :returns: self.
+        """
+        distance = smile_util.get_distance(self._distance) 
+        self._model = JMEC(x.tojarray('double'), distance, self._k, self._radius)
+        return self
+    
+    def fit_predict(self, x):
+        """
+        Fitting and cluster data.
+
+        :param x: (*array*) Input data.
+        
+        :returns: (*array*) The cluster labels.
+        """
+        self.fit(x)
+        
         r = self._model.getClusterLabel()
         return np.array(r)
         

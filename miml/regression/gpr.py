@@ -16,8 +16,6 @@ class GaussianProcessRegression(Regressor):
     variable has a normal distribution. Moreover, every finite collection of those random variables 
     has a multivariate normal distribution.
 
-    :param x: (*array*) Training samples. 2D array.
-    :param y: (*array*) Training labels in [0, c), where c is the number of classes.
     :param t: (*array*) The inducing input, which are pre-selected or inducing samples
         acting as active set of regressors. In simple case, these can be chosen
         randomly from the training set or as the centers of k-means clustering.
@@ -26,45 +24,34 @@ class GaussianProcessRegression(Regressor):
     :param nystrom: (*boolean*) Set it true for Nystrom approximation of kernel matrix.
     '''
     
-    def __init__(self, x=None, y=None, t=None, kernel='gaussian', L=0.01, 
+    def __init__(self, t=None, kernel='gaussian', L=0.01, 
             nystrom=False, **kwargs):
-        self._x = x
-        self._y = y        
+        super(GaussianProcessRegression, self).__init__()
+        
         self._t = t
         self._kernel = get_kernel(kernel, **kwargs)
         self._L = L        
         self._nystrom = nystrom
-        if x is None or y is None:
-            self._model = None
-        else:
-            self._learn()
-        
-    def _learn(self):
-        if self._t is None:
-            self._model = JGaussianProcessRegression(self._x.tojarray('double'),
-                self._y.tojarray('double'), self._kernel, self._L)
-        else:
-            if self._nystrom:
-                self._model = JGaussianProcessRegression(self._x.tojarray('double'),
-                    self._y.tojarray('double'), self._t.tojarray('double'), self._kernel, 
-                    self._L, True)
-            else:
-                self._model = JGaussianProcessRegression(self._x.tojarray('double'),
-                    self._y.tojarray('double'), self._t.tojarray('double'), self._kernel, 
-                    self._L)
     
-    def learn(self, x=None, y=None):
+    def fit(self, x, y):
         """
         Learn from input data and labels.
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """ 
-        if not x is None:
-            self._x = x
-        if not y is None:
-            self._y = y
-        self._learn()
+        if self._t is None:
+            self._model = JGaussianProcessRegression(x.tojarray('double'),
+                y.tojarray('double'), self._kernel, self._L)
+        else:
+            if self._nystrom:
+                self._model = JGaussianProcessRegression(x.tojarray('double'),
+                    y.tojarray('double'), self._t.tojarray('double'), self._kernel, 
+                    self._L, True)
+            else:
+                self._model = JGaussianProcessRegression(x.tojarray('double'),
+                    y.tojarray('double'), self._t.tojarray('double'), self._kernel, 
+                    self._L)
         
         
 ##################################################

@@ -23,44 +23,22 @@ class LogisticRegression(Classifer):
     :param max_iter: (*int*) Maximum number of iterations taken for the solvers to converge.   
     '''
     
-    def __init__(self, x=None, y=None, L=0., tol=1e-5, max_iter=500):
-        self._x = x
-        self._y = y
+    def __init__(self, L=0., tol=1e-5, max_iter=500):
+        super(LogisticRegression, self).__init__()
+        
         self._L = L
         self._tol = tol
         self._max_iter = max_iter
-        if x is None or y is None:
-            self._model = None
-        else:
-            self._learn()
     
-    def _learn(self):
-        self._model = JLogisticRegression(self._x.tojarray('double'), self._y.tojarray('int'), 
-            self._L, self._tol, self._max_iter)
-    
-    def learn(self, x=None, y=None, L=None, tol=None, max_iter=None):
+    def fit(self, x, y):
         """
         Learn from input data and labels.
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
-        :param L: (*float*) Lambda - λ > 0 gives a "regularized" estimate of linear weights which often 
-            has superior generalization performance, especially when the dimensionality is high.
-        :param tol: (*float*) a tolerance to decide if a covariance matrix is singular; it will reject 
-            variables whose variance is less than tol^2.
-        :param max_iter: (*int*) Maximum number of iterations taken for the solvers to converge. 
         """
-        if not x is None:
-            self._x = x
-        if not y is None:
-            self._y = y
-        if not L is None:
-            self._L = L
-        if not max_iter is None:
-            self._max_iter = max_iter
-        if not tol is None:
-            self._tol = tol
-        self._learn()
+        self._model = JLogisticRegression(x.tojarray('double'), y.tojarray('int'), 
+            self._L, self._tol, self._max_iter)
         
         
 ##################################################

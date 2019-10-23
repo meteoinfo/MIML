@@ -12,6 +12,7 @@ from smile.clustering.linkage import CompleteLinkage, SingleLinkage, UPGMALinkag
 import mipylib.numeric as np
 
 from .cluster import Cluster
+from ..utils import smile_util
 
 class HierarchicalClustering(Cluster):
     '''
@@ -24,42 +25,69 @@ class HierarchicalClustering(Cluster):
     
     :param proximity: (*array*) The proximity matrix to store the distance measure of
         dissimilarity. To save space, we only need the lower half of matrix.
-    :param method: (*string*) The agglomeration method to merge clusters. This should be one of
+    :param k: (*int*) The cluster number.
+    :param linkage: (*string*) The agglomeration linkage to merge clusters. This should be one of
         "single", "complete", "upgma", "upgmc", "wpgma", "wpgmc", and "ward".
     '''
     
-    def __init__(self, proximity, method='single'):
-        self._proximity = proximity.tojarray('double')
-        self._linkage = self._get_linkage(method)
-        self._model = JHierarchicalClustering(self._linkage)
+    def __init__(self, k=2, linkage='single'):
+        super(HierarchicalClustering, self).__init__()
         
-    def _get_linkage(self, method):
-        if method == "single":
-            return SingleLinkage(self._proximity)
-        if method == "complete":
-            return CompleteLinkage(self._proximity)
-        if method == "upgma" or method == "average":
-            return UPGMALinkage(self._proximity)
-        if method == "upgmc" or method == "centroid":
-            return UPGMCLinkage(self._proximity)
-        if method == "wpgma":
-            return WPGMALinkage(self._proximity)
-        if method == "wpgmc" or method == "median":
-            return WPGMCLinkage(self._proximity)
-        if method == "ward":
-            return WardLinkage(self._proximity)
+        self._k = k
+        self._linkage = linkage
+        
+    def _get_linkage(self, linkage, proximity):
+        '''
+        Get linkage.
+        
+        :param linkage: (*string*) Linkage string.
+        :param proximity: (*array*) The proximity matrix to store the distance measure of
+            dissimilarity. To save space, we only need the lower half of matrix.
+            
+        :returns: Linkage.
+        '''
+        proximity = proximity.tojarray('double')
+        if linkage == "single":
+            return SingleLinkage(proximity)
+        if linkage == "complete":
+            return CompleteLinkage(proximity)
+        if linkage == "upgma" or linkage == "average":
+            return UPGMALinkage(proximity)
+        if linkage == "upgmc" or linkage == "centroid":
+            return UPGMCLinkage(proximity)
+        if linkage == "wpgma":
+            return WPGMALinkage(proximity)
+        if linkage == "wpgmc" or linkage == "median":
+            return WPGMCLinkage(proximity)
+        if linkage == "ward":
+            return WardLinkage(proximity)
         else:
             return None
-            
-    def partition(self, k):
-        '''
-        Cuts a tree into several groups by specifying the desired number.
         
-        :param k: (*int*) The number of clusters.
+    def fit(self, x):
+        """
+        Fitting data.
         
-        :returns: (*array*) The cluster label of each sample.
-        '''
-        r = self._model.partition(k)
+        :param x: (*array*) Input data.
+        
+        :returns: self.
+        """
+        proximity = smile_util.pdist(x)
+        linkage = self._get_linkage(self._linkage, proximity)
+        self._model = JHierarchicalClustering(linkage)
+        return self
+    
+    def fit_predict(self, x):
+        """
+        Fitting and cluster data.
+
+        :param x: (*array*) Input data.
+        
+        :returns: (*array*) The cluster labels.
+        """
+        self.fit(x)
+        
+        r = self._model.partition(self._k)
         return np.array(r)
         
         

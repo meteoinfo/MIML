@@ -16,40 +16,27 @@ class RegressionTree(Regressor):
     recursive partitioning. The recursion is completed when the subset at a node all has the same 
     value of the target variable, or when splitting no longer adds value to the predictions.
 
-    :param x: (*array*) Training samples. 2D array.
-    :param y: (*array*) Training labels in [0, c), where c is the number of classes.
     :param max_nodes: (*int*) The maximum number of leaf nodes in the tree.
     :param attributes: (*array*) Attribute properties.
     '''
     
-    def __init__(self, x=None, y=None, max_nodes=200, attributes=None):
-        self._x = x
-        self._y = y
+    def __init__(self, max_nodes=200, attributes=None):
+        super(RegressionTree, self).__init__()
+        
         self._max_nodes = max_nodes
         self._attributes = attributes       
-        if x is None or y is None:
-            self._model = None
-        else:
-            self._learn()
-        
-    def _learn(self):
-        if self._attributes is None:
-            self._attributes = numeric_attributes(self._x.shape[1])
-        self._model = JRegressionTree(self._attributes, self._x.tojarray('double'),
-            self._y.tojarray('double'), self._max_nodes)
     
-    def learn(self, x=None, y=None):
+    def fit(self, x, y):
         """
         Learn from input data and labels.
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """ 
-        if not x is None:
-            self._x = x
-        if not y is None:
-            self._y = y
-        self._learn()
+        if self._attributes is None:
+            self._attributes = numeric_attributes(x.shape[1])
+        self._model = JRegressionTree(self._attributes, x.tojarray('double'),
+            y.tojarray('double'), self._max_nodes)
         
         
 ##################################################

@@ -15,8 +15,6 @@ class FisherLinearDiscriminant(Classifer):
     maximizes the separation after the projection. The resulting combination may be used for 
     dimensionality reduction before later classification.
     
-    :param x: (*array*) Training samples. 2D array.
-    :param y: (*array*) Training labels in [0, c), where c is the number of classes.
     :param L: (*int*) the dimensionality of mapped space. The default value is the number of 
         classes - 1.
     :param tol: (*float*) a tolerance to decide if a covariance matrix is singular; it will reject 
@@ -25,40 +23,20 @@ class FisherLinearDiscriminant(Classifer):
     :returns: 
     '''
     
-    def __init__(self, x=None, y=None, L=-1, tol=0.0001):
-        self._x = x
-        self._y = y
+    def __init__(self, L=-1, tol=0.0001):
+        super(FisherLinearDiscriminant, self).__init__()
+        
         self._L = L
         self._tol = tol
-        if x is None or y is None:
-            self._model = None
-        else:
-            self._learn()
-    
-    def _learn(self):
-        self._model = FLD(self._x.tojarray('double'), self._y.tojarray('int'), 
-            self._L, self._tol)
-    
-    def learn(self, x=None, y=None, L=None, tol=None):
-        """
+         
+    def fit(self, x, y):
+        '''
         Learn from input data and labels.
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
-        :param L: (*int*) the dimensionality of mapped space. The default value is the number of 
-            classes - 1.
-        :param tol: (*float*) a tolerance to decide if a covariance matrix is singular; it will reject 
-            variables whose variance is less than tol^2.
-        """
-        if not x is None:
-            self._x = x
-        if not y is None:
-            self._y = y
-        if not L is None:
-            self._L = L
-        if not tol is None:
-            self._tol = tol
-        self._learn()
-        
+        '''
+        self._model = FLD(x.tojarray('double'), y.tojarray('int'), 
+            self._L, self._tol) 
         
 ##################################################

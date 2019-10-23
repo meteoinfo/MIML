@@ -17,59 +17,33 @@ class RegularizedDiscriminantAnalysis(Classifer):
     While α is zero, RDA is equivalent to LDA. Therefore, the regularization factor α allows a 
     continuum of models between LDA and QDA.
     
-    :param x: (*array*) Training samples. 2D array.
-    :param y: (*array*) Training labels in [0, c), where c is the number of classes.
     :param alpha: (*float*) Regularization factor in [0, 1] allows a continuum of models between 
         LDA and QDA.
     :param priori: (*array*) The priori probability of each class.
     :param tol: (*float*) a tolerance to decide if a covariance matrix is singular; it will reject 
-        variables whose variance is less than tol^2.
-    
-    :returns: 
+        variables whose variance is less than tol^2. 
     '''
     
-    def __init__(self, x=None, y=None, alpha=None, priori=None, tol=0.0001):
-        self._x = x
-        self._y = y
+    def __init__(self, alpha, priori=None, tol=0.0001):
+        super(RegularizedDiscriminantAnalysis, self).__init__()
+
         self._alpha = alpha
         self._priori = priori
         self._tol = tol
-        if x is None or y is None or alpha is None:
-            self._model = None
-        else:
-            self._learn()
     
-    def _learn(self):
-        if self._priori is None:
-            self._model = RDA(self._x.tojarray('double'), self._y.tojarray('int'), 
-                self._priori, self._alpha, self._tol)
-        else:
-            self._model = RDA(self._x.tojarray('double'), self._y.tojarray('int'), 
-                self._priori.tojarray('double'), self._alpha, self._tol)
-    
-    def learn(self, x=None, y=None, alpha=None, priori=None, tol=None):
+    def fit(self, x, y):
         """
         Learn from input data and labels.
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
-        :param alpha: (*float*) Regularization factor in [0, 1] allows a continuum of models between 
-            LDA and QDA.
-        :param priori: (*array*) The priori probability of each class.
-        :param tol: (*float*) a tolerance to decide if a covariance matrix is singular; it will reject 
-            variables whose variance is less than tol^2.
-        """
-        if not x is None:
-            self._x = x
-        if not y is None:
-            self._y = y
-        if not alpha is None:
-            self._alpha = alpha
-        if not priori is None:
-            self._priori = priori
-        if not tol is None:
-            self._tol = tol
-        self._learn()
+        """ 
+        if self._priori is None:
+            self._model = RDA(x.tojarray('double'), y.tojarray('int'), 
+                self._priori, self._alpha, self._tol)
+        else:
+            self._model = RDA(x.tojarray('double'), y.tojarray('int'), 
+                self._priori.tojarray('double'), self._alpha, self._tol)
         
         
 ##################################################

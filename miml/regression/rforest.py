@@ -16,8 +16,6 @@ class RandomForest(Regressor):
     majority vote of individual trees. The method combines bagging idea and the random selection 
     of features.
 
-    :param x: (*array*) Training samples. 2D array.
-    :param y: (*array*) Training labels in [0, c), where c is the number of classes.
     :param attributes: (*array*) Attribute properties.
     :param ntrees: (*int*) The number of trees.
     :param max_nodes: (*int*) The maximum number of leaf nodes in the tree.
@@ -29,43 +27,32 @@ class RandomForest(Regressor):
         replacement. < 1.0 means sampling without replacement.
     '''
     
-    def __init__(self, x=None, y=None, attributes=None, ntrees=500, max_nodes=-1, node_size=5,
+    def __init__(self, attributes=None, ntrees=500, max_nodes=-1, node_size=5,
             mtry=-1, sub_sample=1.0):
-        self._x = x
-        self._y = y        
+        super(RandomForest, self).__init__()
+        
         self._attributes = attributes
         self._ntrees = ntrees        
         self._max_nodes = max_nodes
         self._node_size = node_size
         self._mtry = mtry
         self._sub_sample = sub_sample
-        if x is None or y is None:
-            self._model = None
-        else:
-            self._learn()
-        
-    def _learn(self):
-        p = self._x.shape[1]
-        if self._attributes is None:
-            self._attributes = numeric_attributes(p)
-        m = int(math.floor(math.sqrt(p))) if self._mtry <= 0 else self._mtry
-        j = self._x.shape[0] / self._node_size if self._max_nodes <= 1 else self._max_nodes
-        self._model = JRandomForest(self._attributes, self._x.tojarray('double'),
-            self._y.tojarray('double'), self._ntrees, j, self._node_size, m, 
-            self._sub_sample)
     
-    def learn(self, x=None, y=None):
+    def fit(self, x, y):
         """
         Learn from input data and labels.
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """ 
-        if not x is None:
-            self._x = x
-        if not y is None:
-            self._y = y
-        self._learn()
+        p = x.shape[1]
+        if self._attributes is None:
+            self._attributes = numeric_attributes(p)
+        m = int(math.floor(math.sqrt(p))) if self._mtry <= 0 else self._mtry
+        j = x.shape[0] / self._node_size if self._max_nodes <= 1 else self._max_nodes
+        self._model = JRandomForest(self._attributes, x.tojarray('double'),
+            y.tojarray('double'), self._ntrees, j, self._node_size, m, 
+            self._sub_sample)
         
         
 ##################################################

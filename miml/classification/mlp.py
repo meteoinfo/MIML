@@ -25,10 +25,16 @@ class MLPClassifer(Classifer):
     :param error: (*string*) The error function ['least_mean_squares' | 'cross_entropy'].
     :param activation: (*string*) The activation function of output layer ['linear' | 
         'logistic_sigmoid' | 'softmax']. 
+    :param epochs: (*int*) the number of epochs of stochastic learning.
+    :param eta: (*float*) the learning rate.
+    :param alpha: (*float*) the momentum factor.
+    :param L: (*float*) the weight decay for regularization.
     '''
     
     def __init__(self, hidden_layer_sizes=[100], error='cross_entropy', activation='logistic_sigmoid',
-        epochs=25, eta=0.1, alpha=0., L=0.):
+            epochs=25, eta=0.1, alpha=0., L=0.):
+        super(MLPClassifer, self).__init__()
+        
         self._hidden_layer_sizes = hidden_layer_sizes
         self._error = error
         self._activation = activation
@@ -37,7 +43,7 @@ class MLPClassifer(Classifer):
         self._alpha = alpha
         self._L = L
     
-    def learn(self, x, y):
+    def fit(self, x, y):
         """
         Learn from input data and labels.
         
