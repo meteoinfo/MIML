@@ -25,11 +25,14 @@ K-Means clustering:
     df = DataFrame.read_table(fn, header=None, names=['x1','x2'], 
         format='%2f')
     x = df.values
-    clusters = KMeans(x, 6, runs=20)
-    y = clusters.get_cluster_label()
+
+    model = KMeans(6, runs=20)
+    y = model.fit_predict(x)
 
     scatter(x[:,0], x[:,1], c=y, edgecolor=None, s=3)
-    title('K-Mean clustering example')    
+    title('K-Means clustering example')
+    
+![K-Means](http://www.meteothink.org/_images/kmeans_1.png)
 
 Documentation
 -------------
