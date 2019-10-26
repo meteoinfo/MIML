@@ -10,7 +10,7 @@ from smile.math.distance import EuclideanDistance, ChebyshevDistance, EditDistan
     SparseChebyshevDistance, SparseEuclideanDistance, SparseManhattanDistance, \
     SparseMinkowskiDistance
 from smile.data import NumericAttribute
-from org.meteoinfo.math.distance import EuclideanDistance as MIEuclideanDistance
+from org.meteothink.miml.util import SmileUtil
 import mipylib.numeric as np
 
 def get_kernel(key, **kwargs):
@@ -148,6 +148,5 @@ def pdist(data, half=False):
     
     :returns: (*array*) The lower half of proximity matrix.
     '''
-    eudis = MIEuclideanDistance()
-    r = eudis.proximity(data, False)
+    r = SmileUtil.proximity(data, EuclideanDistance(), False)
     return np.array(r)

@@ -20,7 +20,7 @@ public class SmileUtil {
      * @param half If true, only the lower half of matrix is allocated to save space.
      * @return Proximity maxtrix
      */
-    public double[][] proximity(double[][] data, Distance distance, boolean half) {
+    public static double[][] proximity(double[][] data, Distance distance, boolean half) {
         int n = data.length;
         double[][] proximity;
         if (half) {
