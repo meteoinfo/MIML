@@ -43,5 +43,6 @@ class Classifer(object):
         y : array of shape [n_samples] or [n_samples, n_outputs]
             Class labels for each data sample.
         """
+        x = np.atleast_2d(x)
         r = self._model.predict(x.tojarray('double'))
         return np.array(r)

@@ -1,5 +1,10 @@
 
-from smile.math.kernel import GaussianKernel
+from smile.math.kernel import GaussianKernel, LinearKernel, BinarySparseGaussianKernel, \
+    BinarySparseHyperbolicTangentKernel, BinarySparseLinearKernel, BinarySparsePolynomialKernel, \
+    BinarySparseThinPlateSplineKernel, HellingerKernel, HyperbolicTangentKernel, LaplacianKernel, \
+    PearsonKernel, PolynomialKernel, SparseGaussianKernel, SparseHyperbolicTangentKernel, \
+    SparseLaplacianKernel, SparseLinearKernel, SparsePolynomialKernel, SparseThinPlateSplineKernel, \
+    ThinPlateSplineKernel
 from smile.math.distance import EuclideanDistance, ChebyshevDistance, EditDistance, HammingDistance, \
     JensenShannonDistance, LeeDistance, MahalanobisDistance, ManhattanDistance, MinkowskiDistance, \
     SparseChebyshevDistance, SparseEuclideanDistance, SparseManhattanDistance, \
@@ -20,6 +25,42 @@ def get_kernel(key, **kwargs):
     if key == 'gaussian':
         sigma = kwargs.pop('sigma', 1.0)
         return GaussianKernel(sigma)
+    if key == 'linear':
+        return LinearKernel()
+    if key == 'bsgk':
+        return BinarySparseGaussianKernel()
+    if key == 'bshtk':
+        return BinarySparseHyperbolicTangentKernel()
+    if key == 'bslk':
+        return BinarySparseLinearKernel()
+    if key == 'bspk':
+        return BinarySparsePolynomialKernel()
+    if key == 'bstpsk':
+        return BinarySparseThinPlateSplineKernel()
+    if key == 'helling':
+        return HellingerKernel()
+    if key == 'hyperbolic':
+        return HyperbolicTangentKernel()
+    if key == 'laplacian':
+        return LaplacianKernel()
+    if key == 'pearson':
+        return PearsonKernel()
+    if key == 'polynomia':
+        return PolynomialKernel()
+    if key == 'sparse_gaussian':
+        return SparseGaussianKernel()
+    if key == 'sparse_hyperbolic':
+        return SparseHyperbolicTangentKernel()
+    if key == 'sparse_laplacian':
+        return SparseLaplacianKernel()
+    if key == 'sparse_linear':
+        return SparseLinearKernel()
+    if key == 'sparse_polynomia':
+        return SparsePolynomialKernel()
+    if key == 'stpsk':
+        return SparseThinPlateSplineKernel()
+    if key == 'tpsk':
+        return ThinPlateSplineKernel()
         
 def get_distance(key):
     '''

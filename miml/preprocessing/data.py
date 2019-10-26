@@ -1,3 +1,5 @@
+# Ported from scikit-learn
+
 import mipylib.numeric as np
 import numbers
 
@@ -137,3 +139,6 @@ class MinMaxScaler(object):
         X -= self.min_
         X /= self.scale_
         return X
+        
+        
+#########################################

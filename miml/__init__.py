@@ -9,4 +9,7 @@ for fn in fns:
         if not fpath in sys.path:
             sys.path.append(fpath)
     
-version = '0.2.5'
+__version__ = '0.2.5'
+
+__all__ = ['classification', 'cluster', 'datasets', 'neural_network', 'preprocessing',
+           'regression', 'utils']

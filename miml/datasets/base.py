@@ -1,6 +1,11 @@
+"""
+Ported from scikit-learn
+"""
+
 import mipylib.numeric as np
 import csv
 import os
+import gzip
 from ..utils import Bunch
 
 def get_data_home(data_home=None):
@@ -141,5 +146,94 @@ def load_iris(return_X_y=False):
                  feature_names=['sepal length (cm)', 'sepal width (cm)',
                                 'petal length (cm)', 'petal width (cm)'],
                  filename=iris_csv_filename)
+                 
+def load_digits(n_class=10, return_X_y=False):
+    """Load and return the digits dataset (classification).
+
+    Each datapoint is a 8x8 image of a digit.
+
+    =================   ==============
+    Classes                         10
+    Samples per class             ~180
+    Samples total                 1797
+    Dimensionality                  64
+    Features             integers 0-16
+    =================   ==============
+
+    Read more in the :ref:`User Guide <digits_dataset>`.
+
+    Parameters
+    ----------
+    n_class : integer, between 0 and 10, optional (default=10)
+        The number of classes to return.
+
+    return_X_y : boolean, default=False.
+        If True, returns ``(data, target)`` instead of a Bunch object.
+        See below for more information about the `data` and `target` object.
+
+        .. versionadded:: 0.18
+
+    Returns
+    -------
+    data : Bunch
+        Dictionary-like object, the interesting attributes are:
+        'data', the data to learn, 'images', the images corresponding
+        to each sample, 'target', the classification labels for each
+        sample, 'target_names', the meaning of the labels, and 'DESCR',
+        the full description of the dataset.
+
+    (data, target) : tuple if ``return_X_y`` is True
+
+        .. versionadded:: 0.18
+
+    This is a copy of the test set of the UCI ML hand-written digits datasets
+    http://archive.ics.uci.edu/ml/datasets/Optical+Recognition+of+Handwritten+Digits
+
+    Examples
+    --------
+    To load the data and visualize the images::
+
+        >>> from sklearn.datasets import load_digits
+        >>> digits = load_digits()
+        >>> print(digits.data.shape)
+        (1797, 64)
+        >>> import matplotlib.pyplot as plt #doctest: +SKIP
+        >>> plt.gray() #doctest: +SKIP
+        >>> plt.matshow(digits.images[0]) #doctest: +SKIP
+        >>> plt.show() #doctest: +SKIP
+    """
+    module_path = os.path.dirname(__file__)
+    fn = os.path.join(module_path, 'data', 'digits.csv.gz')
+    dd = []
+    with gzip.open(fn, 'r') as f:
+        for line in f:
+            dd.append(line)
+    
+    nrow = len(dd)
+    ncol = 65
+    data = np.zeros((nrow, ncol))
+    for i,d in enumerate(dd):
+        data[i,:] = np.array(d.split(','), dtype=np.dtype.float)[:ncol]
+    target = data[:, -1].astype('int')
+    flat_data = data[:, :-1]
+    images = flat_data.copy()
+    images.shape = (-1, 8, 8)
+    
+    with open(os.path.join(module_path, 'descr', 'digits.rst')) as f:
+        descr = f.read()
+
+    if n_class < 10:
+        idx = target < n_class
+        flat_data, target = flat_data[idx], target[idx]
+        images = images[idx]
+
+    if return_X_y:
+        return flat_data, target
+
+    return Bunch(data=flat_data,
+                 target=target,
+                 target_names=np.arange(10),
+                 images=images,
+                 DESCR=descr)
                  
 ###########################################

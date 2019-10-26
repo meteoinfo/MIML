@@ -6,13 +6,18 @@ from .cluster import Cluster
 
 class DeterministicAnnealing(Cluster):
     '''
-    X-Means clustering.
+    Deterministic annealing clustering.
     
-    An extended K-Means which tries to automatically determine the number of clusters based on BIC 
-    scores. Starting with only one cluster, the X-Means algorithm goes into action after each run 
-    of K-Means, making local decisions about which subset of the current centroids should split 
-    themselves in order to better fit the data. The splitting decision is done by computing the 
-    Bayesian Information Criterion (BIC).
+    Deterministic annealing extends soft-clustering to an annealing process.
+    For each temperature value, the algorithm iterates between the calculation
+    of all posteriori probabilities and the update of the centroids vectors,
+    until convergence is reached. The annealing starts with a high temperature.
+    Here, all centroids vectors converge to the center of the pattern
+    distribution (independent of their initial positions). Below a critical
+    temperature the vectors start to split. Further decreasing the temperature
+    leads to more splittings until all centroids vectors are separate. The
+    annealing can therefore avoid (if it is sufficiently slow) the convergence
+    to local minima.
 
     :param k_max: (*int*) The maximum number of clusters.
     :param alpha: (*float*) The temperature T is decreasing as T = T * alpha. alpha has to be 
