@@ -14,6 +14,11 @@ Machine learning algorithms of classification, regression, clustering based on [
 simple neural network model based on [Encog](https://www.heatonresearch.com/encog/), deep learning model based on 
 [Deeplearning4j](https://deeplearning4j.org).
 
+Running
+-------
+
+MIML jython script can be running in MeteoInfoLab environment.
+
 Example
 -------
 
