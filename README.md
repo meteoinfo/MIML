@@ -10,7 +10,8 @@ Features
 --------
 
 Machine learning algorithms of classification, regression, clustering based on [Smile](https://haifengl.github.io/smile/),
-and neural network model based on [Encog](https://www.heatonresearch.com/encog/).
+simple neural network model based on [Encog](https://www.heatonresearch.com/encog/), deep learning model based on 
+[Deeplearning4j](https://deeplearning4j.org).
 
 Example
 -------
@@ -37,7 +38,7 @@ K-Means clustering:
 Documentation
 -------------
 
-Learn more about MeteoInfo in its official documentation at http://meteothink.org/
+Learn more about MeteoInfo and miml in its official documentation at http://meteothink.org/
 
 License
 -------
