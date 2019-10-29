@@ -4,7 +4,8 @@ miml：MeteoInfo machine learning toolbox
 Installation
 ------------
 
-Copy miml folder into MeteoInfo -> toolbox folder.
+The miml was distributed within MeteoInfo distribution file (http://www.meteothink.org/downloads/index.html). For update 
+installation, just copy "miml" folder in this repository into "MeteoInfo -> toolbox" folder.
 
 Features
 --------
