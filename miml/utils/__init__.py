@@ -1,3 +1,5 @@
+from .validation import indexable, check_random_state, check_consistent_length, column_or_1d
+
 class Bunch(dict):
     """Container object for datasets
 
@@ -42,3 +44,47 @@ class Bunch(dict):
         # Overriding __setstate__ to be a noop has the effect of
         # ignoring the pickled __dict__
         pass
+
+def safe_indexing(X, indices):
+    """Return items or rows from X using indices.
+
+    Allows simple indexing of lists or arrays.
+
+    Parameters
+    ----------
+    X : array-like, sparse-matrix, list, pandas.DataFrame, pandas.Series.
+        Data from which to sample rows or items.
+    indices : array-like of int
+        Indices according to which X will be subsampled.
+
+    Returns
+    -------
+    subset
+        Subset of X on first axis
+
+    Notes
+    -----
+    CSR, CSC, and LIL sparse matrices are supported. COO sparse matrices are
+    not supported.
+    """
+    if hasattr(X, "iloc"):
+        # Work-around for indexing with read-only indices in pandas
+        indices = indices if indices.flags.writeable else indices.copy()
+        # Pandas Dataframes and Series
+        try:
+            return X.iloc[indices]
+        except ValueError:
+            # Cython typed memoryviews internally used in pandas do not support
+            # readonly buffers.
+            warnings.warn("Copying input dataframe for slicing.",
+                          DataConversionWarning)
+            return X.copy().iloc[indices]
+    elif hasattr(X, "shape"):
+        if hasattr(X, 'take') and (hasattr(indices, 'dtype') and
+                                   indices.dtype.kind == 'i'):
+            # This is often substantially faster than X[indices]
+            return X.take(indices, axis=0)
+        else:
+            return X[indices]
+    else:
+        return [X[idx] for idx in indices]

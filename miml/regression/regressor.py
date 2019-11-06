@@ -7,6 +7,7 @@ class Regressor(object):
     '''
     
     def __init__(self):
+        self._estimator_type = 'regressor'
         self._model = None
     
     def __str__(self):

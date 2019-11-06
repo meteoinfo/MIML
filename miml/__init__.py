@@ -12,4 +12,4 @@ for fn in fns:
 __version__ = '0.3'
 
 __all__ = ['classification', 'cluster', 'datasets', 'neural_network', 'preprocessing',
-           'regression', 'utils', 'deep_learning']
+           'regression', 'utils', 'deep_learning','metrics']
