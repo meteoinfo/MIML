@@ -7,9 +7,13 @@ Forked from scikit-learn
 
 from .classification import accuracy_score
 
-from .regression import r2_score
+from .regression import r2_score, mean_absolute_error, mean_squared_error, mean_squared_log_error, median_absolute_error
 
 __all__ = [
     'accuracy_score',
-    'r2_score'
+    'r2_score',
+    'mean_absolute_error',
+    'mean_squared_error',
+    'mean_squared_log_error',
+    'median_absolute_error'
 ]

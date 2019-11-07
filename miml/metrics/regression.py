@@ -5,6 +5,256 @@ Ported from scikit-learn
 import mipylib.numeric as np
 from ..utils.validation import check_consistent_length, column_or_1d
 
+def mean_absolute_error(y_true, y_pred,
+                        sample_weight=None,
+                        multioutput='uniform_average'):
+    """Mean absolute error regression loss
+
+    Read more in the :ref:`User Guide <mean_absolute_error>`.
+
+    Parameters
+    ----------
+    y_true : array-like of shape = (n_samples) or (n_samples, n_outputs)
+        Ground truth (correct) target values.
+
+    y_pred : array-like of shape = (n_samples) or (n_samples, n_outputs)
+        Estimated target values.
+
+    sample_weight : array-like of shape = (n_samples), optional
+        Sample weights.
+
+    multioutput : string in ['raw_values', 'uniform_average']
+        or array-like of shape (n_outputs)
+        Defines aggregating of multiple output values.
+        Array-like value defines weights used to average errors.
+
+        'raw_values' :
+            Returns a full set of errors in case of multioutput input.
+
+        'uniform_average' :
+            Errors of all outputs are averaged with uniform weight.
+
+
+    Returns
+    -------
+    loss : float or ndarray of floats
+        If multioutput is 'raw_values', then mean absolute error is returned
+        for each output separately.
+        If multioutput is 'uniform_average' or an ndarray of weights, then the
+        weighted average of all output errors is returned.
+
+        MAE output is non-negative floating point. The best value is 0.0.
+
+    Examples
+    --------
+    >>> from miml.metrics import mean_absolute_error
+    >>> y_true = [3, -0.5, 2, 7]
+    >>> y_pred = [2.5, 0.0, 2, 8]
+    >>> mean_absolute_error(y_true, y_pred)
+    0.5
+    >>> y_true = [[0.5, 1], [-1, 1], [7, -6]]
+    >>> y_pred = [[0, 2], [-1, 2], [8, -5]]
+    >>> mean_absolute_error(y_true, y_pred)
+    0.75
+    >>> mean_absolute_error(y_true, y_pred, multioutput='raw_values')
+    array([0.5, 1. ])
+    >>> mean_absolute_error(y_true, y_pred, multioutput=[0.3, 0.7])
+    ... # doctest: +ELLIPSIS
+    0.85...
+    """
+    #y_type, y_true, y_pred, multioutput = _check_reg_targets(
+    #    y_true, y_pred, multioutput)
+    y_true = np.asanyarray(y_true)
+    y_pred = np.asanyarray(y_pred)
+
+    if y_true.ndim == 1:
+        y_true = y_true.reshape((-1, 1))
+
+    if y_pred.ndim == 1:
+        y_pred = y_pred.reshape((-1, 1))
+
+    check_consistent_length(y_true, y_pred, sample_weight)
+    output_errors = np.average(np.abs(y_pred - y_true),
+                               weights=sample_weight, axis=0)
+    if isinstance(multioutput, basestring):
+        if multioutput == 'raw_values':
+            return output_errors
+        elif multioutput == 'uniform_average':
+            # pass None as weights to np.average: uniform mean
+            multioutput = None
+
+    return np.average(output_errors, weights=multioutput)
+
+def mean_squared_error(y_true, y_pred,
+                       sample_weight=None,
+                       multioutput='uniform_average'):
+    """Mean squared error regression loss
+
+    Read more in the :ref:`User Guide <mean_squared_error>`.
+
+    Parameters
+    ----------
+    y_true : array-like of shape = (n_samples) or (n_samples, n_outputs)
+        Ground truth (correct) target values.
+
+    y_pred : array-like of shape = (n_samples) or (n_samples, n_outputs)
+        Estimated target values.
+
+    sample_weight : array-like of shape = (n_samples), optional
+        Sample weights.
+
+    multioutput : string in ['raw_values', 'uniform_average']
+        or array-like of shape (n_outputs)
+        Defines aggregating of multiple output values.
+        Array-like value defines weights used to average errors.
+
+        'raw_values' :
+            Returns a full set of errors in case of multioutput input.
+
+        'uniform_average' :
+            Errors of all outputs are averaged with uniform weight.
+
+    Returns
+    -------
+    loss : float or ndarray of floats
+        A non-negative floating point value (the best value is 0.0), or an
+        array of floating point values, one for each individual target.
+
+    Examples
+    --------
+    >>> from miml.metrics import mean_squared_error
+    >>> y_true = [3, -0.5, 2, 7]
+    >>> y_pred = [2.5, 0.0, 2, 8]
+    >>> mean_squared_error(y_true, y_pred)
+    0.375
+    >>> y_true = [[0.5, 1],[-1, 1],[7, -6]]
+    >>> y_pred = [[0, 2],[-1, 2],[8, -5]]
+    >>> mean_squared_error(y_true, y_pred)  # doctest: +ELLIPSIS
+    0.708...
+    >>> mean_squared_error(y_true, y_pred, multioutput='raw_values')
+    ... # doctest: +ELLIPSIS
+    array([0.41666667, 1.        ])
+    >>> mean_squared_error(y_true, y_pred, multioutput=[0.3, 0.7])
+    ... # doctest: +ELLIPSIS
+    0.825...
+
+    """
+    #y_type, y_true, y_pred, multioutput = _check_reg_targets(
+    #    y_true, y_pred, multioutput)
+    check_consistent_length(y_true, y_pred, sample_weight)
+    output_errors = np.average((y_true - y_pred) ** 2, axis=0,
+                               weights=sample_weight)
+    if isinstance(multioutput, basestring):
+        if multioutput == 'raw_values':
+            return output_errors
+        elif multioutput == 'uniform_average':
+            # pass None as weights to np.average: uniform mean
+            multioutput = None
+
+    return np.average(output_errors, weights=multioutput)
+
+
+def mean_squared_log_error(y_true, y_pred,
+                           sample_weight=None,
+                           multioutput='uniform_average'):
+    """Mean squared logarithmic error regression loss
+
+    Read more in the :ref:`User Guide <mean_squared_log_error>`.
+
+    Parameters
+    ----------
+    y_true : array-like of shape = (n_samples) or (n_samples, n_outputs)
+        Ground truth (correct) target values.
+
+    y_pred : array-like of shape = (n_samples) or (n_samples, n_outputs)
+        Estimated target values.
+
+    sample_weight : array-like of shape = (n_samples), optional
+        Sample weights.
+
+    multioutput : string in ['raw_values', 'uniform_average'] \
+            or array-like of shape = (n_outputs)
+
+        Defines aggregating of multiple output values.
+        Array-like value defines weights used to average errors.
+
+        'raw_values' :
+            Returns a full set of errors when the input is of multioutput
+            format.
+
+        'uniform_average' :
+            Errors of all outputs are averaged with uniform weight.
+
+    Returns
+    -------
+    loss : float or ndarray of floats
+        A non-negative floating point value (the best value is 0.0), or an
+        array of floating point values, one for each individual target.
+
+    Examples
+    --------
+    >>> from sklearn.metrics import mean_squared_log_error
+    >>> y_true = [3, 5, 2.5, 7]
+    >>> y_pred = [2.5, 5, 4, 8]
+    >>> mean_squared_log_error(y_true, y_pred)  # doctest: +ELLIPSIS
+    0.039...
+    >>> y_true = [[0.5, 1], [1, 2], [7, 6]]
+    >>> y_pred = [[0.5, 2], [1, 2.5], [8, 8]]
+    >>> mean_squared_log_error(y_true, y_pred)  # doctest: +ELLIPSIS
+    0.044...
+    >>> mean_squared_log_error(y_true, y_pred, multioutput='raw_values')
+    ... # doctest: +ELLIPSIS
+    array([0.00462428, 0.08377444])
+    >>> mean_squared_log_error(y_true, y_pred, multioutput=[0.3, 0.7])
+    ... # doctest: +ELLIPSIS
+    0.060...
+
+    """
+    #y_type, y_true, y_pred, multioutput = _check_reg_targets(
+    #    y_true, y_pred, multioutput)
+    check_consistent_length(y_true, y_pred, sample_weight)
+
+    if (y_true < 0).any() or (y_pred < 0).any():
+        raise ValueError("Mean Squared Logarithmic Error cannot be used when "
+                         "targets contain negative values.")
+
+    return mean_squared_error(np.log1p(y_true), np.log1p(y_pred),
+                              sample_weight, multioutput)
+
+
+def median_absolute_error(y_true, y_pred):
+    """Median absolute error regression loss
+
+    Read more in the :ref:`User Guide <median_absolute_error>`.
+
+    Parameters
+    ----------
+    y_true : array-like of shape = (n_samples)
+        Ground truth (correct) target values.
+
+    y_pred : array-like of shape = (n_samples)
+        Estimated target values.
+
+    Returns
+    -------
+    loss : float
+        A positive floating point value (the best value is 0.0).
+
+    Examples
+    --------
+    >>> from miml.metrics import median_absolute_error
+    >>> y_true = [3, -0.5, 2, 7]
+    >>> y_pred = [2.5, 0.0, 2, 8]
+    >>> median_absolute_error(y_true, y_pred)
+    0.5
+
+    """
+    #y_type, y_true, y_pred, _ = _check_reg_targets(y_true, y_pred,
+    #                                               'uniform_average')
+    #if y_type == 'continuous-multioutput':
+    #    raise ValueError("Multioutput not supported in median_absolute_error")
+    return np.median(np.abs(y_pred - y_true))
+
 def r2_score(y_true, y_pred, sample_weight=None,
              multioutput="uniform_average"):
     """R^2 (coefficient of determination) regression score function.
