@@ -24,20 +24,22 @@ Example
 
 K-Means clustering:
 
-    from miml import datasets
-    from miml.cluster import KMeans
+```python
+from miml import datasets
+from miml.cluster import KMeans
 
-    fn = os.path.join(datasets.get_data_home(), 'clustering', 'gaussian', 
+fn = os.path.join(datasets.get_data_home(), 'clustering', 'gaussian', 
         'six.txt')
-    df = DataFrame.read_table(fn, header=None, names=['x1','x2'], 
+df = DataFrame.read_table(fn, header=None, names=['x1','x2'], 
         format='%2f')
-    x = df.values
+x = df.values
 
-    model = KMeans(6, runs=20)
-    y = model.fit_predict(x)
+model = KMeans(6, runs=20)
+y = model.fit_predict(x)
 
-    scatter(x[:,0], x[:,1], c=y, edgecolor=None, s=3)
-    title('K-Means clustering example')
+scatter(x[:,0], x[:,1], c=y, edgecolor=None, s=3)
+title('K-Means clustering example')
+```
     
 ![K-Means](http://www.meteothink.org/_images/kmeans_1.png)
 

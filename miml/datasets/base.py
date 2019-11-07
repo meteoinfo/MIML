@@ -235,5 +235,81 @@ def load_digits(n_class=10, return_X_y=False):
                  target_names=np.arange(10),
                  images=images,
                  DESCR=descr)
+
+def load_boston(return_X_y=False):
+    """Load and return the boston house-prices dataset (regression).
+
+    ==============     ==============
+    Samples total                 506
+    Dimensionality                 13
+    Features           real, positive
+    Targets             real 5. - 50.
+    ==============     ==============
+
+    Read more in the :ref:`User Guide <boston_dataset>`.
+
+    Parameters
+    ----------
+    return_X_y : boolean, default=False.
+        If True, returns ``(data, target)`` instead of a Bunch object.
+        See below for more information about the `data` and `target` object.
+
+        .. versionadded:: 0.18
+
+    Returns
+    -------
+    data : Bunch
+        Dictionary-like object, the interesting attributes are:
+        'data', the data to learn, 'target', the regression targets,
+        'DESCR', the full description of the dataset,
+        and 'filename', the physical location of boston
+        csv dataset (added in version `0.20`).
+
+    (data, target) : tuple if ``return_X_y`` is True
+
+        .. versionadded:: 0.18
+
+    Notes
+    -----
+        .. versionchanged:: 0.20
+            Fixed a wrong data point at [445, 0].
+
+    Examples
+    --------
+    >>> from miml.datasets import load_boston
+    >>> boston = load_boston()
+    >>> print(boston.data.shape)
+    (506, 13)
+    """
+    module_path = os.path.dirname(__file__)
+
+    fdescr_name = os.path.join(module_path, 'descr', 'boston_house_prices.rst')
+    with open(fdescr_name) as f:
+        descr_text = f.read()
+
+    data_file_name = os.path.join(module_path, 'data', 'boston_house_prices.csv')
+    with open(data_file_name) as f:
+        data_file = csv.reader(f)
+        temp = next(data_file)
+        n_samples = int(temp[0])
+        n_features = int(temp[1])
+        data = np.empty((n_samples, n_features))
+        target = np.empty((n_samples,))
+        temp = next(data_file)  # names of features
+        feature_names = np.array(temp)
+
+        for i, d in enumerate(data_file):
+            data[i] = np.asarray(d[:-1], dtype=np.dtype.float64)
+            target[i] = np.asarray(d[-1], dtype=np.dtype.float64)
+
+    if return_X_y:
+        return data, target
+
+    return Bunch(data=data,
+                 target=target,
+                 # last column is target value
+                 feature_names=feature_names[:-1],
+                 DESCR=descr_text,
+                 filename=data_file_name)
                  
 ###########################################
