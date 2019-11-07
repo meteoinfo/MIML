@@ -10,7 +10,7 @@ from ..base import is_classifier, is_regressor
 from ..metrics import accuracy_score, r2_score
 import mipylib.numeric as np
 
-def cross_validate(estimator, X, y=None, cv=3):
+def cross_val_score(estimator, X, y=None, cv=3):
     '''
     Evaluate metric(s) by cross-validation
 

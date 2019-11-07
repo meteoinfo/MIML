@@ -5,7 +5,7 @@ functions to split the data based on a preset strategy.
 Ported from scikit-learn
 """
 import mipylib.numeric as np
-from ..utils import indexable, check_random_state
+from ..utils import indexable, check_random_state, safe_indexing
 from ..utils.validation import _num_samples
 from ..externals import with_metaclass
 from abc import ABCMeta, abstractmethod
@@ -274,7 +274,7 @@ class ShuffleSplit(BaseShuffleSplit):
 
     Examples
     --------
-    >>> from sklearn.model_selection import ShuffleSplit
+    >>> from miml.model_selection import ShuffleSplit
     >>> X = np.array([[1, 2], [3, 4], [5, 6], [7, 8], [3, 4], [5, 6]])
     >>> y = np.array([1, 2, 1, 2, 1, 2])
     >>> rs = ShuffleSplit(n_splits=5, test_size=.25, random_state=0)
