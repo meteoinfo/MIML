@@ -1,4 +1,5 @@
 from .validation import indexable, check_random_state, check_consistent_length, column_or_1d
+from .nd4j_util import to_matrix
 
 class Bunch(dict):
     """Container object for datasets

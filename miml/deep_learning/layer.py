@@ -2,7 +2,8 @@
 from org.deeplearning4j.nn.conf.layers import DenseLayer
 from org.deeplearning4j.nn.conf.layers import OutputLayer
 from org.nd4j.linalg.activations import Activation
-from org.nd4j.linalg.lossfunctions import LossFunctions
+
+import network_util
 
 class Dense(object):
     '''
@@ -13,20 +14,16 @@ class Dense(object):
     :param activation: (*string*) Activation name.
     '''
 
-    def __init__(self, nin=2, nout=10, activation='relu'):
+    def __init__(self, nin=2, nout=10, activation='relu', weight_init=None):
         self.nin = nin
         self.nout = nout
         self.activation = Activation.valueOf(activation.upper())
-        self._layer = DenseLayer.Builder().nIn(nin).nOut(nout) \
-                      .activation(self.activation).build()
-
-    def _get_activation(self, name):
-        '''
-        Get activation.
-
-        :param name: (*string*) Activation name
-        '''
-        return Activation.valueOf(name.lower())
+        self.weight_init = weight_init
+        conf = DenseLayer.Builder().nIn(nin).nOut(nout) \
+                .activation(self.activation)
+        if not self.weight_init is None:
+            conf.weightInit(network_util.get_weight_init(self.weight_init))
+        self._layer = conf.build()
 
 class Output(object):
     '''
@@ -38,10 +35,17 @@ class Output(object):
     :param activation: (*string*) Activation name.
     '''
 
-    def __init__(self, loss='negativeloglikelihood', nin=10, nout=2, activation='softmax'):
-        self.loss = LossFunctions.LossFunction.valueOf(loss.upper())
+    def __init__(self, loss='negativeloglikelihood', nin=None, nout=2, activation='softmax',
+                 weight_init=None, **kwargs):
+        self.loss = network_util.get_loss_function(loss, **kwargs)
         self.nin = nin
         self.nout = nout
         self.activation = Activation.valueOf(activation.upper())
-        self._layer = OutputLayer.Builder().nIn(nin).nOut(nout) \
-                      .activation(self.activation).build()
+        self.weight_init = weight_init
+        conf = OutputLayer.Builder(self.loss)
+        if not self.nin is None:
+            conf.nIn(self.nin)
+        conf.nOut(self.nout).activation(self.activation)
+        if not self.weight_init is None:
+            conf.weightInit(network_util.get_weight_init(self.weight_init))
+        self._layer = conf.build()

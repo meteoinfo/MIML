@@ -4,19 +4,27 @@ import org.nd4j.linalg.api.buffer.DataType;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.meteoinfo.ndarray.Array;
 import org.nd4j.linalg.factory.Nd4j;
+import org.nd4j.linalg.util.NDArrayUtil;
 
-public class ArrayUtil {
+public class Nd4jUtil {
     /**
      * Convert MeteoInfo Array to ND4J INDArray
      * @param a MeteoInfo Array object
      * @return ND4J INDArray
      */
     public static INDArray toNDArray(Array a) {
-        Object data = a.getStorage();
+        Object data;
+        if (a.getIndexPrivate().isFastIterator())
+            data = a.getStorage();
+        else
+            data = a.copyTo1DJavaArray();
         INDArray r = null;
-        if (data instanceof int[])
-            r = Nd4j.create((int[])data, a.getShape(), 'c');
-        else if (data instanceof float[])
+        if (data instanceof int[]) {
+            long[] shape = new long[a.getRank()];
+            for (int i = 0; i < a.getRank(); i++)
+                shape[i] = a.getShape()[i];
+            r = Nd4j.create((int[])data, shape, DataType.INT);
+        } else if (data instanceof float[])
             r = Nd4j.create((float[])data, a.getShape(), 'c');
         else if (data instanceof double[])
             r = Nd4j.create((double[])data, a.getShape(), 'c');
@@ -78,4 +86,40 @@ public class ArrayUtil {
         
         return r;
     }
+
+    /**
+     * Creates an out come matrix from the specified inputs
+     *
+     * @param index       the index of the label
+     * @param numOutcomes the number of possible outcomes
+     * @return a binary label matrix used for supervised learning
+     */
+    public static INDArray toNDMatrix(Array index, int numOutcomes) {
+        INDArray ret = Nd4j.create(index.getSize(), numOutcomes);
+        for (int i = 0; i < ret.rows(); i++) {
+            int[] nums = new int[(int) numOutcomes];
+            nums[index.getInt(i)] = 1;
+            ret.putRow(i, NDArrayUtil.toNDArray(nums));
+        }
+
+        return ret;
+    }
+
+    /**
+     * Creates an out come matrix from the specified inputs
+     *
+     * @param index       the index of the label
+     * @param numOutcomes the number of possible outcomes
+     * @return a binary label matrix used for supervised learning
+     */
+    public static Array toMatrix(Array index, int numOutcomes) {
+        int n = index.getShape()[0];
+        Array ret = Array.factory(index.getDataType(), new int[]{n, numOutcomes});
+        for (int i = 0; i < n; i++) {
+            ret.setInt(i * numOutcomes + index.getInt(i), 1);
+        }
+
+        return ret;
+    }
+
 }

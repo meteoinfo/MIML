@@ -216,7 +216,7 @@ def load_digits(n_class=10, return_X_y=False):
         data[i,:] = np.array(d.split(','), dtype=np.dtype.float)[:ncol]
     target = data[:, -1].astype('int')
     flat_data = data[:, :-1]
-    images = flat_data.copy()
+    images = flat_data.view()
     images.shape = (-1, 8, 8)
     
     with open(os.path.join(module_path, 'descr', 'digits.rst')) as f:
