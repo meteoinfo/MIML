@@ -37,6 +37,26 @@ class RegressionTree(Regressor):
             self._attributes = numeric_attributes(x.shape[1])
         self._model = JRegressionTree(self._attributes, x.tojarray('double'),
             y.tojarray('double'), self._max_nodes)
-        
+
+    @property
+    def feature_importances_(self):
+        """Return the feature importances.
+
+        The importance of a feature is computed as the (normalized) total
+        reduction of the criterion brought by that feature.
+        It is also known as the Gini importance.
+
+        Returns
+        -------
+        feature_importances_ : array, shape = [n_features]
+        """
+        if self._model is None:
+            return None
+        else:
+            importances = np.array(self._model.importance())
+            normalizer = np.sum(importances)
+            if normalizer > 0.0:
+                importances /= normalizer
+            return importances
         
 ##################################################

@@ -40,6 +40,26 @@ class DecisionTree(Classifer):
         self._model = JDecisionTree(self._attributes, x.tojarray('double'),
             y.tojarray('int'), self._max_nodes, 
             JDecisionTree.SplitRule.valueOf(self._split_rule.upper()))
-        
+
+    @property
+    def feature_importances_(self):
+        """Return the feature importances.
+
+        The importance of a feature is computed as the (normalized) total
+        reduction of the criterion brought by that feature.
+        It is also known as the Gini importance.
+
+        Returns
+        -------
+        feature_importances_ : array, shape = [n_features]
+        """
+        if self._model is None:
+            return None
+        else:
+            importances = np.array(self._model.importance())
+            normalizer = np.sum(importances)
+            if normalizer > 0.0:
+                importances /= normalizer
+            return importances
         
 ##################################################
