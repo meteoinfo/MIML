@@ -15,11 +15,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-core:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-data:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-math:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-graph:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-netlib:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-core:2.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-data:2.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-math:2.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-graph:2.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-netlib:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.fommil.netlib:core:1.1.2" level="project" />
     <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_ref-osx-x86_64:natives:1.1" level="project" />
     <orderEntry type="library" name="Maven: com.github.fommil.netlib:native_ref-java:1.1" level="project" />

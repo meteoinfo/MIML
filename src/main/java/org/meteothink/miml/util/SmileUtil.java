@@ -13,12 +13,12 @@ import smile.math.distance.Distance;
  */
 public class SmileUtil {
     /**
-     * eturns the proximity matrix of a dataset for given distance function.
+     * Returns the proximity matrix of a dataset for given distance function.
      *
      * @param data Input data
      * @param distance The distance
      * @param half If true, only the lower half of matrix is allocated to save space.
-     * @return Proximity maxtrix
+     * @return Proximity matrix
      */
     public static double[][] proximity(double[][] data, Distance distance, boolean half) {
         int n = data.length;
