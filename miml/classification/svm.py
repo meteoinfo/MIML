@@ -28,7 +28,7 @@ class SVM(Classifer):
         epochs=1, **kwargs):
         super(SVM, self).__init__()
         
-        self._kernal = get_kernel(kernel, **kwargs)
+        self._kernel = get_kernel(kernel, **kwargs)
         self._C = C
         self._strategy = strategy
         self._epochs = epochs        
@@ -42,9 +42,9 @@ class SVM(Classifer):
         """ 
         k = int(y.max()) + 1
         if k == 2:
-            self._model = JSVM(self._kernal, self._C)
+            self._model = JSVM(self._kernel, self._C)
         else:
-            self._model = JSVM(self._kernal, self._C, k, JSVM.Multiclass.valueOf(self._strategy.upper()))
+            self._model = JSVM(self._kernel, self._C, k, JSVM.Multiclass.valueOf(self._strategy.upper()))
         x = x.tojarray('double')
         y = y.tojarray('int')
         for i in range(self._epochs):
