@@ -1,9 +1,21 @@
 # -*- coding: utf-8 -*-
 
 from smile.classification import SVM as JSVM
+from smile.classification import OneVersusOne, OneVersusRest
+from java.util.function import BiFunction
 
 from ..utils.smile_util import get_kernel
 from .classifer import Classifer
+
+class biF(BiFunction):
+    def __init__(self, kernel, C, tol):
+        self.kernel = kernel
+        self.C = C
+        self.tol = tol
+
+    def apply(self, x, y):
+        return JSVM.fit(x, y, self.kernel, self.C, self.tol)
+
 
 class SVM(Classifer):
     '''
@@ -17,15 +29,19 @@ class SVM(Classifer):
     :param kernel: (*string*) Mercer kernel.
     :param C: (*int*) Regularization parameter.
     :param tol: (*float*) the tolerance of convergence test.
+    :param strategy: (*string*) Multi-class classification strategy ['one_vs_one' | 'one_vs_rest'].
+        Ignored for binary classification.
     '''
     
-    def __init__(self, kernel='gaussian', C=10, tol=1E-3,
+    def __init__(self, kernel='gaussian', C=10, tol=1E-3, strategy='one_vs_one',
         **kwargs):
         super(SVM, self).__init__()
         
         self._kernel = get_kernel(kernel, **kwargs)
         self._C = C
         self._tol = tol
+        self._strategy = strategy
+
     
     def fit(self, x, y):
         """
@@ -34,13 +50,27 @@ class SVM(Classifer):
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """
-        y = (y * 2 - 1).copy()
-        x = x.tojarray('double')
-        y = y.tojarray('int')
-        self._model = JSVM.fit(x, y, self._kernel, self._C, self._tol)
+        k = int(y.max()) + 1
+        if k == 2:
+            self._multiclass = False
+            y = (y * 2 - 1).copy()
+            x = x.tojarray('double')
+            y = y.tojarray('int')
+            self._model = JSVM.fit(x, y, self._kernel, self._C, self._tol)
+        else:
+            self._multiclass = True
+            x = x.tojarray('double')
+            y = y.tojarray('int')
+            if self._strategy == 'one_vs_one':
+                self._model = OneVersusOne.fit(x, y, biF(self._kernel, self._C, self._tol))
+            else:
+                self._model = OneVersusRest.fit(x, y, biF(self._kernel, self._C, self._tol))
 
     def predict(self, x):
-        r = super(SVM, self).predict(x)
-        return (r + 1) / 2
+        if self._multiclass:
+            return super(SVM, self).predict(x)
+        else:
+            r = super(SVM, self).predict(x)
+            return (r + 1) / 2
         
 ##################################################
