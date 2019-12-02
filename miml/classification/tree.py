@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from smile.classification import DecisionTree as JDecisionTree
+from smile.base.cart import SplitRule
 
 from ..utils.smile_util import numeric_attributes
 
@@ -39,7 +40,7 @@ class DecisionTree(Classifer):
             self._attributes = numeric_attributes(x.shape[1])
         self._model = JDecisionTree(self._attributes, x.tojarray('double'),
             y.tojarray('int'), self._max_nodes, 
-            JDecisionTree.SplitRule.valueOf(self._split_rule.upper()))
+            SplitRule.valueOf(self._split_rule.upper()))
 
     @property
     def feature_importances_(self):

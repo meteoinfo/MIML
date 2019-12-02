@@ -8,6 +8,7 @@ from .fld import FisherLinearDiscriminant
 from .qda import QuadraticDiscriminantAnalysis
 from .rda import RegularizedDiscriminantAnalysis
 from .logistic import LogisticRegression
+from .maxent import Maxent
 from .mlp import MLPClassifer
 from .rbfnet import RBFNetwork
 from .svm import SVM

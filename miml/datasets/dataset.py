@@ -1,4 +1,4 @@
-from smile.data import AttributeDataset as JAttributeDataset
+from org.meteothink.miml.data import AttributeDataset as JAttributeDataset
 import mipylib.numeric as np
 
 class AttributeDataset(object):

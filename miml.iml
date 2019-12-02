@@ -148,7 +148,7 @@
     <orderEntry type="library" name="Maven: net.sf.opencsv:opencsv:2.3" level="project" />
     <orderEntry type="library" name="Maven: com.tdunning:t-digest:3.2" level="project" />
     <orderEntry type="library" name="Maven: it.unimi.dsi:fastutil:6.5.7" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.meteothink:MeteoInfoLib:2.0.2" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.meteothink:MeteoInfoLib:2.0.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.l2fprod:l2fprod-common-all:0.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: edu.ucar:netcdfAll:5.1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.freehep:freehep-graphics2d:2.4" level="project" />
@@ -248,6 +248,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.nd4j:nd4j-native:windows-x86_64:1.0.0-beta5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.nd4j:nd4j-native:linux-ppc64le:1.0.0-beta5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.nd4j:nd4j-native:linux-armhf:1.0.0-beta5" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.slf4j:slf4j-simple:1.7.19" level="project" />
     <orderEntry type="library" name="Maven: org.encog:encog-core:3.4" level="project" />
   </component>
 </module>

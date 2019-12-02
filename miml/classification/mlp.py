@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from smile.classification import NeuralNetwork
+from smile.classification import MLP
+from smile.base.mlp import Layer, OutputFunction
 
-import mipylib.numeric as np
 from .classifer import Classifer
 
 class MLPClassifer(Classifer):
@@ -32,7 +32,7 @@ class MLPClassifer(Classifer):
     '''
     
     def __init__(self, hidden_layer_sizes=[100], error='cross_entropy', activation='logistic_sigmoid',
-            epochs=25, eta=0.1, alpha=0., L=0.):
+            epochs=10, eta=0.1, alpha=0., L=0.):
         super(MLPClassifer, self).__init__()
         
         self._hidden_layer_sizes = hidden_layer_sizes
@@ -51,13 +51,15 @@ class MLPClassifer(Classifer):
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """ 
         k = int(y.max()) + 1
+        layers = []
+        for num_unit in self._hidden_layer_sizes:
+            layers.append(Layer.sigmoid(num_unit))
         if k == 2:
-            k = 1        
-        num_units = [x.shape[1]]
-        num_units.extend(self._hidden_layer_sizes)
-        num_units.append(k)
-        self._model = NeuralNetwork(NeuralNetwork.ErrorFunction.valueOf(self._error.upper()),
-            NeuralNetwork.ActivationFunction.valueOf(self._activation.upper()), num_units)
+            layers.append(Layer.mle(1, OutputFunction.SIGMOID))
+        else:
+            layers.append(Layer.mle(k, OutputFunction.SOFTMAX))
+        p = x.shape[1]
+        self._model = MLP(p, layers)
         self._model.setLearningRate(self._eta)
         self._model.setMomentum(self._alpha)
         self._model.setWeightDecay(self._L)
@@ -65,7 +67,7 @@ class MLPClassifer(Classifer):
         x = x.tojarray('double')
         y = y.tojarray('int')
         for i in range(self._epochs):
-            self._model.learn(x, y)
+            self._model.update(x, y)
         
         
 ##################################################

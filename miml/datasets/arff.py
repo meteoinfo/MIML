@@ -1,4 +1,5 @@
-from smile.data.parser import ArffParser
+from org.meteothink.miml.data.parser import ArffParser
+
 from .dataset import AttributeDataset
 
 def load(fn, ridx=-1):

@@ -9,7 +9,7 @@ from smile.math.distance import EuclideanDistance, ChebyshevDistance, EditDistan
     JensenShannonDistance, LeeDistance, MahalanobisDistance, ManhattanDistance, MinkowskiDistance, \
     SparseChebyshevDistance, SparseEuclideanDistance, SparseManhattanDistance, \
     SparseMinkowskiDistance
-from smile.data import NumericAttribute
+from org.meteothink.miml.data import NumericAttribute
 from org.meteothink.miml.util import SmileUtil
 import mipylib.numeric as np
 
