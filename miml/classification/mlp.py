@@ -2,6 +2,7 @@
 
 from smile.classification import MLP
 from smile.base.mlp import Layer, OutputFunction
+from smile.math import MathEx
 
 from .classifer import Classifer
 
@@ -66,8 +67,10 @@ class MLPClassifer(Classifer):
         
         x = x.tojarray('double')
         y = y.tojarray('int')
-        for i in range(self._epochs):
-            self._model.update(x, y)
+        for epoch in range(self._epochs):
+            permutation = MathEx.permutate(len(x))
+            for i in permutation:
+                self._model.update(x[i], y[i])
         
         
 ##################################################

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from smile.classification import RandomForest as JRandomForest
-from smile.classification import DecisionTree
-
-from ..utils.smile_util import numeric_attributes
+from smile.base.cart import SplitRule
+from smile.data.formula import Formula
+from org.meteothink.miml.util import SmileUtil
 
 import mipylib.numeric as np
 import math
@@ -17,8 +17,8 @@ class RandomForest(Classifer):
     majority vote of individual trees. The method combines bagging idea and the random selection 
     of features.
 
-    :param attributes: (*array*) Attribute properties.
     :param ntrees: (*int*) The number of trees.
+    :param max_depth: (*int*) the maximum depth of the tree.
     :param max_nodes: (*int*) The maximum number of leaf nodes in the tree.
     :param node_size: (*int*) Number of instances in a node below which the tree will not split.
     :param mtry: (*int*) the number of random selected features to be used to determine the 
@@ -30,17 +30,17 @@ class RandomForest(Classifer):
     :param class_weight: (*array*) Priors of the classes.
     '''
     
-    def __init__(self, attributes=None, ntrees=500, max_nodes=-1, node_size=1,
-            mtry=-1, sub_sample=1.0, split_rule='gini', class_weight=None):
+    def __init__(self, ntrees=500, max_depth=20, max_nodes=0, node_size=5,
+            mtry=0, sub_sample=1.0, split_rule='gini', class_weight=None):
         super(RandomForest, self).__init__()
-        
-        self._attributes = attributes
-        self._ntrees = ntrees        
+
+        self._ntrees = ntrees
+        self._max_depth = max_depth
         self._max_nodes = max_nodes
         self._node_size = node_size
         self._mtry = mtry
         self._sub_sample = sub_sample
-        self._split_rule = split_rule    
+        self._split_rule = SplitRule.valueOf(split_rule.upper())
         self._class_weight = class_weight
     
     def fit(self, x, y):
@@ -49,18 +49,20 @@ class RandomForest(Classifer):
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
-        """ 
-        p = x.shape[1]
-        if self._attributes is None:
-            self._attributes = numeric_attributes(p)
-        m = int(math.floor(math.sqrt(p))) if self._mtry <= 0 else self._mtry
-        j = x.shape[0] / self._node_size if self._max_nodes <= 1 else self._max_nodes
-        split_rule = DecisionTree.SplitRule.valueOf(self._split_rule.upper())
-        k = int(y.max()) + 1
-        weight = np.ones(k, dtype='int') if self._class_weight is None  else self._class_weight
-        self._model = JRandomForest(self._attributes, x.tojarray('double'),
-            y.tojarray('int'), self._ntrees, j, self._node_size, m, 
-            self._sub_sample, split_rule, weight.tojarray('int'))
+        """
+        df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
+        formula = Formula.lhs("class")
+        if self._max_nodes == 0:
+            self._max_nodes = df.size() / 5
+        if self._mtry == 0:
+            self._mtry = int(math.floor(math.sqrt(df.ncols() - 1)))
+        self._model = JRandomForest.fit(formula, df, self._ntrees, self._mtry, self._split_rule,
+            self._max_depth, self._max_nodes, self._node_size, self._sub_sample)
+
+    def predict(self, x):
+        df = SmileUtil.toDataFrame(x.asarray())
+        r = self._model.predict(df)
+        return np.array(r)
 
     @property
     def feature_importances_(self):

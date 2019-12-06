@@ -5,7 +5,18 @@
  */
 package org.meteothink.miml.util;
 
+import org.meteoinfo.ndarray.IndexIterator;
+import smile.data.DataFrame;
+import smile.data.Tuple;
+import smile.data.type.DataType;
+import smile.data.type.DataTypes;
+import smile.data.type.StructField;
+import smile.data.type.StructType;
 import smile.math.distance.Distance;
+import org.meteoinfo.ndarray.Array;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -42,5 +53,67 @@ public class SmileUtil {
         }
 
         return proximity;
+    }
+
+    /**
+     * Convert Array to DataFrame
+     * @param x Array
+     * @return DataFrame
+     */
+    public static DataFrame toDataFrame(Array x) {
+        x = x.copyIfView();
+        int[] shape = x.getShape();
+        int nRow = shape[0];
+        int nCol = x.getRank() == 1 ? 1 : shape[1];
+        StructField[] fields = new StructField[nCol];
+        for (int i = 0; i < fields.length; i++) {
+            fields[i] = new StructField("F" + String.valueOf(i),
+                    DataType.of(x.getDataType().getClassType()));
+        }
+        StructType schema = DataTypes.struct(fields);
+        List<Tuple> rows = new ArrayList<>();
+        IndexIterator iter = x.getIndexIterator();
+        for (int i = 0; i < nRow; i++) {
+            Object[] row = new Object[nCol];
+            for (int j = 0; j < nCol; j++) {
+                row[j] = iter.getObjectNext();
+            }
+            rows.add(Tuple.of(row, schema));
+        }
+        schema = schema.boxed(rows);
+        return DataFrame.of(rows, schema);
+    }
+
+    /**
+     * Convert Array to DataFrame
+     * @param x Array x
+     * @param y Array y
+     * @return DataFrame
+     */
+    public static DataFrame toDataFrame(Array x, Array y) {
+        x = x.copyIfView();
+        int[] shape = x.getShape();
+        int nRow = shape[0];
+        int nCol = x.getRank() == 1 ? 1 : shape[1];
+        StructField[] fields = new StructField[nCol + 1];
+        for (int i = 0; i < nCol; i++) {
+            fields[i] = new StructField("F" + String.valueOf(i),
+                    DataType.of(x.getDataType().getClassType()));
+        }
+        fields[nCol] = new StructField("class", DataType.of(y.getDataType().getClassType()));
+        StructType schema = DataTypes.struct(fields);
+        List<Tuple> rows = new ArrayList<>();
+        IndexIterator iter = x.getIndexIterator();
+        IndexIterator yIter = y.getIndexIterator();
+        for (int i = 0; i < nRow; i++) {
+            Object[] row = new Object[nCol + 1];
+            for (int j = 0; j < nCol; j++) {
+                row[j] = iter.getObjectNext();
+            }
+            row[nCol] = yIter.getObjectNext();
+            rows.add(Tuple.of(row, schema));
+        }
+        schema = schema.boxed(rows);
+        return DataFrame.of(rows, schema);
     }
 }

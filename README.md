@@ -1,6 +1,8 @@
 MIML：MeteoInfo machine learning toolbox
 ========================================
 
+[![Join the chat at https://gitter.im/meteoinfo/community](https://badges.gitter.im/meteoinfo/community/meteoinfo.svg)](https://gitter.im/meteoinfo/community)
+
 Installation
 ------------
 

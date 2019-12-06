@@ -36,7 +36,7 @@ class FisherLinearDiscriminant(Classifer):
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         '''
-        self._model = FLD(x.tojarray('double'), y.tojarray('int'), 
+        self._model = FLD.fit(x.tojarray('double'), y.tojarray('int'),
             self._L, self._tol) 
         
 ##################################################

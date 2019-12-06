@@ -32,12 +32,9 @@ class QuadraticDiscriminantAnalysis(Classifer):
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
-        """ 
-        if self._priori is None:
-            self._model = QDA(x.tojarray('double'), y.tojarray('int'), self._tol)
-        else:
-            self._model = QDA(x.tojarray('double'), y.tojarray('int'), 
-                self._priori.tojarray('double'), self._tol)
+        """
+        priori = None if self._priori is None else self._priori.tojarray('double')
+        self._model = QDA.fit(x.tojarray('double'), y.tojarray('int'), priori, self._tol)
         
         
 ##################################################

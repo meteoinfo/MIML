@@ -27,7 +27,7 @@ class Maxent(Classifer):
     :param max_iter: (*int*) Maximum number of iterations taken for the solvers to converge.
     '''
 
-    def __init__(self, p, L=0., tol=1e-5, max_iter=500):
+    def __init__(self, p, L=0.1, tol=1e-5, max_iter=500):
         super(Maxent, self).__init__()
 
         self._p = p
