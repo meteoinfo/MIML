@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from smile.regression import SVR as JSVR
-from smile.util import SmileUtils
 
 from ..utils.smile_util import get_kernel
-
-import mipylib.numeric as np
 from .regressor import Regressor
 
 class SVR(Regressor):
@@ -20,8 +17,6 @@ class SVR(Regressor):
     :param kernel: (*string*) Mercer kernel.
     :param eps: (*float*) The loss function error threshold.
     :param C: (*float*) The soft margin penalty parameter.
-    :param weight: (*array*) positive instance weight. The soft margin penalty
-         parameter for instance i will be weight[i] * C.
     :param tol: (*float*) The tolerance of convergence test.
     '''
     
@@ -32,7 +27,6 @@ class SVR(Regressor):
         self._kernal = get_kernel(kernel, **kwargs)
         self._eps = eps
         self._C = C
-        self._weight = weight
         self._tol = tol        
     
     def fit(self, x, y):
@@ -44,10 +38,7 @@ class SVR(Regressor):
         """ 
         x = x.tojarray('double')
         y = y.tojarray('double')
-        if self._weight is None:
-            self._model = JSVR(x, y, self._kernal, self._eps, self._C, self._tol)
-        else:
-            self._model = JSVR(x, y, self._weight, self._kernal, self._eps, self._C, self._tol)
+        self._model = JSVR.fit(x, y, self._kernal, self._eps, self._C, self._tol)
         
         
 ##################################################

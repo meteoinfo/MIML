@@ -74,7 +74,7 @@ class HierarchicalClustering(Cluster):
         """
         proximity = smile_util.pdist(x)
         linkage = self._get_linkage(self._linkage, proximity)
-        self._model = JHierarchicalClustering(linkage)
+        self._model = JHierarchicalClustering.fit(linkage)
         return self
     
     def fit_predict(self, x):

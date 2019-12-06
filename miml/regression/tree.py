@@ -1,30 +1,32 @@
 # -*- coding: utf-8 -*-
 
 from smile.regression import RegressionTree as JRegressionTree
-
-from ..utils.smile_util import numeric_attributes
+from smile.data.formula import Formula
+from org.meteothink.miml.util import SmileUtil
 
 import mipylib.numeric as np
 from .regressor import Regressor
 
 class RegressionTree(Regressor):
-    '''
-    Decision tree for regression. 
+    """
+    Decision tree for regression.
 
-    A decision tree can be learned by splitting the training set into subsets based on an attribute 
-    value test. This process is repeated on each derived subset in a recursive manner called 
-    recursive partitioning. The recursion is completed when the subset at a node all has the same 
+    A decision tree can be learned by splitting the training set into subsets based on an attribute
+    value test. This process is repeated on each derived subset in a recursive manner called
+    recursive partitioning. The recursion is completed when the subset at a node all has the same
     value of the target variable, or when splitting no longer adds value to the predictions.
 
+    :param max_depth: (*int*) the maximum depth of the tree.
     :param max_nodes: (*int*) The maximum number of leaf nodes in the tree.
-    :param attributes: (*array*) Attribute properties.
-    '''
+    :param node_size: (*int*) the minimum size of leaf nodes.
+    """
     
-    def __init__(self, max_nodes=200, attributes=None):
+    def __init__(self,  max_depth=20, max_nodes=0, node_size=5):
         super(RegressionTree, self).__init__()
-        
+
+        self._max_depth = max_depth
         self._max_nodes = max_nodes
-        self._attributes = attributes       
+        self._node_size = node_size
     
     def fit(self, x, y):
         """
@@ -32,11 +34,18 @@ class RegressionTree(Regressor):
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
-        """ 
-        if self._attributes is None:
-            self._attributes = numeric_attributes(x.shape[1])
-        self._model = JRegressionTree(self._attributes, x.tojarray('double'),
-            y.tojarray('double'), self._max_nodes)
+        """
+        df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
+        formula = Formula.lhs("class")
+        if self._max_nodes == 0:
+            self._max_nodes = df.size() / 5
+        self._model = JRegressionTree.fit(formula, df, self._max_depth, self._max_nodes, self._node_size)
+
+    def predict(self, x):
+        x = np.atleast_2d(x)
+        df = SmileUtil.toDataFrame(x.asarray())
+        r = self._model.predict(df)
+        return np.array(r)
 
     @property
     def feature_importances_(self):

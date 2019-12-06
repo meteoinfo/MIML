@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from smile.regression import LASSO as JLASSO
+from smile.data.formula import Formula
+from org.meteothink.miml.util import SmileUtil
 
 from .regressor import Regressor
-import mipylib.numeric as np
 
 class LASSO(Regressor):
     '''
@@ -33,9 +34,10 @@ class LASSO(Regressor):
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
-        """ 
-        self._model = JLASSO(x.tojarray('double'), y.tojarray('double'), 
-            self._L, self._tol, self._max_iter)
+        """
+        df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
+        formula = Formula.lhs("class")
+        self._model = JLASSO.fit(formula, df, self._L, self._tol, self._max_iter)
         
         
 ##################################################

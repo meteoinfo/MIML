@@ -1,9 +1,14 @@
 
 from smile.clustering import CLARANS as JCLARANS
+from smile.math import MathEx
+from java.util.function import ToDoubleBiFunction
 
 import mipylib.numeric as np
 from .cluster import Cluster
-from ..utils import smile_util
+
+class dbiF(ToDoubleBiFunction):
+    def applyAsDouble(self, x, y):
+        return MathEx.squaredDistance(x, y)
 
 class CLARANS(Cluster):
     '''
@@ -20,19 +25,15 @@ class CLARANS(Cluster):
     entire process is repeated multiple time to find better.
 
     :param k: (*int*) Number of clusters.
-    :param distance: (*string*) the distance/dissimilarity measure.
     :param max_neighbor: (*int*) the maximum number of neighbors examined during a random search of 
         local minima.
-    :param nlocal: (*int*) the number of local minima to search for.
     '''
     
-    def __init__(self, k, distance='euclidean', max_neighbor=None, nlocal=None):
+    def __init__(self, k, max_neighbor=None):
         super(CLARANS, self).__init__()
         
         self._k = k
-        self._distance = distance
         self._max_neighbor = max_neighbor
-        self._nlocal = nlocal        
         
     def fit(self, x):
         """
@@ -42,9 +43,8 @@ class CLARANS(Cluster):
         
         :returns: self.
         """
-        distance = smile_util.get_distance(self._distance)
-        self._model = JCLARANS(x.tojarray('double'), distance, self._k, self._max_neighbor,
-            self._nlocal)
+        self._model = JCLARANS.fit(x.tojarray('double'), self._k, self._max_neighbor,
+            dbiF())
         return self
     
     def fit_predict(self, x):
@@ -56,9 +56,7 @@ class CLARANS(Cluster):
         :returns: (*array*) The cluster labels.
         """
         self.fit(x)
-        
-        r = self._model.getClusterLabel()
-        return np.array(r)
+        return np.array(self._model.y)
         
         
 ##############################################

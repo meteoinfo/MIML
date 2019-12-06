@@ -61,13 +61,13 @@ public class SmileUtil {
      * @return DataFrame
      */
     public static DataFrame toDataFrame(Array x) {
-        x = x.copyIfView();
+        //x = x.copyIfView();
         int[] shape = x.getShape();
         int nRow = shape[0];
         int nCol = x.getRank() == 1 ? 1 : shape[1];
         StructField[] fields = new StructField[nCol];
         for (int i = 0; i < fields.length; i++) {
-            fields[i] = new StructField("F" + String.valueOf(i),
+            fields[i] = new StructField("x" + String.valueOf(i + 1),
                     DataType.of(x.getDataType().getClassType()));
         }
         StructType schema = DataTypes.struct(fields);
@@ -91,13 +91,13 @@ public class SmileUtil {
      * @return DataFrame
      */
     public static DataFrame toDataFrame(Array x, Array y) {
-        x = x.copyIfView();
+        //x = x.copyIfView();
         int[] shape = x.getShape();
         int nRow = shape[0];
         int nCol = x.getRank() == 1 ? 1 : shape[1];
         StructField[] fields = new StructField[nCol + 1];
         for (int i = 0; i < nCol; i++) {
-            fields[i] = new StructField("F" + String.valueOf(i),
+            fields[i] = new StructField("x" + String.valueOf(i + 1),
                     DataType.of(x.getDataType().getClassType()));
         }
         fields[nCol] = new StructField("class", DataType.of(y.getDataType().getClassType()));

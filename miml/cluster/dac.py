@@ -22,13 +22,19 @@ class DeterministicAnnealing(Cluster):
     :param k_max: (*int*) The maximum number of clusters.
     :param alpha: (*float*) The temperature T is decreasing as T = T * alpha. alpha has to be 
         in (0, 1).
+    :param max_iter: (*int*) the maximum number of iterations.
+    :param tol: (*float*) the tolerance of convergence test.
+    :param split_tol: (*float*) the tolerance to split a cluster.
     '''
     
-    def __init__(self, k_max, alpha=0.9):
+    def __init__(self, k_max, alpha=0.9, max_iter=100, tol=1e-4, split_tol=1e-2):
         super(DeterministicAnnealing, self).__init__()
         
         self._k_max = k_max
-        self._alpha = alpha        
+        self._alpha = alpha
+        self._max_iter = max_iter
+        self._tol = tol
+        self._split_tol = split_tol
         
     def fit(self, x):
         """
@@ -38,7 +44,8 @@ class DeterministicAnnealing(Cluster):
         
         :returns: self.
         """
-        self._model = JDeterministicAnnealing(x.tojarray('double'), self._k_max, self._alpha)
+        self._model = JDeterministicAnnealing.fit(x.tojarray('double'), self._k_max, self._alpha,
+            self._max_iter, self._tol, self._split_tol)
         return self
     
     def fit_predict(self, x):
@@ -50,9 +57,7 @@ class DeterministicAnnealing(Cluster):
         :returns: (*array*) The cluster labels.
         """
         self.fit(x)
-        
-        r = self._model.getClusterLabel()
-        return np.array(r)
+        return np.array(self._model.y)
         
         
 ##############################################

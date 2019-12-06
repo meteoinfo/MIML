@@ -41,7 +41,7 @@ class DBSCAN(Cluster):
         :returns: self.
         """
         distance = smile_util.get_distance(self._distance) 
-        self._model = JDBSCAN(x.tojarray('double'), distance,
+        self._model = JDBSCAN.fit(x.tojarray('double'), distance,
             self._min_pts, self._radius)
         return self
     
@@ -54,9 +54,7 @@ class DBSCAN(Cluster):
         :returns: (*array*) The cluster labels.
         """
         self.fit(x)
-        
-        r = self._model.getClusterLabel()
-        return np.array(r)
+        return np.array(self._model.y)
         
         
 ##############################################

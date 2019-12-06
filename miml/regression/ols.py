@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from smile.regression import OLS as JOLS
+from smile.data.formula import Formula
+from org.meteothink.miml.util import SmileUtil
 
 from .regressor import Regressor
-import mipylib.numeric as np
 
 class OLS(Regressor):
     '''
@@ -15,13 +16,17 @@ class OLS(Regressor):
     and the true value of the dependent variable. Ordinary least squares obtains parameter 
     estimates that minimize the sum of squared residuals, SSE (also denoted RSS).
 
-    :param method: (*string*) ['qr' | 'svd'].
+    :param method: (*string*) the fitting method ['qr' | 'svd'].
+    :param stderr: (*bool*) if true, compute the estimated standard errors of the estimate of parameters.
+    :param recursive: (*bool*) if true, the return model supports recursive least squares.
     '''
     
-    def __init__(self, method='qr'):
+    def __init__(self, method='qr', stderr=True, recursive=True):
         super(OLS, self).__init__()
         
         self._method = method
+        self._stderr = stderr
+        self._recursive = recursive
     
     def fit(self, x, y):
         """
@@ -29,9 +34,10 @@ class OLS(Regressor):
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
-        """ 
-        self._model = JOLS(x.tojarray('double'), y.tojarray('double'), 
-            self._method=='svd')
+        """
+        df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
+        formula = Formula.lhs("class")
+        self._model = JOLS.fit(formula, df, self._method, self._stderr, self._recursive)
         
         
 ##################################################

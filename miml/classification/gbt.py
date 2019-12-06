@@ -51,6 +51,7 @@ class GradientTreeBoost(Classifer):
             self._max_nodes, self._node_size, self._shrinkage, self._sub_sample)
 
     def predict(self, x):
+        x = np.atleast_2d(x)
         df = SmileUtil.toDataFrame(x.asarray())
         r = self._model.predict(df)
         return np.array(r)

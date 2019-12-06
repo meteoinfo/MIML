@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from smile.regression import RBFNetwork as JRBFNetwork
-from smile.util import SmileUtils
+from smile.base.rbf import RBF
 
-import mipylib.numeric as np
 from .regressor import Regressor
-from ..utils import smile_util
 
 class RBFNetwork(Regressor):
     '''
@@ -15,19 +13,15 @@ class RBFNetwork(Regressor):
     functions as activation functions. It is a linear combination of radial basis functions. 
     They are used in function approximation, time series prediction, and control.
 
-    :param distance: (*string*) The distance metric functor.
-    :param rbf: (*string*) The radial basis functions.
-    :param ncenters: (*int*) The number of centers of RBF functions.
+    :param k: (*int*) Trains a Gaussian RBF network with k-means.
     :param normalized: (*boolean*) True for the normalized RBF network.
     '''
     
-    def __init__(self, distance='euclidean', rbf='gaussian', ncenters=50,
+    def __init__(self, k=10,
             normalized=False):
         super(RBFNetwork, self).__init__()
-        
-        self._distance = distance
-        self._rbf = rbf
-        self._ncenters = ncenters
+
+        self._k = k
         self._normalized = normalized
     
     def fit(self, x, y):
@@ -36,13 +30,10 @@ class RBFNetwork(Regressor):
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
-        """ 
-        distance = smile_util.get_distance(self._distance)        
-        centers = np.zeros((50, x.shape[1]), dtype='double').tojarray('double')
+        """
         x = x.tojarray('double')
-        rbf = SmileUtils.learnGaussianRadialBasis(x, centers)
-        self._model = JRBFNetwork(x, y.tojarray('double'), 
-            distance, rbf, centers, self._normalized)     
+        neurons = RBF.fit(x, self._k)
+        self._model = JRBFNetwork.fit(x, y.tojarray('double'), neurons, self._normalized)
         
         
 ##################################################

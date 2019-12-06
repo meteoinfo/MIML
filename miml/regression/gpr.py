@@ -4,7 +4,6 @@ from smile.regression import GaussianProcessRegression as JGaussianProcessRegres
 
 from ..utils.smile_util import get_kernel
 
-import mipylib.numeric as np
 from .regressor import Regressor
 
 class GaussianProcessRegression(Regressor):
@@ -24,10 +23,10 @@ class GaussianProcessRegression(Regressor):
     :param nystrom: (*boolean*) Set it true for Nystrom approximation of kernel matrix.
     '''
     
-    def __init__(self, t=None, kernel='gaussian', L=0.01, 
+    def __init__(self, t=None, kernel='gaussian', L=0.01,
             nystrom=False, **kwargs):
         super(GaussianProcessRegression, self).__init__()
-        
+
         self._t = t
         self._kernel = get_kernel(kernel, **kwargs)
         self._L = L        
@@ -41,15 +40,15 @@ class GaussianProcessRegression(Regressor):
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """ 
         if self._t is None:
-            self._model = JGaussianProcessRegression(x.tojarray('double'),
+            self._model = JGaussianProcessRegression.fit(x.tojarray('double'),
                 y.tojarray('double'), self._kernel, self._L)
         else:
             if self._nystrom:
-                self._model = JGaussianProcessRegression(x.tojarray('double'),
+                self._model = JGaussianProcessRegression.nystrom(x.tojarray('double'),
                     y.tojarray('double'), self._t.tojarray('double'), self._kernel, 
-                    self._L, True)
+                    self._L)
             else:
-                self._model = JGaussianProcessRegression(x.tojarray('double'),
+                self._model = JGaussianProcessRegression.fit(x.tojarray('double'),
                     y.tojarray('double'), self._t.tojarray('double'), self._kernel, 
                     self._L)
         

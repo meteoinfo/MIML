@@ -37,7 +37,7 @@ class DENCLUE(Cluster):
         
         :returns: self.
         """
-        self._model = JDENCLUE(x.tojarray('double'), self._sigma, self._m)
+        self._model = JDENCLUE.fit(x.tojarray('double'), self._sigma, self._m)
         return self
     
     def fit_predict(self, x):
@@ -49,9 +49,7 @@ class DENCLUE(Cluster):
         :returns: (*array*) The cluster labels.
         """
         self.fit(x)
-        
-        r = self._model.getClusterLabel()
-        return np.array(r)
+        return np.array(self._model.y)
         
         
 ##############################################

@@ -1,8 +1,19 @@
 
 from smile.clustering import SIB as JSIB
+from smile.clustering import PartitionClustering
+from java.util.function import Supplier
 
 import mipylib.numeric as np
 from .cluster import Cluster
+
+class supF(Supplier):
+    def __init__(self, x, k, max_iter):
+        self.x = x
+        self.k = k
+        self.max_iter = max_iter
+
+    def get(self):
+        return JSIB.fit(self.x, self.k, self.max_iter)
 
 class SIB(Cluster):
     '''
@@ -17,7 +28,7 @@ class SIB(Cluster):
     :param runs: (*int*) The number of runs of K-Means algorithm.
     '''
     
-    def __init__(self, k, max_iter=100, runs=1):
+    def __init__(self, k, max_iter=100, runs=8):
         super(SIB, self).__init__()
         
         self._k = k
@@ -32,7 +43,7 @@ class SIB(Cluster):
         
         :returns: self.
         """
-        self._model = JSIB(x.tojarray('double'), self._k, self._max_iter, self._runs)
+        self._model = PartitionClustering.run(self._runs, supF(x.tojarray('double'), self._k, self._max_iter))
         return self
     
     def fit_predict(self, x):
@@ -44,9 +55,7 @@ class SIB(Cluster):
         :returns: (*array*) The cluster labels.
         """
         self.fit(x)
-        
-        r = self._model.getClusterLabel()
-        return np.array(r)
+        return np.array(self._model.y)
         
         
 ##############################################

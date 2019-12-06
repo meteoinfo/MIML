@@ -30,7 +30,7 @@ class GMeans(Cluster):
         
         :returns: self.
         """
-        self._model = JGMeans(x.tojarray('double'), self._k_max)
+        self._model = JGMeans.fit(x.tojarray('double'), self._k_max)
         return self
     
     def fit_predict(self, x):
@@ -42,9 +42,7 @@ class GMeans(Cluster):
         :returns: (*array*) The cluster labels.
         """
         self.fit(x)
-        
-        r = self._model.getClusterLabel()
-        return np.array(r)
+        return np.array(self._model.y)
         
         
 ##############################################

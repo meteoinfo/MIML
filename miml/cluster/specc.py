@@ -39,9 +39,9 @@ class SpectralClustering(Cluster):
         :returns: self.
         """
         if self._l is None:
-            self._model = JSpectralClustering(x.tojarray('double'), self._k, self._sigma)
+            self._model = JSpectralClustering.fit(x.tojarray('double'), self._k, self._sigma)
         else:
-            self._model = JSpectralClustering(x.tojarray('double'), self._k, self._l, self._sigma)
+            self._model = JSpectralClustering.fit(x.tojarray('double'), self._k, self._l, self._sigma)
         return self
     
     def fit_predict(self, x):
@@ -53,9 +53,7 @@ class SpectralClustering(Cluster):
         :returns: (*array*) The cluster labels.
         """
         self.fit(x)
-        
-        r = self._model.getClusterLabel()
-        return np.array(r)
+        return np.array(self._model.y)
         
         
 ##############################################

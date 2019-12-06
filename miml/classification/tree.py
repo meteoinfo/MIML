@@ -46,6 +46,7 @@ class DecisionTree(Classifer):
             self._max_nodes, self._node_size)
 
     def predict(self, x):
+        x = np.atleast_2d(x)
         df = SmileUtil.toDataFrame(x.asarray())
         r = self._model.predict(df)
         return np.array(r)

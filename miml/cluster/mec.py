@@ -42,7 +42,7 @@ class MEC(Cluster):
         :returns: self.
         """
         distance = smile_util.get_distance(self._distance) 
-        self._model = JMEC(x.tojarray('double'), distance, self._k, self._radius)
+        self._model = JMEC.fit(x.tojarray('double'), distance, self._k, self._radius)
         return self
     
     def fit_predict(self, x):
@@ -54,9 +54,7 @@ class MEC(Cluster):
         :returns: (*array*) The cluster labels.
         """
         self.fit(x)
-        
-        r = self._model.getClusterLabel()
-        return np.array(r)
+        return np.array(self._model.y)
         
         
 ##############################################

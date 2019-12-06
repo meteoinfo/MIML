@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from smile.regression import RidgeRegression as JRidgeRegression
+from smile.data.formula import Formula
+from org.meteothink.miml.util import SmileUtil
 
 from .regressor import Regressor
-import mipylib.numeric as np
 
 class RidgeRegression(Regressor):
     '''
@@ -30,9 +31,10 @@ class RidgeRegression(Regressor):
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
-        """ 
-        self._model = JRidgeRegression(x.tojarray('double'), y.tojarray('double'), 
-            self._L)
+        """
+        df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
+        formula = Formula.lhs("class")
+        self._model = JRidgeRegression.fit(formula, df, self._L)
         
         
 ##################################################

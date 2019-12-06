@@ -9,7 +9,7 @@ from .gmeans import GMeans
 from .dac import DeterministicAnnealing
 from .sib import SIB
 from .clarans import CLARANS
-from .birch import BIRCH
+#from .birch import BIRCH
 from .dbscan import DBSCAN
 from .denclue import DENCLUE
 from .specc import SpectralClustering
