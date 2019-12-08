@@ -48,12 +48,12 @@ title('K-Means clustering example')
 Documentation
 -------------
 
-Learn more about MeteoInfo and miml in its official documentation at http://meteothink.org/
+Learn more about MeteoInfo and MIML in its official documentation at http://meteothink.org/
 
 License
 -------
 
-Copyright 2019, miml Developers
+Copyright 2019, MIML Developers
 
 Licensed under the LGPL License, Version 3.0 (the "License");
 you may not use this file except in compliance with the License.
