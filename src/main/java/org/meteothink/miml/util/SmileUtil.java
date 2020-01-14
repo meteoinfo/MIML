@@ -6,6 +6,8 @@
 package org.meteothink.miml.util;
 
 import org.meteoinfo.ndarray.IndexIterator;
+import smile.classification.DataFrameClassifier;
+import smile.classification.SoftClassifier;
 import smile.data.DataFrame;
 import smile.data.Tuple;
 import smile.data.type.DataType;
@@ -15,6 +17,8 @@ import smile.data.type.StructType;
 import smile.math.distance.Distance;
 import org.meteoinfo.ndarray.Array;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,5 +119,36 @@ public class SmileUtil {
         }
         schema = schema.boxed(rows);
         return DataFrame.of(rows, schema);
+    }
+
+    /**
+     * Get predict probability.
+     * @param classifier The SoftClassifier.
+     * @param x Input data.
+     * @return Predict probability.
+     */
+    public static double[][] predictProbability(SoftClassifier classifier, double[][] x) {
+        int n = x.length;
+        int m = x[0].length;
+        double[] posteriori;
+        double[][] probability = new double[n][m];
+        boolean isTuple = classifier instanceof DataFrameClassifier;
+        if (isTuple) {            
+            Tuple tuple;
+            for (int i = 0; i < n; i++) {
+                tuple = Tuple.of(x[i], null);
+                posteriori = new double[m];
+                classifier.predict(tuple, posteriori);
+                probability[i] = posteriori;
+            }
+        } else {
+            for (int i = 0; i < n; i++) {
+                posteriori = new double[m];
+                classifier.predict(x[i], posteriori);
+                probability[i] = posteriori;
+            }
+        }
+
+        return probability;
     }
 }

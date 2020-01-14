@@ -2,6 +2,8 @@ from abc import abstractmethod
 import mipylib.numeric as np
 from ..metrics import accuracy_score
 
+from org.meteothink.miml.util import SmileUtil
+
 class Classifer(object):
     '''
     Classification model base class.
@@ -47,6 +49,24 @@ class Classifer(object):
         """
         x = np.atleast_2d(x)
         r = self._model.predict(x.tojarray('double'))
+        return np.array(r)
+
+    def predict_proba(self, x):
+        """
+        Probability estimates.
+
+        Parameters
+        ----------
+        X : array-like, shape (n_query, n_features), \
+                or (n_query, n_indexed) if metric == 'precomputed'
+            Test samples.
+
+        Returns
+        -------
+        y : the probability of the sample for each class in the model.
+        """
+        x = np.atleast_2d(x)
+        r = SmileUtil.predictProbability(self._model, x.tojarray('double'))
         return np.array(r)
 
     def score(self, X, y, sample_weight=None):
