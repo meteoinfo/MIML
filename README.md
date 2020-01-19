@@ -12,7 +12,7 @@ http://www.meteothink.org/downloads/index.html. Unzip and copy "miml" folder int
 Features
 --------
 
-Machine learning algorithms of classification, regression, clustering based on [Smile](https://haifengl.github.io/smile/),
+Machine learning algorithms of classification, regression, clustering based on [Smile](http://haifengl.github.io/),
 simple neural network model based on [Encog](https://www.heatonresearch.com/encog/), deep learning model based on 
 [Deeplearning4j](https://deeplearning4j.org).
 
