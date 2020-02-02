@@ -34,6 +34,7 @@ class LogisticRegression(Classifer):
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """
+        super(LogisticRegression, self).fit(x, y)
         self._model = JLogisticRegression.fit(x.tojarray('double'), y.tojarray('int'),
             self._L, self._tol, self._max_iter)
         

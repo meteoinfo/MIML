@@ -15,11 +15,15 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-core:2.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-data:2.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-math:2.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-graph:2.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-netlib:2.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-core:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-data:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-json_2.13:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.13.1" level="project" />
+    <orderEntry type="library" name="Maven: com.typesafe.scala-logging:scala-logging_2.13:3.9.2" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-reflect:2.13.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-math:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-graph:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-netlib:2.1.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.fommil.netlib:core:1.1.2" level="project" />
     <orderEntry type="library" name="Maven: com.github.fommil.netlib:netlib-native_ref-osx-x86_64:natives:1.1" level="project" />
     <orderEntry type="library" name="Maven: com.github.fommil.netlib:native_ref-java:1.1" level="project" />

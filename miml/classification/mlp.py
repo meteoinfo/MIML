@@ -50,7 +50,8 @@ class MLPClassifer(Classifer):
         
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
-        """ 
+        """
+        super(MLPClassifer, self).fit(x, y)
         k = int(y.max()) + 1
         layers = []
         for num_unit in self._hidden_layer_sizes:

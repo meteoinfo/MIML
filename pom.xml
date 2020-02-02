@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.meteothink</groupId>
     <artifactId>miml</artifactId>
-    <version>0.5</version>
+    <version>0.6</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,12 +16,12 @@
         <dependency>
             <groupId>com.github.haifengl</groupId>
             <artifactId>smile-core</artifactId>
-            <version>2.0.0</version>
+            <version>2.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.haifengl</groupId>
             <artifactId>smile-netlib</artifactId>
-            <version>2.0.0</version>
+            <version>2.1.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-core -->
         <dependency>

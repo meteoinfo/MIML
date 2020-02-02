@@ -125,25 +125,25 @@ public class SmileUtil {
      * Get predict probability.
      * @param classifier The SoftClassifier.
      * @param x Input data.
+     * @param k The number of classes
      * @return Predict probability.
      */
-    public static double[][] predictProbability(SoftClassifier classifier, double[][] x) {
+    public static double[][] predictProbability(SoftClassifier classifier, double[][] x, int k) {
         int n = x.length;
-        int m = x[0].length;
         double[] posteriori;
-        double[][] probability = new double[n][m];
+        double[][] probability = new double[n][k];
         boolean isTuple = classifier instanceof DataFrameClassifier;
         if (isTuple) {            
             Tuple tuple;
             for (int i = 0; i < n; i++) {
                 tuple = Tuple.of(x[i], null);
-                posteriori = new double[m];
+                posteriori = new double[k];
                 classifier.predict(tuple, posteriori);
                 probability[i] = posteriori;
             }
         } else {
             for (int i = 0; i < n; i++) {
-                posteriori = new double[m];
+                posteriori = new double[k];
                 classifier.predict(x[i], posteriori);
                 probability[i] = posteriori;
             }

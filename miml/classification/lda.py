@@ -38,6 +38,7 @@ class LinearDiscriminantAnalysis(Classifer):
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """
+        super(LinearDiscriminantAnalysis, self).fit(x, y)
         priori = None if self._priori is None else self._priori.tojarray('double')
         self._model = LDA.fit(x.tojarray('double'), y.tojarray('int'), priori, self._tol)
         

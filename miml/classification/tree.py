@@ -38,6 +38,7 @@ class DecisionTree(Classifer):
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """
+        super(DecisionTree, self).fit(x, y)
         df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
         formula = Formula.lhs("class")
         if self._max_nodes == 0:

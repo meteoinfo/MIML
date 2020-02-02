@@ -24,6 +24,7 @@ class KNearestNeighbor(Classifer):
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """
+        super(KNearestNeighbor, self).fit(x, y)
         self._model = KNN.fit(x.tojarray('double'), y.tojarray('int'), self._k)
         
         

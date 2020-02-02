@@ -30,6 +30,7 @@ class RBFNetwork(Classifer):
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """
+        super(RBFNetwork, self).fit(x, y)
         x = x.tojarray('double')
         neurons = RBF.fit(x, self._k)
         self._model = JRBFNetwork.fit(x, y.tojarray('int'), neurons, self._normalized)
