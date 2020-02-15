@@ -23,7 +23,7 @@ class RidgeRegression(Regressor):
     def __init__(self, L=None):
         super(RidgeRegression, self).__init__()
         
-        self._L = L
+        self.L = L
     
     def fit(self, x, y):
         """
@@ -34,7 +34,7 @@ class RidgeRegression(Regressor):
         """
         df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
         formula = Formula.lhs("class")
-        self._model = JRidgeRegression.fit(formula, df, self._L)
+        self._model = JRidgeRegression.fit(formula, df, self.L)
         
         
 ##################################################

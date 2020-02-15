@@ -29,12 +29,12 @@ class GradientTreeBoost(Classifer):
             sub_sample=0.7):
         super(GradientTreeBoost, self).__init__()
 
-        self._ntrees = ntrees
-        self._max_depth = max_depth
-        self._max_nodes = max_nodes
-        self._node_size = node_size
-        self._shrinkage = shrinkage
-        self._sub_sample = sub_sample
+        self.ntrees = ntrees
+        self.max_depth = max_depth
+        self.max_nodes = max_nodes
+        self.node_size = node_size
+        self.shrinkage = shrinkage
+        self.sub_sample = sub_sample
     
     def fit(self, x, y):
         '''
@@ -46,10 +46,10 @@ class GradientTreeBoost(Classifer):
         super(GradientTreeBoost, self).fit(x, y)
         df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
         formula = Formula.lhs("class")
-        if self._max_nodes == 0:
-            self._max_nodes = df.size() / 5
-        self._model = JGradientTreeBoost.fit(formula, df, self._ntrees, self._max_depth,
-            self._max_nodes, self._node_size, self._shrinkage, self._sub_sample)
+        if self.max_nodes == 0:
+            self.max_nodes = df.size() / 5
+        self._model = JGradientTreeBoost.fit(formula, df, self.ntrees, self.max_depth,
+            self.max_nodes, self.node_size, self.shrinkage, self.sub_sample)
 
     def predict(self, x):
         x = np.atleast_2d(x)

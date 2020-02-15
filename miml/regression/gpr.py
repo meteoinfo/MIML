@@ -27,10 +27,10 @@ class GaussianProcessRegression(Regressor):
             nystrom=False, **kwargs):
         super(GaussianProcessRegression, self).__init__()
 
-        self._t = t
-        self._kernel = get_kernel(kernel, **kwargs)
-        self._L = L        
-        self._nystrom = nystrom
+        self.t = t
+        self.kernel = get_kernel(kernel, **kwargs)
+        self.L = L
+        self.nystrom = nystrom
     
     def fit(self, x, y):
         """
@@ -39,18 +39,18 @@ class GaussianProcessRegression(Regressor):
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """ 
-        if self._t is None:
+        if self.t is None:
             self._model = JGaussianProcessRegression.fit(x.tojarray('double'),
-                y.tojarray('double'), self._kernel, self._L)
+                y.tojarray('double'), self.kernel, self.L)
         else:
             if self._nystrom:
                 self._model = JGaussianProcessRegression.nystrom(x.tojarray('double'),
-                    y.tojarray('double'), self._t.tojarray('double'), self._kernel, 
-                    self._L)
+                    y.tojarray('double'), self.t.tojarray('double'), self.kernel,
+                    self.L)
             else:
                 self._model = JGaussianProcessRegression.fit(x.tojarray('double'),
-                    y.tojarray('double'), self._t.tojarray('double'), self._kernel, 
-                    self._L)
+                    y.tojarray('double'), self.t.tojarray('double'), self.kernel,
+                    self.L)
         
         
 ##################################################

@@ -15,7 +15,7 @@ class KNearestNeighbor(Classifer):
     def __init__(self, k=1):
         super(KNearestNeighbor, self).__init__()
 
-        self._k = k
+        self.k = k
     
     def fit(self, x, y):
         """
@@ -25,7 +25,7 @@ class KNearestNeighbor(Classifer):
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """
         super(KNearestNeighbor, self).fit(x, y)
-        self._model = KNN.fit(x.tojarray('double'), y.tojarray('int'), self._k)
+        self._model = KNN.fit(x.tojarray('double'), y.tojarray('int'), self.k)
         
         
 ##################################################

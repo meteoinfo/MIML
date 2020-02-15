@@ -24,10 +24,10 @@ class SVR(Regressor):
             tol=1e-3, **kwargs):
         super(SVR, self).__init__()
         
-        self._kernal = get_kernel(kernel, **kwargs)
-        self._eps = eps
-        self._C = C
-        self._tol = tol        
+        self.kernal = get_kernel(kernel, **kwargs)
+        self.eps = eps
+        self.C = C
+        self.tol = tol
     
     def fit(self, x, y):
         """
@@ -38,7 +38,7 @@ class SVR(Regressor):
         """ 
         x = x.tojarray('double')
         y = y.tojarray('double')
-        self._model = JSVR.fit(x, y, self._kernal, self._eps, self._C, self._tol)
+        self._model = JSVR.fit(x, y, self.kernal, self.eps, self.C, self.tol)
         
         
 ##################################################

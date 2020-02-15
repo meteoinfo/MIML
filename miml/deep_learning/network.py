@@ -19,12 +19,15 @@ class Network(object):
 
     def __init__(self, seed=123, weight_init=None, updater=None,
             bias_init=None, mini_batch=None, layers=None, **kwargs):
-        self._seed = seed
-        self._weight_init = None if weight_init is None else network_util.get_weight_init(weight_init)
-        self._updater = None if updater is None else network_util.get_updater(updater)
-        self._bias_init = bias_init
-        self._mini_batch = mini_batch
+        self.seed = seed
+        self.weight_init = None if weight_init is None else network_util.get_weight_init(weight_init)
+        self.updater = None if updater is None else network_util.get_updater(updater)
+        self.bias_init = bias_init
+        self.mini_batch = mini_batch
         self.layers = layers
+        self.nout = None
+        self._model = None
+        self.score_iter = None
 
     def add(self, layer):
         '''
@@ -36,7 +39,7 @@ class Network(object):
             self.layers = []
         self.layers.append(layer)
         if isinstance(layer, Output):
-            self._nout = layer.nout
+            self.nout = layer.nout
 
     def compile(self, score_iter=10):
         '''
@@ -45,23 +48,23 @@ class Network(object):
         :param score_iter: (*int*) Number of parameter updates for printing score
         '''
         confb = NeuralNetConfiguration.Builder() \
-            .seed(self._seed)
-        if not self._updater is None:
-            confb.updater(self._updater)
-        if not self._weight_init is None:
-            confb.weightInit(self._weight_init)
-        if not self._bias_init is None:
-            confb.biasInit(self._bias_init)
-        if not self._mini_batch is None:
-            confb.miniBatch(self._mini_batch)
+            .seed(self.seed)
+        if not self.updater is None:
+            confb.updater(self.updater)
+        if not self.weight_init is None:
+            confb.weightInit(self.weight_init)
+        if not self.bias_init is None:
+            confb.biasInit(self.bias_init)
+        if not self.mini_batch is None:
+            confb.miniBatch(self.mini_batch)
         confb = confb.list()
         for layer in self.layers:
             confb.layer(layer._layer)
         conf = confb.build()
         self._model = MultiLayerNetwork(conf)
         self._model.init()
-        self._score_iter = score_iter
-        self._model.setListeners(ScoreIterationListener(self._score_iter))
+        self.score_iter = score_iter
+        self._model.setListeners(ScoreIterationListener(self.score_iter))
 
     def fit(self, x, y, epochs=1, batchsize=None):
         """
@@ -76,7 +79,7 @@ class Network(object):
         x = Nd4jUtil.toNDArray(x._array)
         if y.ndim == 1:
             #y = y.tojarray('int')
-            y = Nd4jUtil.toNDMatrix(y._array, self._nout)
+            y = Nd4jUtil.toNDMatrix(y._array, self.nout)
         else:
             y = Nd4jUtil.toNDArray(y._array)
         stride = epochs / 10;
@@ -128,7 +131,7 @@ class Network(object):
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         :param batchsize: (*int*) Batch size of training data for each fit process.
         """
-        _eval = Evaluation(self._nout)
+        _eval = Evaluation(self.nout)
         n = len(x)
         x = Nd4jUtil.toNDArray(x._array)
         if batchsize is None:

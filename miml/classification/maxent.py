@@ -30,10 +30,10 @@ class Maxent(Classifer):
     def __init__(self, p, L=0.1, tol=1e-5, max_iter=500):
         super(Maxent, self).__init__()
 
-        self._p = p
-        self._L = L
-        self._tol = tol
-        self._max_iter = max_iter
+        self.p = p
+        self.L = L
+        self.tol = tol
+        self.max_iter = max_iter
 
     def fit(self, x, y):
         """
@@ -43,8 +43,8 @@ class Maxent(Classifer):
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """
         super(Maxent, self).fit(x, y)
-        self._model = JMaxent.fit(self._p, x.tojarray('int'), y.tojarray('int'),
-                                              self._L, self._tol, self._max_iter)
+        self._model = JMaxent.fit(self.p, x.tojarray('int'), y.tojarray('int'),
+                                              self.L, self.tol, self.max_iter)
 
 
 ##################################################

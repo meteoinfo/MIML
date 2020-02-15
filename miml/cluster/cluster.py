@@ -7,7 +7,7 @@ class Cluster(object):
     '''
     
     def __init__(self):
-        self._estimator_type = 'cluster'
+        self.estimator_type = 'cluster'
         self._model = None
     
     def __str__(self):

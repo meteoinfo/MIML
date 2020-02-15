@@ -26,9 +26,9 @@ class SpectralClustering(Cluster):
     def __init__(self, k, l=None, sigma=None):
         super(SpectralClustering, self).__init__()
         
-        self._k = k
-        self._l = l
-        self._sigma = sigma
+        self.k = k
+        self.l = l
+        self.sigma = sigma
         
     def fit(self, x):
         """
@@ -38,10 +38,10 @@ class SpectralClustering(Cluster):
         
         :returns: self.
         """
-        if self._l is None:
-            self._model = JSpectralClustering.fit(x.tojarray('double'), self._k, self._sigma)
+        if self.l is None:
+            self._model = JSpectralClustering.fit(x.tojarray('double'), self.k, self.sigma)
         else:
-            self._model = JSpectralClustering.fit(x.tojarray('double'), self._k, self._l, self._sigma)
+            self._model = JSpectralClustering.fit(x.tojarray('double'), self.k, self.l, self.sigma)
         return self
     
     def fit_predict(self, x):

@@ -24,9 +24,9 @@ class OLS(Regressor):
     def __init__(self, method='qr', stderr=True, recursive=True):
         super(OLS, self).__init__()
         
-        self._method = method
-        self._stderr = stderr
-        self._recursive = recursive
+        self.method = method
+        self.stderr = stderr
+        self.recursive = recursive
     
     def fit(self, x, y):
         """
@@ -37,7 +37,7 @@ class OLS(Regressor):
         """
         df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
         formula = Formula.lhs("class")
-        self._model = JOLS.fit(formula, df, self._method, self._stderr, self._recursive)
+        self._model = JOLS.fit(formula, df, self.method, self.stderr, self.recursive)
         
         
 ##################################################

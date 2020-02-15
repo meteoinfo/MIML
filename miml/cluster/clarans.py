@@ -1,6 +1,7 @@
 
 from smile.clustering import CLARANS as JCLARANS
 from smile.math import MathEx
+from smile.math.distance import EuclideanDistance
 from java.util.function import ToDoubleBiFunction
 
 import mipylib.numeric as np
@@ -32,8 +33,8 @@ class CLARANS(Cluster):
     def __init__(self, k, max_neighbor=None):
         super(CLARANS, self).__init__()
         
-        self._k = k
-        self._max_neighbor = max_neighbor
+        self.k = k
+        self.max_neighbor = max_neighbor
         
     def fit(self, x):
         """
@@ -43,8 +44,8 @@ class CLARANS(Cluster):
         
         :returns: self.
         """
-        self._model = JCLARANS.fit(x.tojarray('double'), self._k, self._max_neighbor,
-            dbiF())
+        self._model = JCLARANS.fit(x.tojarray('double'), self.k, self.max_neighbor,
+                                   EuclideanDistance())
         return self
     
     def fit_predict(self, x):

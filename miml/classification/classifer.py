@@ -10,9 +10,9 @@ class Classifer(object):
     '''
     
     def __init__(self):
-        self._estimator_type = 'classifier'
+        self.estimator_type = 'classifier'
         self._model = None
-        self._nclass = 2    #the number of classes
+        self.nclass = 2    #the number of classes
     
     def __str__(self):
         _str = self.__class__.__name__
@@ -31,7 +31,7 @@ class Classifer(object):
         :param x: (*array*) Training samples. 2D array.
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         '''
-        self._nclass = int(y.max()) + 1
+        self.nclass = int(y.max()) + 1
     
     def predict(self, x):
         """
@@ -67,7 +67,7 @@ class Classifer(object):
         y : the probability of the sample for each class in the model.
         """
         x = np.atleast_2d(x)
-        r = SmileUtil.predictProbability(self._model, x.tojarray('double'), self._nclass)
+        r = SmileUtil.predictProbability(self._model, x.tojarray('double'), self.nclass)
         return np.array(r)
 
     def score(self, X, y, sample_weight=None):

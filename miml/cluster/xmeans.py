@@ -20,7 +20,7 @@ class XMeans(Cluster):
     def __init__(self, k_max=100):
         super(XMeans, self).__init__()
         
-        self._k_max = k_max        
+        self.k_max = k_max
         
     def fit(self, x):
         """
@@ -30,7 +30,7 @@ class XMeans(Cluster):
         
         :returns: self.
         """
-        self._model = JXMeans.fit(x.tojarray('double'), self._k_max)
+        self._model = JXMeans.fit(x.tojarray('double'), self.k_max)
         return self
     
     def fit_predict(self, x):

@@ -30,11 +30,11 @@ class DeterministicAnnealing(Cluster):
     def __init__(self, k_max, alpha=0.9, max_iter=100, tol=1e-4, split_tol=1e-2):
         super(DeterministicAnnealing, self).__init__()
         
-        self._k_max = k_max
-        self._alpha = alpha
-        self._max_iter = max_iter
-        self._tol = tol
-        self._split_tol = split_tol
+        self.k_max = k_max
+        self.alpha = alpha
+        self.max_iter = max_iter
+        self.tol = tol
+        self.split_tol = split_tol
         
     def fit(self, x):
         """
@@ -44,8 +44,8 @@ class DeterministicAnnealing(Cluster):
         
         :returns: self.
         """
-        self._model = JDeterministicAnnealing.fit(x.tojarray('double'), self._k_max, self._alpha,
-            self._max_iter, self._tol, self._split_tol)
+        self._model = JDeterministicAnnealing.fit(x.tojarray('double'), self.k_max, self.alpha,
+            self.max_iter, self.tol, self.split_tol)
         return self
     
     def fit_predict(self, x):

@@ -36,13 +36,13 @@ class MLPClassifer(Classifer):
             epochs=10, eta=0.1, alpha=0., L=0.):
         super(MLPClassifer, self).__init__()
         
-        self._hidden_layer_sizes = hidden_layer_sizes
-        self._error = error
-        self._activation = activation
-        self._epochs = epochs
-        self._eta = eta
-        self._alpha = alpha
-        self._L = L
+        self.hidden_layer_sizes = hidden_layer_sizes
+        self.error = error
+        self.activation = activation
+        self.epochs = epochs
+        self.eta = eta
+        self.alpha = alpha
+        self.L = L
     
     def fit(self, x, y):
         """
@@ -54,7 +54,7 @@ class MLPClassifer(Classifer):
         super(MLPClassifer, self).fit(x, y)
         k = int(y.max()) + 1
         layers = []
-        for num_unit in self._hidden_layer_sizes:
+        for num_unit in self.hidden_layer_sizes:
             layers.append(Layer.sigmoid(num_unit))
         if k == 2:
             layers.append(Layer.mle(1, OutputFunction.SIGMOID))
@@ -62,13 +62,13 @@ class MLPClassifer(Classifer):
             layers.append(Layer.mle(k, OutputFunction.SOFTMAX))
         p = x.shape[1]
         self._model = MLP(p, layers)
-        self._model.setLearningRate(self._eta)
-        self._model.setMomentum(self._alpha)
-        self._model.setWeightDecay(self._L)
+        self._model.setLearningRate(self.eta)
+        self._model.setMomentum(self.alpha)
+        self._model.setWeightDecay(self.L)
         
         x = x.tojarray('double')
         y = y.tojarray('int')
-        for epoch in range(self._epochs):
+        for epoch in range(self.epochs):
             permutation = MathEx.permutate(len(x))
             for i in permutation:
                 self._model.update(x[i], y[i])

@@ -20,8 +20,8 @@ class RBFNetwork(Classifer):
     def __init__(self, k=50, normalized=False):
         super(RBFNetwork, self).__init__()
 
-        self._k = k
-        self._normalized = normalized
+        self.k = k
+        self.normalized = normalized
 
     def fit(self, x, y):
         """
@@ -32,8 +32,8 @@ class RBFNetwork(Classifer):
         """
         super(RBFNetwork, self).fit(x, y)
         x = x.tojarray('double')
-        neurons = RBF.fit(x, self._k)
-        self._model = JRBFNetwork.fit(x, y.tojarray('int'), neurons, self._normalized)
+        neurons = RBF.fit(x, self.k)
+        self._model = JRBFNetwork.fit(x, y.tojarray('int'), neurons, self.normalized)
         
         
 ##################################################

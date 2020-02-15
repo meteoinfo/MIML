@@ -32,13 +32,13 @@ class GradientTreeBoost(Regressor):
             max_nodes=6, node_size=5, shrinkage=0.05, sub_sample=0.7):
         super(GradientTreeBoost, self).__init__()
 
-        self._loss = loss
-        self._ntrees = ntrees
-        self._max_depth = max_depth
-        self._max_nodes = max_nodes
-        self._node_size = node_size
-        self._shrinkage = shrinkage
-        self._sub_sample = sub_sample
+        self.loss = loss
+        self.ntrees = ntrees
+        self.max_depth = max_depth
+        self.max_nodes = max_nodes
+        self.node_size = node_size
+        self.shrinkage = shrinkage
+        self.sub_sample = sub_sample
     
     def fit(self, x, y):
         """
@@ -50,11 +50,11 @@ class GradientTreeBoost(Regressor):
         df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
         formula = Formula.lhs("class")
         if isinstance(self._loss, basestring):
-            self._loss = Loss.valueOf(self._loss)
-        if self._max_nodes == 0:
-            self._max_nodes = df.size() / 5
-        self._model = JGradientTreeBoost.fit(formula, df, self._loss, self._ntrees,
-            self._max_depth, self._max_nodes, self._node_size, self._shrinkage, self._sub_sample)
+            self.loss = Loss.valueOf(self.loss)
+        if self.max_nodes == 0:
+            self.max_nodes = df.size() / 5
+        self._model = JGradientTreeBoost.fit(formula, df, self.loss, self.ntrees,
+            self.max_depth, self.max_nodes, self.node_size, self.shrinkage, self.sub_sample)
 
     def predict(self, x):
         x = np.atleast_2d(x)

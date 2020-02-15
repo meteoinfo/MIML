@@ -29,9 +29,9 @@ class MEC(Cluster):
     def __init__(self, distance='euclidean', k=None, radius=None):
         super(MEC, self).__init__()
         
-        self._distance = distance
-        self._k = k
-        self._radius = radius        
+        self.distance = distance
+        self.k = k
+        self.radius = radius
         
     def fit(self, x):
         """
@@ -41,8 +41,8 @@ class MEC(Cluster):
         
         :returns: self.
         """
-        distance = smile_util.get_distance(self._distance) 
-        self._model = JMEC.fit(x.tojarray('double'), distance, self._k, self._radius)
+        distance = smile_util.get_distance(self.distance)
+        self._model = JMEC.fit(x.tojarray('double'), distance, self.k, self.radius)
         return self
     
     def fit_predict(self, x):

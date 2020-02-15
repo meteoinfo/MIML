@@ -26,8 +26,8 @@ class FisherLinearDiscriminant(Classifer):
     def __init__(self, L=-1, tol=0.0001):
         super(FisherLinearDiscriminant, self).__init__()
         
-        self._L = L
-        self._tol = tol
+        self.L = L
+        self.tol = tol
          
     def fit(self, x, y):
         '''
@@ -38,6 +38,6 @@ class FisherLinearDiscriminant(Classifer):
         '''
         super(FisherLinearDiscriminant, self).fit(x, y)
         self._model = FLD.fit(x.tojarray('double'), y.tojarray('int'),
-            self._L, self._tol) 
+            self.L, self.tol)
         
 ##################################################

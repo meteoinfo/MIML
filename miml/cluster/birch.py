@@ -23,10 +23,10 @@ class BIRCH(Cluster):
     def __init__(self, k, min_pts=None, branch=None, radius=None):
         super(BIRCH, self).__init__()
         
-        self._k = k
-        self._min_pts = min_pts
-        self._branch = branch
-        self._radius = radius        
+        self.k = k
+        self.min_pts = min_pts
+        self.branch = branch
+        self.radius = radius
         
     def fit(self, x):
         """
@@ -37,10 +37,10 @@ class BIRCH(Cluster):
         :returns: self.
         """
         n = x.shape[0]
-        self._model = JBIRCH(x.shape[1], self._branch, self._radius)
+        self._model = JBIRCH(x.shape[1], self.branch, self.radius)
         for i in range(n):
             self._model.add(x[i,:])
-        self._model.partition(self._k, self._min_pts)
+        self._model.partition(self.k, self.min_pts)
         return self
 
     def fit_predict(self, x):

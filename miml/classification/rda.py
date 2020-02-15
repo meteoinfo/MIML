@@ -27,9 +27,9 @@ class RegularizedDiscriminantAnalysis(Classifer):
     def __init__(self, alpha, priori=None, tol=0.0001):
         super(RegularizedDiscriminantAnalysis, self).__init__()
 
-        self._alpha = alpha
-        self._priori = priori
-        self._tol = tol
+        self.alpha = alpha
+        self.priori = priori
+        self.tol = tol
     
     def fit(self, x, y):
         """
@@ -39,9 +39,9 @@ class RegularizedDiscriminantAnalysis(Classifer):
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """
         super(RegularizedDiscriminantAnalysis, self).fit(x, y)
-        priori = None if self._priori is None else self._priori.tojarray('double')
+        priori = None if self.priori is None else self.priori.tojarray('double')
         self._model = RDA.fit(x.tojarray('double'), y.tojarray('int'),
-                self._alpha, priori, self._tol)
+                self.alpha, priori, self.tol)
         
         
 ##################################################

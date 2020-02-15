@@ -31,9 +31,9 @@ class SIB(Cluster):
     def __init__(self, k, max_iter=100, runs=8):
         super(SIB, self).__init__()
         
-        self._k = k
-        self._max_iter = max_iter
-        self._runs = runs
+        self.k = k
+        self.max_iter = max_iter
+        self.runs = runs
         
     def fit(self, x):
         """
@@ -43,7 +43,8 @@ class SIB(Cluster):
         
         :returns: self.
         """
-        self._model = PartitionClustering.run(self._runs, supF(x.tojarray('double'), self._k, self._max_iter))
+        self._model = PartitionClustering.run(self.runs, supF(x.tojarray('double'), self.k,
+            self.max_iter))
         return self
     
     def fit_predict(self, x):

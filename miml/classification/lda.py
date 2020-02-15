@@ -28,8 +28,8 @@ class LinearDiscriminantAnalysis(Classifer):
     def __init__(self, priori=None, tol=0.0001):
         super(LinearDiscriminantAnalysis, self).__init__()
         
-        self._priori = priori
-        self._tol = tol
+        self.priori = priori
+        self.tol = tol
     
     def fit(self, x, y):
         """
@@ -39,8 +39,8 @@ class LinearDiscriminantAnalysis(Classifer):
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """
         super(LinearDiscriminantAnalysis, self).fit(x, y)
-        priori = None if self._priori is None else self._priori.tojarray('double')
-        self._model = LDA.fit(x.tojarray('double'), y.tojarray('int'), priori, self._tol)
+        priori = None if self.priori is None else self.priori.tojarray('double')
+        self._model = LDA.fit(x.tojarray('double'), y.tojarray('int'), priori, self.tol)
         
         
 ##################################################

@@ -26,8 +26,8 @@ class DENCLUE(Cluster):
     def __init__(self, sigma=None, m=None):
         super(DENCLUE, self).__init__()
         
-        self._sigma = sigma
-        self._m = m
+        self.sigma = sigma
+        self.m = m
         
     def fit(self, x):
         """
@@ -37,7 +37,7 @@ class DENCLUE(Cluster):
         
         :returns: self.
         """
-        self._model = JDENCLUE.fit(x.tojarray('double'), self._sigma, self._m)
+        self._model = JDENCLUE.fit(x.tojarray('double'), self.sigma, self.m)
         return self
     
     def fit_predict(self, x):

@@ -28,9 +28,9 @@ class DBSCAN(Cluster):
     def __init__(self, distance='euclidean', min_pts=None, radius=None):
         super(DBSCAN, self).__init__()
         
-        self._distance = distance
-        self._min_pts = min_pts
-        self._radius = radius 
+        self.distance = distance
+        self.min_pts = min_pts
+        self.radius = radius
         
     def fit(self, x):
         """
@@ -40,9 +40,9 @@ class DBSCAN(Cluster):
         
         :returns: self.
         """
-        distance = smile_util.get_distance(self._distance) 
+        distance = smile_util.get_distance(self.distance)
         self._model = JDBSCAN.fit(x.tojarray('double'), distance,
-            self._min_pts, self._radius)
+            self.min_pts, self.radius)
         return self
     
     def fit_predict(self, x):

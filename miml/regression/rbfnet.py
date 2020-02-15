@@ -21,8 +21,8 @@ class RBFNetwork(Regressor):
             normalized=False):
         super(RBFNetwork, self).__init__()
 
-        self._k = k
-        self._normalized = normalized
+        self.k = k
+        self.normalized = normalized
     
     def fit(self, x, y):
         """
@@ -32,8 +32,8 @@ class RBFNetwork(Regressor):
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         """
         x = x.tojarray('double')
-        neurons = RBF.fit(x, self._k)
-        self._model = JRBFNetwork.fit(x, y.tojarray('double'), neurons, self._normalized)
+        neurons = RBF.fit(x, self.k)
+        self._model = JRBFNetwork.fit(x, y.tojarray('double'), neurons, self.normalized)
         
         
 ##################################################

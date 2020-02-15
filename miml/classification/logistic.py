@@ -23,9 +23,9 @@ class LogisticRegression(Classifer):
     def __init__(self, L=0., tol=1e-5, max_iter=500):
         super(LogisticRegression, self).__init__()
         
-        self._L = L
-        self._tol = tol
-        self._max_iter = max_iter
+        self.L = L
+        self.tol = tol
+        self.max_iter = max_iter
     
     def fit(self, x, y):
         """
@@ -36,7 +36,7 @@ class LogisticRegression(Classifer):
         """
         super(LogisticRegression, self).fit(x, y)
         self._model = JLogisticRegression.fit(x.tojarray('double'), y.tojarray('int'),
-            self._L, self._tol, self._max_iter)
+            self.L, self.tol, self.max_iter)
         
         
 ##################################################

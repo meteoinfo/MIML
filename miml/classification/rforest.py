@@ -34,14 +34,14 @@ class RandomForest(Classifer):
             mtry=0, sub_sample=1.0, split_rule='gini', class_weight=None):
         super(RandomForest, self).__init__()
 
-        self._ntrees = ntrees
-        self._max_depth = max_depth
-        self._max_nodes = max_nodes
-        self._node_size = node_size
-        self._mtry = mtry
-        self._sub_sample = sub_sample
-        self._split_rule = SplitRule.valueOf(split_rule.upper())
-        self._class_weight = class_weight
+        self.ntrees = ntrees
+        self.max_depth = max_depth
+        self.max_nodes = max_nodes
+        self.node_size = node_size
+        self.mtry = mtry
+        self.sub_sample = sub_sample
+        self.split_rule = SplitRule.valueOf(split_rule.upper())
+        self.class_weight = class_weight
     
     def fit(self, x, y):
         """
@@ -53,12 +53,12 @@ class RandomForest(Classifer):
         super(RandomForest, self).fit(x, y)
         df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
         formula = Formula.lhs("class")
-        if self._max_nodes == 0:
-            self._max_nodes = df.size() / 5
-        if self._mtry == 0:
-            self._mtry = int(math.floor(math.sqrt(df.ncols() - 1)))
-        self._model = JRandomForest.fit(formula, df, self._ntrees, self._mtry, self._split_rule,
-            self._max_depth, self._max_nodes, self._node_size, self._sub_sample)
+        if self.max_nodes == 0:
+            self.max_nodes = df.size() / 5
+        if self.mtry == 0:
+            self.mtry = int(math.floor(math.sqrt(df.ncols() - 1)))
+        self._model = JRandomForest.fit(formula, df, self.ntrees, self.mtry, self.split_rule,
+            self.max_depth, self.max_nodes, self.node_size, self.sub_sample)
 
     def predict(self, x):
         x = np.atleast_2d(x)

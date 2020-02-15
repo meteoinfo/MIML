@@ -33,8 +33,8 @@ class HierarchicalClustering(Cluster):
     def __init__(self, k=2, linkage='single'):
         super(HierarchicalClustering, self).__init__()
         
-        self._k = k
-        self._linkage = linkage
+        self.k = k
+        self.linkage = linkage
         
     def _get_linkage(self, linkage, proximity):
         '''
@@ -73,7 +73,7 @@ class HierarchicalClustering(Cluster):
         :returns: self.
         """
         proximity = smile_util.pdist(x)
-        linkage = self._get_linkage(self._linkage, proximity)
+        linkage = self._get_linkage(self.linkage, proximity)
         self._model = JHierarchicalClustering.fit(linkage)
         return self
     
@@ -87,7 +87,7 @@ class HierarchicalClustering(Cluster):
         """
         self.fit(x)
         
-        r = self._model.partition(self._k)
+        r = self._model.partition(self.k)
         return np.array(r)
         
         

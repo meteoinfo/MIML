@@ -35,10 +35,10 @@ class KMeans(Cluster):
     def __init__(self, k, max_iter=100, tol=1e-4, runs=10):
         super(KMeans, self).__init__()
         
-        self._k = k
-        self._max_iter = max_iter
-        self._tol = tol
-        self._runs = runs
+        self.k = k
+        self.max_iter = max_iter
+        self.tol = tol
+        self.runs = runs
         
     def fit(self, x):
         """
@@ -48,8 +48,8 @@ class KMeans(Cluster):
         
         :returns: self.
         """
-        self._model = PartitionClustering.run(self._runs, supF(x.tojarray('double'), self._k, self._max_iter, self._tol))
-        #self._model = JKMeans.fit(x.tojarray('double'), self._k, self._max_iter, self._tol)
+        self._model = PartitionClustering.run(self.runs, supF(x.tojarray('double'), self.k, self.max_iter, self.tol))
+        #self._model = JKMeans.fit(x.tojarray('double'), self.k, self.max_iter, self.tol)
         return self
     
     def fit_predict(self, x):

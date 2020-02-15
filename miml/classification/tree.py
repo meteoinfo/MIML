@@ -26,10 +26,10 @@ class DecisionTree(Classifer):
     def __init__(self, split_rule='gini', max_depth=20, max_nodes=0, node_size=5):
         super(DecisionTree, self).__init__()
 
-        self._split_rule = SplitRule.valueOf(split_rule.upper())
-        self._max_depth = max_depth
-        self._max_nodes = max_nodes
-        self._node_size = node_size
+        self.split_rule = SplitRule.valueOf(split_rule.upper())
+        self.max_depth = max_depth
+        self.max_nodes = max_nodes
+        self.node_size = node_size
     
     def fit(self, x, y):
         """
@@ -41,10 +41,10 @@ class DecisionTree(Classifer):
         super(DecisionTree, self).fit(x, y)
         df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
         formula = Formula.lhs("class")
-        if self._max_nodes == 0:
-            self._max_nodes = df.size() / 5
-        self._model = JDecisionTree.fit(formula, df, self._split_rule, self._max_depth,
-            self._max_nodes, self._node_size)
+        if self.max_nodes == 0:
+            self.max_nodes = df.size() / 5
+        self._model = JDecisionTree.fit(formula, df, self.split_rule, self.max_depth,
+            self.max_nodes, self.node_size)
 
     def predict(self, x):
         x = np.atleast_2d(x)

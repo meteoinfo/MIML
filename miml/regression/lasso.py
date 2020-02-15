@@ -24,9 +24,9 @@ class LASSO(Regressor):
     def __init__(self, L=None, tol=1e-3, max_iter=5000):
         super(LASSO, self).__init__()
         
-        self._L = L
-        self._tol = tol
-        self._max_iter = max_iter
+        self.L = L
+        self.tol = tol
+        self.max_iter = max_iter
     
     def fit(self, x, y):
         """
@@ -37,7 +37,7 @@ class LASSO(Regressor):
         """
         df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
         formula = Formula.lhs("class")
-        self._model = JLASSO.fit(formula, df, self._L, self._tol, self._max_iter)
+        self._model = JLASSO.fit(formula, df, self.L, self.tol, self.max_iter)
         
         
 ##################################################

@@ -20,7 +20,7 @@ class GMeans(Cluster):
     def __init__(self, k_max=100):
         super(GMeans, self).__init__()
         
-        self._k_max = k_max
+        self.k_max = k_max
         
     def fit(self, x):
         """
@@ -30,7 +30,7 @@ class GMeans(Cluster):
         
         :returns: self.
         """
-        self._model = JGMeans.fit(x.tojarray('double'), self._k_max)
+        self._model = JGMeans.fit(x.tojarray('double'), self.k_max)
         return self
     
     def fit_predict(self, x):

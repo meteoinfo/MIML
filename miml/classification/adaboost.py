@@ -27,10 +27,10 @@ class AdaBoost(Classifer):
     def __init__(self, ntrees=500, max_depth=20, max_nodes=6, node_size=1):
         super(AdaBoost, self).__init__()
 
-        self._ntrees = ntrees
-        self._max_depth = max_depth
-        self._max_nodes = max_nodes
-        self._node_size = node_size
+        self.ntrees = ntrees
+        self.max_depth = max_depth
+        self.max_nodes = max_nodes
+        self.node_size = node_size
         
     def fit(self, x, y):
         '''
@@ -42,10 +42,10 @@ class AdaBoost(Classifer):
         super(AdaBoost, self).fit(x, y)
         df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
         formula = Formula.lhs("class")
-        if self._max_nodes == 0:
-            self._max_nodes = df.size() / 5
-        self._model = JAdaBoost.fit(formula, df, self._ntrees, self._max_depth,
-            self._max_nodes, self._node_size)
+        if self.max_nodes == 0:
+            self.max_nodes = df.size() / 5
+        self._model = JAdaBoost.fit(formula, df, self.ntrees, self.max_depth,
+            self.max_nodes, self.node_size)
 
     def predict(self, x):
         x = np.atleast_2d(x)

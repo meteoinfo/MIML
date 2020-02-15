@@ -24,9 +24,9 @@ class RegressionTree(Regressor):
     def __init__(self,  max_depth=20, max_nodes=0, node_size=5):
         super(RegressionTree, self).__init__()
 
-        self._max_depth = max_depth
-        self._max_nodes = max_nodes
-        self._node_size = node_size
+        self.max_depth = max_depth
+        self.max_nodes = max_nodes
+        self.node_size = node_size
     
     def fit(self, x, y):
         """
@@ -37,9 +37,9 @@ class RegressionTree(Regressor):
         """
         df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
         formula = Formula.lhs("class")
-        if self._max_nodes == 0:
-            self._max_nodes = df.size() / 5
-        self._model = JRegressionTree.fit(formula, df, self._max_depth, self._max_nodes, self._node_size)
+        if self.max_nodes == 0:
+            self.max_nodes = df.size() / 5
+        self._model = JRegressionTree.fit(formula, df, self.max_depth, self.max_nodes, self.node_size)
 
     def predict(self, x):
         x = np.atleast_2d(x)

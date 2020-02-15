@@ -37,10 +37,10 @@ class SVM(Classifer):
         **kwargs):
         super(SVM, self).__init__()
         
-        self._kernel = get_kernel(kernel, **kwargs)
-        self._C = C
-        self._tol = tol
-        self._strategy = strategy
+        self.kernel = get_kernel(kernel, **kwargs)
+        self.C = C
+        self.tol = tol
+        self.strategy = strategy
 
     
     def fit(self, x, y):
@@ -53,22 +53,22 @@ class SVM(Classifer):
         super(SVM, self).fit(x, y)
         k = int(y.max()) + 1
         if k == 2:
-            self._multiclass = False
+            self.multiclass = False
             y = (y * 2 - 1).copy()
             x = x.tojarray('double')
             y = y.tojarray('int')
-            self._model = JSVM.fit(x, y, self._kernel, self._C, self._tol)
+            self._model = JSVM.fit(x, y, self.kernel, self.C, self.tol)
         else:
-            self._multiclass = True
+            self.multiclass = True
             x = x.tojarray('double')
             y = y.tojarray('int')
-            if self._strategy == 'one_vs_one':
-                self._model = OneVersusOne.fit(x, y, biF(self._kernel, self._C, self._tol))
+            if self.strategy == 'one_vs_one':
+                self._model = OneVersusOne.fit(x, y, biF(self.kernel, self.C, self.tol))
             else:
-                self._model = OneVersusRest.fit(x, y, biF(self._kernel, self._C, self._tol))
+                self._model = OneVersusRest.fit(x, y, biF(self.kernel, self.C, self.tol))
 
     def predict(self, x):
-        if self._multiclass:
+        if self.multiclass:
             return super(SVM, self).predict(x)
         else:
             r = super(SVM, self).predict(x)
