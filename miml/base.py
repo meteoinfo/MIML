@@ -13,7 +13,7 @@ def is_classifier(estimator):
     out : bool
         True if estimator is a classifier and False otherwise.
     """
-    return getattr(estimator, "_estimator_type", None) == "classifier"
+    return getattr(estimator, "estimator_type", None) == "classifier"
 
 
 def is_regressor(estimator):
@@ -29,7 +29,7 @@ def is_regressor(estimator):
     out : bool
         True if estimator is a regressor and False otherwise.
     """
-    return getattr(estimator, "_estimator_type", None) == "regressor"
+    return getattr(estimator, "estimator_type", None) == "regressor"
 
 def is_cluster(estimator):
     """Returns True if the given estimator is (probably) a cluster.
@@ -44,7 +44,7 @@ def is_cluster(estimator):
     out : bool
         True if estimator is a cluster and False otherwise.
     """
-    return getattr(estimator, "_estimator_type", None) == "cluster"
+    return getattr(estimator, "estimator_type", None) == "cluster"
 
 def is_outlier_detector(estimator):
     """Returns True if the given estimator is (probably) an outlier detector.
@@ -59,4 +59,4 @@ def is_outlier_detector(estimator):
     out : bool
         True if estimator is an outlier detector and False otherwise.
     """
-    return getattr(estimator, "_estimator_type", None) == "outlier_detector"
+    return getattr(estimator, "estimator_type", None) == "outlier_detector"
