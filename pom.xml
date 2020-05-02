@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.meteothink</groupId>
     <artifactId>miml</artifactId>
-    <version>0.6</version>
+    <version>0.7</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,28 +16,28 @@
         <dependency>
             <groupId>com.github.haifengl</groupId>
             <artifactId>smile-core</artifactId>
-            <version>2.1.0</version>
+            <version>2.4.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.haifengl</groupId>
             <artifactId>smile-netlib</artifactId>
-            <version>2.1.0</version>
+            <version>2.4.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-core -->
         <dependency>
             <groupId>org.deeplearning4j</groupId>
             <artifactId>deeplearning4j-core</artifactId>
-            <version>1.0.0-beta5</version>
+            <version>1.0.0-beta6</version>
         </dependency>        
         <dependency>
             <groupId>org.datavec</groupId>
             <artifactId>datavec-api</artifactId>
-            <version>1.0.0-beta5</version>
+            <version>1.0.0-beta6</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>MeteoInfoLib</artifactId>
-            <version>2.1.3</version>
+            <version>2.2</version>
             <scope>${scopes.type}</scope>
         </dependency>
         <dependency>
@@ -92,15 +92,15 @@
                     <outputDirectory>./miml/lib</outputDirectory>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
-                <executions>
+                &lt;!&ndash;<executions>
                     <execution>
-                        <id>make-assembly</id> &lt;!&ndash; this is used for inheritance merges &ndash;&gt;
-                        <phase>package</phase> &lt;!&ndash; bind to the packaging phase &ndash;&gt;
+                        <id>make-assembly</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
                     </execution>
-                </executions>
+                </executions>&ndash;&gt;
             </plugin>-->
         </plugins>
     </build>
