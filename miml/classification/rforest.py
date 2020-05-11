@@ -62,7 +62,8 @@ class RandomForest(Classifer):
 
     def predict(self, x):
         x = np.atleast_2d(x)
-        df = SmileUtil.toDataFrame(x.asarray())
+        y = np.zeros(len(x))
+        df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
         r = self._model.predict(df)
         return np.array(r)
 

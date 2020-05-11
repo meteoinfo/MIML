@@ -23,16 +23,26 @@
             <artifactId>smile-netlib</artifactId>
             <version>2.4.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.haifengl</groupId>
+            <artifactId>smile-data</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.haifengl</groupId>
+            <artifactId>smile-io</artifactId>
+            <version>2.4.0</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-core -->
         <dependency>
             <groupId>org.deeplearning4j</groupId>
             <artifactId>deeplearning4j-core</artifactId>
-            <version>1.0.0-beta6</version>
+            <version>1.0.0-beta5</version>
         </dependency>        
         <dependency>
             <groupId>org.datavec</groupId>
             <artifactId>datavec-api</artifactId>
-            <version>1.0.0-beta6</version>
+            <version>1.0.0-beta5</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -83,7 +93,7 @@
                     <outputDirectory>./miml/lib</outputDirectory>
                 </configuration>
             </plugin>
-            <!--<plugin>
+            <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <descriptorRefs>
@@ -92,7 +102,7 @@
                     <outputDirectory>./miml/lib</outputDirectory>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
-                &lt;!&ndash;<executions>
+                <!--<executions>
                     <execution>
                         <id>make-assembly</id>
                         <phase>package</phase>
@@ -100,8 +110,8 @@
                             <goal>single</goal>
                         </goals>
                     </execution>
-                </executions>&ndash;&gt;
-            </plugin>-->
+                </executions>-->
+            </plugin>
         </plugins>
     </build>
 </project>

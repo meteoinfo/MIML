@@ -6,6 +6,7 @@ from java.util.function import ToDoubleBiFunction
 
 import mipylib.numeric as np
 from .cluster import Cluster
+from ..utils import smile_util
 
 class dbiF(ToDoubleBiFunction):
     def applyAsDouble(self, x, y):
@@ -25,14 +26,16 @@ class CLARANS(Cluster):
     if the neighbor is a better choice for medoids. Otherwise, a local optima is discovered. The 
     entire process is repeated multiple time to find better.
 
+    :param distance: (*string*) The distance.
     :param k: (*int*) Number of clusters.
     :param max_neighbor: (*int*) the maximum number of neighbors examined during a random search of 
         local minima.
     '''
     
-    def __init__(self, k, max_neighbor=None):
+    def __init__(self, k, distance='euclidean', max_neighbor=None):
         super(CLARANS, self).__init__()
-        
+
+        self.distance = distance
         self.k = k
         self.max_neighbor = max_neighbor
         
@@ -44,8 +47,8 @@ class CLARANS(Cluster):
         
         :returns: self.
         """
-        self._model = JCLARANS.fit(x.tojarray('double'), self.k, self.max_neighbor,
-                                   EuclideanDistance())
+        distance = smile_util.get_distance(self.distance)
+        self._model = JCLARANS.fit(x.tojarray('double'), distance, self.k, self.max_neighbor)
         return self
     
     def fit_predict(self, x):

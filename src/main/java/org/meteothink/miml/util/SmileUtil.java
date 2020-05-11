@@ -71,7 +71,7 @@ public class SmileUtil {
         int nCol = x.getRank() == 1 ? 1 : shape[1];
         StructField[] fields = new StructField[nCol];
         for (int i = 0; i < fields.length; i++) {
-            fields[i] = new StructField("x" + String.valueOf(i + 1),
+            fields[i] = new StructField("V" + String.valueOf(i + 1),
                     DataType.of(x.getDataType().getClassType()));
         }
         StructType schema = DataTypes.struct(fields);
@@ -100,21 +100,21 @@ public class SmileUtil {
         int nRow = shape[0];
         int nCol = x.getRank() == 1 ? 1 : shape[1];
         StructField[] fields = new StructField[nCol + 1];
+        fields[0] = new StructField("class", DataType.of(y.getDataType().getClassType()));
         for (int i = 0; i < nCol; i++) {
-            fields[i] = new StructField("x" + String.valueOf(i + 1),
+            fields[i + 1] = new StructField("V" + String.valueOf(i + 1),
                     DataType.of(x.getDataType().getClassType()));
         }
-        fields[nCol] = new StructField("class", DataType.of(y.getDataType().getClassType()));
         StructType schema = DataTypes.struct(fields);
         List<Tuple> rows = new ArrayList<>();
         IndexIterator iter = x.getIndexIterator();
         IndexIterator yIter = y.getIndexIterator();
         for (int i = 0; i < nRow; i++) {
             Object[] row = new Object[nCol + 1];
+            row[0] = yIter.getObjectNext();
             for (int j = 0; j < nCol; j++) {
-                row[j] = iter.getObjectNext();
+                row[j + 1] = iter.getObjectNext();
             }
-            row[nCol] = yIter.getObjectNext();
             rows.add(Tuple.of(row, schema));
         }
         schema = schema.boxed(rows);
