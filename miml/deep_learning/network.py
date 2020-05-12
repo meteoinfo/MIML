@@ -17,11 +17,13 @@ class Network(object):
 
     '''
 
-    def __init__(self, seed=123, weight_init=None, updater=None,
+    def __init__(self, seed=123, weight_init=None, learning_rate=None, optimizer=None, updater=None,
             bias_init=None, mini_batch=None, layers=None, **kwargs):
         self.seed = seed
-        self.weight_init = None if weight_init is None else network_util.get_weight_init(weight_init)
-        self.updater = None if updater is None else network_util.get_updater(updater)
+        self.weight_init = weight_init
+        self.learning_rate = learning_rate
+        self.optimizer = optimizer
+        self.updater = updater
         self.bias_init = bias_init
         self.mini_batch = mini_batch
         self.layers = layers
@@ -49,10 +51,14 @@ class Network(object):
         '''
         confb = NeuralNetConfiguration.Builder() \
             .seed(self.seed)
+        if not self.learning_rate is None:
+            confb.learningRate(self.learning_rate)
+        if not self.optimizer is None:
+            confb.optimizationAlgo(network_util.get_optimizer(self.optimizer))
         if not self.updater is None:
-            confb.updater(self.updater)
+            confb.updater(network_util.get_updater(self.updater))
         if not self.weight_init is None:
-            confb.weightInit(self.weight_init)
+            confb.weightInit(network_util.get_weight_init(self.weight_init))
         if not self.bias_init is None:
             confb.biasInit(self.bias_init)
         if not self.mini_batch is None:

@@ -3,6 +3,7 @@ from org.deeplearning4j.nn.weights import WeightInit
 from org.deeplearning4j.nn.conf.distribution import UniformDistribution
 from org.nd4j.linalg.lossfunctions import LossFunctions
 from org.nd4j.linalg.lossfunctions.impl import LossMCXENT
+from org.deeplearning4j.nn.api import OptimizationAlgorithm
 
 def get_updater(updater):
     '''
@@ -46,3 +47,12 @@ def get_loss_function(name, **kwargs):
         return LossMCXENT(weights)
     else:
         return LossFunctions.LossFunction.valueOf(name)
+
+def get_optimizer(name):
+    """
+    Get OptimizationAlgorithm enum
+    :param name: (*string*) Optimizer name
+    :return: OptimizationAlgorithm enum
+    """
+    name = name.upper()
+    return OptimizationAlgorithm.valueOf(name)
