@@ -1,4 +1,3 @@
-from org.meteothink.miml.data import AttributeDataset as JAttributeDataset
 import mipylib.numeric as np
 
 class AttributeDataset(object):
@@ -32,4 +31,5 @@ class AttributeDataset(object):
         '''
         Get y data array.
         '''
-        return np.array(self._dataset.y())
+        #return np.array(self._dataset.y())
+        return np.array(self._dataset.labels())

@@ -18,13 +18,15 @@ class Network(object):
     '''
 
     def __init__(self, seed=123, weight_init=None, learning_rate=None, optimizer=None, updater=None,
-            bias_init=None, mini_batch=None, layers=None, **kwargs):
+            bias_init=None, l1=None, l2=None, mini_batch=None, layers=None, **kwargs):
         self.seed = seed
         self.weight_init = weight_init
         self.learning_rate = learning_rate
         self.optimizer = optimizer
         self.updater = updater
         self.bias_init = bias_init
+        self.l1 = l1
+        self.l2 = l2
         self.mini_batch = mini_batch
         self.layers = layers
         self.nout = None
@@ -61,6 +63,10 @@ class Network(object):
             confb.weightInit(network_util.get_weight_init(self.weight_init))
         if not self.bias_init is None:
             confb.biasInit(self.bias_init)
+        if not self.l1 is None:
+            confb.l1(self.l1)
+        if not self.l2 is None:
+            confb.l2(self.l2)
         if not self.mini_batch is None:
             confb.miniBatch(self.mini_batch)
         confb = confb.list()
@@ -142,7 +148,7 @@ class Network(object):
         x = Nd4jUtil.toNDArray(x._array)
         if batchsize is None:
             y_pred = self._model.output(x)
-            y = FeatureUtil.toOutcomeMatrix(y.tojarray('int'), 2)
+            y = FeatureUtil.toOutcomeMatrix(y.tojarray('int'), self.nout)
             _eval.eval(y, y_pred)
         else:
             si = 0
@@ -150,7 +156,7 @@ class Network(object):
                 ei = si + batchsize if si + batchsize <= n else n
                 xx = x.get(NDArrayIndex.interval(si, ei))
                 yy = y[si:ei]
-                yy = FeatureUtil.toOutcomeMatrix(yy.tojarray('int'), 2)
+                yy = FeatureUtil.toOutcomeMatrix(yy.tojarray('int'), self.nout)
                 y_pred = self._model.output(xx)
                 _eval.eval(yy, y_pred)
                 si += batchsize

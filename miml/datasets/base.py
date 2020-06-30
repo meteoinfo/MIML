@@ -193,14 +193,10 @@ def load_digits(n_class=10, return_X_y=False):
     --------
     To load the data and visualize the images::
 
-        >>> from sklearn.datasets import load_digits
+        >>> from miml.datasets import load_digits
         >>> digits = load_digits()
         >>> print(digits.data.shape)
         (1797, 64)
-        >>> import matplotlib.pyplot as plt #doctest: +SKIP
-        >>> plt.gray() #doctest: +SKIP
-        >>> plt.matshow(digits.images[0]) #doctest: +SKIP
-        >>> plt.show() #doctest: +SKIP
     """
     module_path = os.path.dirname(__file__)
     fn = os.path.join(module_path, 'data', 'digits.csv.gz')

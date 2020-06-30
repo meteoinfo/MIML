@@ -12,17 +12,26 @@ class Dense(object):
     :param nin: (*int*) In node number.
     :param nout: (*int*) Out node number.
     :param activation: (*string*) Activation name.
+    :param weight_init: (*float*) Init weight.
+    :param dropout: (*float*) Dropout connection.
+    :param bias_init: (*int*) Initialize the bias.
     '''
 
-    def __init__(self, nin=2, nout=10, activation='relu', weight_init=None):
+    def __init__(self, nin=2, nout=10, activation='relu', weight_init=None, dropout=None, bias_init=None):
         self.nin = nin
         self.nout = nout
         self.activation = Activation.valueOf(activation.upper())
         self.weight_init = weight_init
+        self.dropout = dropout
+        self.bias_init = bias_init
         conf = DenseLayer.Builder().nIn(nin).nOut(nout) \
                 .activation(self.activation)
         if not self.weight_init is None:
             conf.weightInit(network_util.get_weight_init(self.weight_init))
+        if not self.dropout is None:
+            conf.dropOut(self.dropout)
+        if not self.bias_init is None:
+            conf.biasInit(self.bias_init)
         self._layer = conf.build()
 
 class Output(object):
