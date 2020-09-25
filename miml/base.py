@@ -1,5 +1,43 @@
 """Base classes for all estimators."""
 
+from org.python.util import PythonObjectInputStream
+from java import io
+
+class BaseEstimator(object):
+    """
+    Base class for all estimators
+    """
+    def __init__(self):
+        self.estimator_type = 'None'
+        self._model = None
+
+    def dump(self, fn):
+        """
+        Save model to file.
+
+        Parameters
+        ----------
+        fn : string
+             Output file name.
+        """
+        outs = io.ObjectOutputStream(io.FileOutputStream(fn))
+        outs.writeObject(self)
+        outs.close()
+
+    @staticmethod
+    def load(fn):
+        """
+        Load model from file.
+
+        :param fn: (*string*) Input file name.
+
+        :return: The loaded model.
+        """
+        ins = PythonObjectInputStream(io.FileInputStream(fn))
+        x = ins.readObject()
+        ins.close()
+        return x
+
 def is_classifier(estimator):
     """Returns True if the given estimator is (probably) a classifier.
 

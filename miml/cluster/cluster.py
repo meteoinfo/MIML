@@ -1,7 +1,6 @@
-from abc import abstractmethod
-import mipylib.numeric as np
+from ..base import BaseEstimator
 
-class Cluster(object):
+class Cluster(BaseEstimator):
     '''
     Clustering model base class.
     '''

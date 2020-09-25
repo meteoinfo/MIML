@@ -1,8 +1,9 @@
 from abc import abstractmethod
 import mipylib.numeric as np
 from ..metrics import r2_score
+from ..base import BaseEstimator
 
-class Regressor(object):
+class Regressor(BaseEstimator):
     '''
     Regression model base class.
     '''

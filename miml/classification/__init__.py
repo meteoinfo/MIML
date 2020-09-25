@@ -2,6 +2,7 @@
 The :mod:`miml.classification` module includes utilities classification`.
 """
 
+from .classifer import Classifer
 from .knn import KNearestNeighbor
 from .lda import LinearDiscriminantAnalysis
 from .fld import FisherLinearDiscriminant

@@ -1,10 +1,11 @@
 from abc import abstractmethod
 import mipylib.numeric as np
 from ..metrics import accuracy_score
+from ..base import BaseEstimator
 
 from org.meteothink.miml.util import SmileUtil
 
-class Classifer(object):
+class Classifer(BaseEstimator):
     '''
     Classification model base class.
     '''

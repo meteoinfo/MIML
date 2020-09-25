@@ -11,5 +11,7 @@ for fn in fns:
     
 __version__ = '0.7'
 
-__all__ = ['classification', 'cluster', 'datasets', 'neural_network', 'preprocessing',
-           'regression', 'utils', 'deep_learning','metrics','model_selection']
+from .base import BaseEstimator
+
+__all__ = ['BaseEstimator','classification','cluster','datasets','neural_network','preprocessing',
+           'regression','utils','deep_learning','metrics','model_selection']
