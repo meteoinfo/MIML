@@ -1,6 +1,5 @@
 import sys
 import os
-from org.meteoinfo.util import PathUtil
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 lib_dir = os.path.join(base_dir, 'lib')
