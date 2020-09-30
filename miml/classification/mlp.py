@@ -2,7 +2,7 @@
 
 from smile.classification import MLP
 from smile.base.mlp import Layer, OutputFunction
-from smile.math import MathEx
+from smile.math import MathEx, TimeFunction
 
 from .classifer import Classifer
 
@@ -62,8 +62,8 @@ class MLPClassifer(Classifer):
             layers.append(Layer.mle(k, OutputFunction.SOFTMAX))
         p = x.shape[1]
         self._model = MLP(p, layers)
-        self._model.setLearningRate(self.eta)
-        self._model.setMomentum(self.alpha)
+        self._model.setLearningRate(TimeFunction.constant(self.eta))
+        self._model.setMomentum(TimeFunction.constant(self.alpha))
         self._model.setWeightDecay(self.L)
         
         x = x.tojarray('double')

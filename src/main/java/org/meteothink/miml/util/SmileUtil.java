@@ -102,7 +102,7 @@ public class SmileUtil {
         StructField[] fields = new StructField[nCol + 1];
         fields[0] = new StructField("class", DataType.of(y.getDataType().getClassType()));
         for (int i = 0; i < nCol; i++) {
-            fields[i + 1] = new StructField("V" + String.valueOf(i + 1),
+            fields[i + 1] = new StructField("V" + (i + 1),
                     DataType.of(x.getDataType().getClassType()));
         }
         StructType schema = DataTypes.struct(fields);

@@ -4,6 +4,7 @@ from smile.regression import OLS as JOLS
 from smile.data.formula import Formula
 from org.meteothink.miml.util import SmileUtil
 
+import mipylib.numeric as np
 from .regressor import Regressor
 
 class OLS(Regressor):
@@ -38,6 +39,13 @@ class OLS(Regressor):
         df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
         formula = Formula.lhs("class")
         self._model = JOLS.fit(formula, df, self.method, self.stderr, self.recursive)
+
+    def predict(self, x):
+        x = np.atleast_2d(x)
+        y = np.zeros(len(x))
+        df = SmileUtil.toDataFrame(x.asarray(), y.asarray())
+        r = self._model.predict(df)
+        return np.array(r)
         
         
 ##################################################
