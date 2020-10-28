@@ -1,18 +1,13 @@
 # -*- coding: utf-8 -*-
-import os
-from org.encog import Encog
-from org.encog.ml.data import MLData
-from org.encog.ml.data import MLDataPair
-from org.encog.ml.data import MLDataSet
+import mipylib.numeric as np
+import numbers
+from layer import Layer
 from org.encog.ml.data.basic import BasicMLDataSet, BasicMLData
 from org.encog.neural.networks import BasicNetwork
 from org.encog.neural.networks.training.lma import LevenbergMarquardtTraining
 from org.encog.neural.networks.training.propagation.resilient import ResilientPropagation
 from org.encog.neural.networks.training.propagation.scg import ScaledConjugateGradient
-import mipylib.numeric as np
-import mlutil
-from layer import Layer
-import numbers
+
 
 class FeedforwardNetwork(object):
     

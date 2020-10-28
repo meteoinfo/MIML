@@ -14,9 +14,9 @@ for fn in fns:
         if not fpath in sys.path:
             sys.path.append(fpath)
     
-__version__ = '0.7'
+__version__ = '0.8'
 
 from .base import BaseEstimator
 
-__all__ = ['BaseEstimator','classification','cluster','datasets','neural_network','preprocessing',
+__all__ = ['__version__','BaseEstimator','classification','cluster','datasets','neural_network','preprocessing',
            'regression','utils','deep_learning','metrics','model_selection']
