@@ -1,4 +1,6 @@
 from ..base import BaseEstimator
+import mipylib.numeric as np
+from org.meteothink.miml.util import SmileUtil
 
 class Cluster(BaseEstimator):
     '''
@@ -37,3 +39,21 @@ class Cluster(BaseEstimator):
         :returns: (*array*) The cluster labels.
         """
         pass
+
+    def predict(self, x):
+        """
+        Predict the closest cluster each sample in X belongs to.
+
+        Parameters
+        ----------
+        X : array-like, new data to predict.
+
+        Returns
+        -------
+        y : array, index of the cluster each sample belongs to.
+        """
+        if x.ndim == 2:
+            r = SmileUtil.clusterPredict(self._model, x.tojarray('double'))
+        else:
+            r = self._model.predict(x.tojarray('double'))
+        return np.array(r)

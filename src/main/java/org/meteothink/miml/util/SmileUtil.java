@@ -5,9 +5,11 @@
  */
 package org.meteothink.miml.util;
 
+import org.meteoinfo.ndarray.Array;
 import org.meteoinfo.ndarray.IndexIterator;
 import smile.classification.DataFrameClassifier;
 import smile.classification.SoftClassifier;
+import smile.clustering.CentroidClustering;
 import smile.data.DataFrame;
 import smile.data.Tuple;
 import smile.data.type.DataType;
@@ -15,10 +17,7 @@ import smile.data.type.DataTypes;
 import smile.data.type.StructField;
 import smile.data.type.StructType;
 import smile.math.distance.Distance;
-import org.meteoinfo.ndarray.Array;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -150,5 +149,20 @@ public class SmileUtil {
         }
 
         return probability;
+    }
+
+    /**
+     * Cluster predict new data array
+     * @param clustering The cluster model
+     * @param x New data array
+     * @return Predicted index array
+     */
+    public static Array clusterPredict(CentroidClustering clustering, double[][] x) {
+        Array r = Array.factory(org.meteoinfo.ndarray.DataType.INT, new int[]{x.length});
+        for (int i = 0; i < x.length; i++) {
+            r.setInt(i, clustering.predict(x[i]));
+        }
+
+        return r;
     }
 }

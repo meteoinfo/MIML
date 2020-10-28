@@ -162,7 +162,7 @@
     <orderEntry type="library" name="Maven: net.sf.opencsv:opencsv:2.3" level="project" />
     <orderEntry type="library" name="Maven: com.tdunning:t-digest:3.2" level="project" />
     <orderEntry type="library" name="Maven: it.unimi.dsi:fastutil:6.5.7" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.meteothink:MeteoInfoLib:2.3.2" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.meteothink:MeteoInfoLib:2.3.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: edu.ucar:netcdfAll:5.3.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.l2fprod:l2fprod-common-all:0.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.freehep:freehep-graphics2d:2.4" level="project" />
@@ -223,8 +223,8 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.locationtech.jts:jts-core:1.17.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.locationtech.proj4j:proj4j:1.1.2-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.slf4j:slf4j-simple:1.7.19" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.formdev:flatlaf:0.42" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.formdev:flatlaf-extras:0.42" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.formdev:flatlaf:0.43" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.formdev:flatlaf-extras:0.43" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.formdev:svgSalamander:1.1.2.3" level="project" />
     <orderEntry type="library" name="Maven: org.encog:encog-core:3.4" level="project" />
   </component>
