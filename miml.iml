@@ -15,11 +15,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-core:2.5.3" level="project" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-math:2.5.3" level="project" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-graph:2.5.3" level="project" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-data:2.5.3" level="project" />
-    <orderEntry type="library" name="Maven: com.github.haifengl:smile-io:2.5.3" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-core:2.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-math:2.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-graph:2.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-data:2.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-io:2.6.0" level="project" />
     <orderEntry type="library" name="Maven: com.epam:parso:2.0.12" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-csv:1.8" level="project" />
     <orderEntry type="library" name="Maven: org.deeplearning4j:deeplearning4j-core:1.0.0-beta7" level="project" />
@@ -30,37 +30,14 @@
     <orderEntry type="library" name="Maven: org.deeplearning4j:deeplearning4j-datavec-iterators:1.0.0-beta7" level="project" />
     <orderEntry type="library" name="Maven: org.deeplearning4j:deeplearning4j-modelimport:1.0.0-beta7" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.0" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:hdf5-platform:1.12.0-1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp-platform:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:android-arm:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:android-arm64:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:android-x86:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:android-x86_64:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:ios-arm64:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:ios-x86_64:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:linux-armhf:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:linux-arm64:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:linux-ppc64le:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:linux-x86:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:linux-x86_64:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:macosx-x86_64:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:windows-x86:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:windows-x86_64:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:1.12.0-1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:linux-x86:1.12.0-1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:linux-x86_64:1.12.0-1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:linux-armhf:1.12.0-1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:linux-arm64:1.12.0-1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:linux-ppc64le:1.12.0-1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:macosx-x86_64:1.12.0-1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:windows-x86:1.12.0-1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:windows-x86_64:1.12.0-1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.21" level="project" />
     <orderEntry type="library" name="Maven: org.deeplearning4j:deeplearning4j-nn:1.0.0-beta7" level="project" />
     <orderEntry type="library" name="Maven: org.deeplearning4j:deeplearning4j-utility-iterators:1.0.0-beta7" level="project" />
     <orderEntry type="library" name="Maven: org.lucee:oswego-concurrent:1.3.4" level="project" />
     <orderEntry type="library" name="Maven: org.nd4j:nd4j-native-api:1.0.0-beta7" level="project" />
+    <orderEntry type="library" name="Maven: org.nd4j:nd4j-common:1.0.0-beta7" level="project" />
+    <orderEntry type="library" name="Maven: org.nd4j:guava:1.0.0-beta7" level="project" />
+    <orderEntry type="library" name="Maven: it.unimi.dsi:fastutil:6.5.7" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-math3:3.5" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-compress:1.18" level="project" />
@@ -72,6 +49,20 @@
     <orderEntry type="library" name="Maven: net.ericaro:neoitertools:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.6" level="project" />
     <orderEntry type="library" name="Maven: org.nd4j:jackson:1.0.0-beta7" level="project" />
+    <orderEntry type="library" name="Maven: org.datavec:datavec-api:1.0.0-beta7" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.10" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.freemarker:freemarker:2.3.23" level="project" />
+    <orderEntry type="library" name="Maven: com.clearspring.analytics:stream:2.9.8" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.opencsv:opencsv:2.3" level="project" />
+    <orderEntry type="library" name="Maven: com.tdunning:t-digest:3.2" level="project" />
+    <orderEntry type="library" name="Maven: org.deeplearning4j:deeplearning4j-ui-components:1.0.0-beta7" level="project" />
+    <orderEntry type="library" name="Maven: com.github.oshi:oshi-json:3.4.2" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish:javax.json:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: com.github.oshi:oshi-core:3.4.2" level="project" />
+    <orderEntry type="library" name="Maven: net.java.dev.jna:jna-platform:4.3.0" level="project" />
+    <orderEntry type="library" name="Maven: net.java.dev.jna:jna:4.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.threeten:threetenbp:1.3.3" level="project" />
     <orderEntry type="library" name="Maven: org.datavec:datavec-data-image:1.0.0-beta7" level="project" />
     <orderEntry type="library" name="Maven: com.github.jai-imageio:jai-imageio-core:1.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.twelvemonkeys.imageio:imageio-jpeg:3.1.1" level="project" />
@@ -83,6 +74,7 @@
     <orderEntry type="library" name="Maven: com.twelvemonkeys.imageio:imageio-tiff:3.1.1" level="project" />
     <orderEntry type="library" name="Maven: com.twelvemonkeys.imageio:imageio-psd:3.1.1" level="project" />
     <orderEntry type="library" name="Maven: com.twelvemonkeys.imageio:imageio-bmp:3.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.bytedeco:javacv:1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.bytedeco:openblas:0.3.9-1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.bytedeco:opencv:4.3.0-1.5.3" level="project" />
@@ -133,6 +125,21 @@
     <orderEntry type="library" name="Maven: org.bytedeco:opencv:windows-x86:4.3.0-1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.bytedeco:opencv:windows-x86_64:4.3.0-1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.bytedeco:leptonica-platform:1.79.0-1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp-platform:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:android-arm:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:android-arm64:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:android-x86:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:android-x86_64:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:ios-arm64:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:ios-x86_64:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:linux-armhf:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:linux-arm64:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:linux-ppc64le:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:linux-x86:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:linux-x86_64:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:macosx-x86_64:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:windows-x86:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:windows-x86_64:1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.bytedeco:leptonica:android-arm:1.79.0-1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.bytedeco:leptonica:android-arm64:1.79.0-1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.bytedeco:leptonica:android-x86:1.79.0-1.5.3" level="project" />
@@ -145,87 +152,17 @@
     <orderEntry type="library" name="Maven: org.bytedeco:leptonica:macosx-x86_64:1.79.0-1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.bytedeco:leptonica:windows-x86:1.79.0-1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.bytedeco:leptonica:windows-x86_64:1.79.0-1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.deeplearning4j:deeplearning4j-ui-components:1.0.0-beta7" level="project" />
-    <orderEntry type="library" name="Maven: com.github.oshi:oshi-json:3.4.2" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish:javax.json:1.0.4" level="project" />
-    <orderEntry type="library" name="Maven: com.github.oshi:oshi-core:3.4.2" level="project" />
-    <orderEntry type="library" name="Maven: net.java.dev.jna:jna-platform:4.3.0" level="project" />
-    <orderEntry type="library" name="Maven: net.java.dev.jna:jna:4.3.0" level="project" />
-    <orderEntry type="library" name="Maven: org.threeten:threetenbp:1.3.3" level="project" />
-    <orderEntry type="library" name="Maven: org.datavec:datavec-api:1.0.0-beta7" level="project" />
-    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.10" level="project" />
-    <orderEntry type="library" name="Maven: joda-time:joda-time:2.2" level="project" />
-    <orderEntry type="library" name="Maven: org.freemarker:freemarker:2.3.23" level="project" />
-    <orderEntry type="library" name="Maven: org.nd4j:nd4j-common:1.0.0-beta7" level="project" />
-    <orderEntry type="library" name="Maven: org.nd4j:guava:1.0.0-beta7" level="project" />
-    <orderEntry type="library" name="Maven: com.clearspring.analytics:stream:2.9.8" level="project" />
-    <orderEntry type="library" name="Maven: net.sf.opencsv:opencsv:2.3" level="project" />
-    <orderEntry type="library" name="Maven: com.tdunning:t-digest:3.2" level="project" />
-    <orderEntry type="library" name="Maven: it.unimi.dsi:fastutil:6.5.7" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.meteothink:MeteoInfoLib:2.3.5" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: edu.ucar:netcdfAll:5.3.3" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.l2fprod:l2fprod-common-all:0.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.freehep:freehep-graphics2d:2.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.freehep:freehep-graphicsbase:2.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.freehep:freehep-io:2.2.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: junit:junit:4.10" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.freehep:freehep-graphicsio-ps:2.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.freehep:freehep-graphicsio:2.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.freehep:freehep-graphicsio-tests:2.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.scilab.forge:jlatexmath:1.0.7" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.scilab.forge:jlatexmath-font-greek:1.0.7" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.scilab.forge:jlatexmath-font-cyrillic:1.0.7" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.python:jython-standalone:2.7.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.freehep:freehep-graphicsio-emf:2.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.freehep:freehep-graphicsio-pdf:2.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.commons:commons-imaging:1.0-alpha1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.toedter:jcalendar:1.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.ejml:ejml-experimental:0.32" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.ejml:ejml-core:0.32" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.ejml:ejml-ddense:0.32" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.ejml:ejml-dsparse:0.32" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.ejml:ejml-zdense:0.32" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.ejml:ejml-simple:0.32" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.ejml:ejml-fdense:0.32" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.ejml:ejml-cdense:0.32" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.mozilla.intl:chardet:1.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.meteothink:wContour:1.6.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.freehep:freehep-util:2.0.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.netbeans:openide-lookup:1.9-patched-1.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.itextpdf:itextpdf:5.5.7" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.gluegen:gluegen-rt-main:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.gluegen:gluegen-rt:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.gluegen:gluegen-rt:natives-android-aarch64:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.gluegen:gluegen-rt:natives-android-armv6:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.gluegen:gluegen-rt:natives-linux-amd64:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.gluegen:gluegen-rt:natives-linux-armv6:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.gluegen:gluegen-rt:natives-linux-armv6hf:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.gluegen:gluegen-rt:natives-linux-i586:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.gluegen:gluegen-rt:natives-macosx-universal:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.gluegen:gluegen-rt:natives-solaris-amd64:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.gluegen:gluegen-rt:natives-solaris-i586:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.gluegen:gluegen-rt:natives-windows-amd64:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.gluegen:gluegen-rt:natives-windows-i586:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.jogl:jogl-all-main:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.jogl:jogl-all:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.jogl:jogl-all:natives-android-aarch64:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.jogl:jogl-all:natives-android-armv6:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.jogl:jogl-all:natives-linux-amd64:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.jogl:jogl-all:natives-linux-armv6:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.jogl:jogl-all:natives-linux-armv6hf:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.jogl:jogl-all:natives-linux-i586:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.jogl:jogl-all:natives-macosx-universal:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.jogl:jogl-all:natives-solaris-amd64:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.jogl:jogl-all:natives-solaris-i586:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.jogl:jogl-all:natives-windows-amd64:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jogamp.jogl:jogl-all:natives-windows-i586:2.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.locationtech.jts:jts-core:1.17.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.locationtech.proj4j:proj4j:1.1.2-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.slf4j:slf4j-simple:1.7.19" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.formdev:flatlaf:0.43" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.formdev:flatlaf-extras:0.43" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.formdev:svgSalamander:1.1.2.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:hdf5-platform:1.12.0-1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:1.12.0-1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:linux-x86:1.12.0-1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:linux-x86_64:1.12.0-1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:linux-armhf:1.12.0-1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:linux-arm64:1.12.0-1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:linux-ppc64le:1.12.0-1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:macosx-x86_64:1.12.0-1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:windows-x86:1.12.0-1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:hdf5:windows-x86_64:1.12.0-1.5.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.meteothink:MeteoInfoLib:2.4.1" level="project" />
     <orderEntry type="library" name="Maven: org.encog:encog-core:3.4" level="project" />
   </component>
 </module>
