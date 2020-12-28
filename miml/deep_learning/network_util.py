@@ -1,4 +1,4 @@
-from org.nd4j.linalg.learning.config import Nesterovs, Sgd, Adam
+from org.nd4j.linalg.learning.config import Nesterovs, Sgd, Adam, AdaGrad
 from org.deeplearning4j.nn.weights import WeightInit
 from org.deeplearning4j.nn.conf.distribution import UniformDistribution
 from org.nd4j.linalg.lossfunctions import LossFunctions
@@ -25,6 +25,10 @@ def get_updater(updater):
         beta2 = updater.pop('beta2', 0.999)
         epsilon = updater.pop('epsilon', 1e-8)
         return Adam(learn_rate, beta1, beta2, epsilon)
+    elif name == 'adagrad':
+        learn_rate = updater.pop('learn_rate', 1e-1)
+        epsilon = updater.pop('epsilon', 1e-6)
+        return AdaGrad(learn_rate, epsilon)
 
 def get_weight_init(kwargs):
     '''

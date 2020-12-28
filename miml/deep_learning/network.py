@@ -7,7 +7,7 @@ from org.nd4j.evaluation.classification import Evaluation
 from org.nd4j.linalg.util import FeatureUtil
 from org.meteothink.miml.nd4j import Nd4jUtil
 import mipylib.numeric as np
-from .layer import Dense, Output
+from .layer import OutputLayer
 import network_util
 
 class Network(object):
@@ -33,6 +33,12 @@ class Network(object):
         self._model = None
         self.score_iter = None
 
+    def __str__(self):
+        return self._model.summary()
+
+    def __repr__(self):
+        return self.__str__()
+
     def add(self, layer):
         '''
         Add a layer
@@ -42,7 +48,7 @@ class Network(object):
         if self.layers is None:
             self.layers = []
         self.layers.append(layer)
-        if isinstance(layer, Output):
+        if isinstance(layer, OutputLayer):
             self.nout = layer.nout
 
     def compile(self, score_iter=10):
@@ -94,13 +100,12 @@ class Network(object):
             y = Nd4jUtil.toNDMatrix(y._array, self.nout)
         else:
             y = Nd4jUtil.toNDArray(y._array)
-        stride = epochs / 10;
+        stride = 1
         ppi = 0
         for i in range(epochs):
-            if epochs >= 10:
-                if i == ppi or i == epochs - 1:
-                    print 'Epoch %i' % (i + 1)
-                    ppi += stride
+            if i == ppi or i == epochs - 1:
+                print('Epoch %i' % (i + 1))
+                ppi += stride
             if batchsize is None:
                 self._model.fit(x, y)
             else:
@@ -161,4 +166,4 @@ class Network(object):
                 _eval.eval(yy, y_pred)
                 si += batchsize
 
-        return _eval.stats()
+        return _eval
