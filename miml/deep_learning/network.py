@@ -1,5 +1,6 @@
 from org.deeplearning4j.nn.conf import NeuralNetConfiguration
 from org.deeplearning4j.nn.multilayer import MultiLayerNetwork
+from org.deeplearning4j.nn.conf.inputs import InputType
 from org.deeplearning4j.optimize.listeners import ScoreIterationListener
 from org.nd4j.linalg.api.ndarray import INDArray
 from org.nd4j.linalg.indexing import NDArrayIndex
@@ -32,6 +33,7 @@ class Network(object):
         self.nout = None
         self._model = None
         self.score_iter = None
+        self.input_type = kwargs.pop('input_type', None)
 
     def __str__(self):
         return self._model.summary()
@@ -78,6 +80,8 @@ class Network(object):
         confb = confb.list()
         for layer in self.layers:
             confb.layer(layer._layer)
+        if not self.input_type is None:
+            confb.setInputType(self.input_type)
         conf = confb.build()
         self._model = MultiLayerNetwork(conf)
         self._model.init()

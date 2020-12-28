@@ -79,10 +79,10 @@ class ConvolutionLayer(object):
         self.nin = nin
         self.nout = nout
         self.activation = Activation.valueOf(activation.upper())
-        conf = JConvolutionLayer.Builder(self.kernel_size[0], self.kernel_size[1])
+        conf = JConvolutionLayer.Builder(self.kernel_size)
         if not self.nin is None:
             conf.nIn(self.nin)
-        conf.stride(self.stride[0], self.stride[1])
+        conf.stride(self.stride)
         if not self.nout is None:
             conf.nOut(self.nout)
         conf.activation(self.activation)
@@ -104,6 +104,6 @@ class SubsamplingLayer(object):
         self.kernel_size = kernel_size
         self.stride = stride
         conf = JSubsamplingLayer.Builder(self.pooling_type)
-        conf.kernelSize(self.kernel_size[0], self.kernel_size[1])
-        conf.stride(self.stride[0], self.stride[1])
+        conf.kernelSize(self.kernel_size)
+        conf.stride(self.stride)
         self._layer = conf.build()
