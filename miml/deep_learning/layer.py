@@ -6,6 +6,7 @@ from org.deeplearning4j.nn.conf.layers import SubsamplingLayer as JSubsamplingLa
 from org.nd4j.linalg.activations import Activation
 
 import network_util
+from .loss_function import LossFunction
 
 class DenseLayer(object):
     '''
@@ -19,18 +20,18 @@ class DenseLayer(object):
     :param bias_init: (*int*) Initialize the bias.
     '''
 
-    def __init__(self, nin=2, nout=10, activation='relu', weight_init=None, dropout=None,
+    def __init__(self, nin=2, nout=10, activation=Activation.RELU, weight_init=None, dropout=None,
                  bias_init=None):
         self.nin = nin
         self.nout = nout
-        self.activation = Activation.valueOf(activation.upper())
+        self.activation = activation
         self.weight_init = weight_init
         self.dropout = dropout
         self.bias_init = bias_init
         conf = JDenseLayer.Builder().nIn(nin).nOut(nout) \
                 .activation(self.activation)
         if not self.weight_init is None:
-            conf.weightInit(network_util.get_weight_init(self.weight_init))
+            conf.weightInit(self.weight_init)
         if not self.dropout is None:
             conf.dropOut(self.dropout)
         if not self.bias_init is None:
@@ -47,19 +48,19 @@ class OutputLayer(object):
     :param activation: (*string*) Activation name.
     '''
 
-    def __init__(self, loss='negativeloglikelihood', nin=None, nout=2, activation='softmax',
+    def __init__(self, loss=LossFunction.NEGATIVELOGLIKELIHOOD, nin=None, nout=2, activation=Activation.SOFTMAX,
                  weight_init=None, **kwargs):
-        self.loss = network_util.get_loss_function(loss, **kwargs)
+        self.loss = loss
         self.nin = nin
         self.nout = nout
-        self.activation = Activation.valueOf(activation.upper())
+        self.activation = activation
         self.weight_init = weight_init
         conf = JOutputLayer.Builder(self.loss)
         if not self.nin is None:
             conf.nIn(self.nin)
         conf.nOut(self.nout).activation(self.activation)
         if not self.weight_init is None:
-            conf.weightInit(network_util.get_weight_init(self.weight_init))
+            conf.weightInit(self.weight_init)
         self._layer = conf.build()
 
 class ConvolutionLayer(object):
@@ -73,12 +74,12 @@ class ConvolutionLayer(object):
     :param activation: (*string*) Activation name.
     '''
 
-    def __init__(self, kernel_size=(3,3), stride=(1,1), nin=None, nout=2, activation='IDENTITY'):
+    def __init__(self, kernel_size=(3,3), stride=(1,1), nin=None, nout=2, activation=Activation.IDENTITY):
         self.kernel_size = kernel_size
         self.stride = stride
         self.nin = nin
         self.nout = nout
-        self.activation = Activation.valueOf(activation.upper())
+        self.activation = activation
         conf = JConvolutionLayer.Builder(self.kernel_size)
         if not self.nin is None:
             conf.nIn(self.nin)

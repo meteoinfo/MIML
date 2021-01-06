@@ -73,11 +73,11 @@ class ComputationGraph(object):
         if not self.learning_rate is None:
             confb.learningRate(self.learning_rate)
         if not self.optimizer is None:
-            confb.optimizationAlgo(network_util.get_optimizer(self.optimizer))
+            confb.optimizationAlgo(self.optimizer)
         if not self.updater is None:
-            confb.updater(network_util.get_updater(self.updater))
+            confb.updater(self.updater)
         if not self.weight_init is None:
-            confb.weightInit(network_util.get_weight_init(self.weight_init))
+            confb.weightInit(self.weight_init)
         if not self.bias_init is None:
             confb.biasInit(self.bias_init)
         if not self.l1 is None:

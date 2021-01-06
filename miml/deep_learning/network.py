@@ -6,6 +6,7 @@ from org.nd4j.linalg.api.ndarray import INDArray
 from org.nd4j.linalg.indexing import NDArrayIndex
 from org.nd4j.evaluation.classification import Evaluation
 from org.nd4j.linalg.util import FeatureUtil
+from org.nd4j.linalg.activations import Activation
 from org.meteothink.miml.nd4j import Nd4jUtil
 import mipylib.numeric as np
 from .layer import OutputLayer
@@ -18,9 +19,10 @@ class Network(object):
 
     '''
 
-    def __init__(self, seed=123, weight_init=None, learning_rate=None, optimizer=None, updater=None,
+    def __init__(self, seed=123, activation=None, weight_init=None, learning_rate=None, optimizer=None, updater=None,
             bias_init=None, l1=None, l2=None, mini_batch=None, layers=None, **kwargs):
         self.seed = seed
+        self.activation = activation
         self.weight_init = weight_init
         self.learning_rate = learning_rate
         self.optimizer = optimizer
@@ -61,14 +63,16 @@ class Network(object):
         '''
         confb = NeuralNetConfiguration.Builder() \
             .seed(self.seed)
+        if not self.activation is None:
+            confb.activation(self.activation)
         if not self.learning_rate is None:
             confb.learningRate(self.learning_rate)
         if not self.optimizer is None:
-            confb.optimizationAlgo(network_util.get_optimizer(self.optimizer))
+            confb.optimizationAlgo(self.optimizer)
         if not self.updater is None:
-            confb.updater(network_util.get_updater(self.updater))
+            confb.updater(self.updater)
         if not self.weight_init is None:
-            confb.weightInit(network_util.get_weight_init(self.weight_init))
+            confb.weightInit(self.weight_init)
         if not self.bias_init is None:
             confb.biasInit(self.bias_init)
         if not self.l1 is None:
@@ -88,7 +92,7 @@ class Network(object):
         self.score_iter = score_iter
         self._model.setListeners(ScoreIterationListener(self.score_iter))
 
-    def fit(self, x, y, epochs=1, batchsize=None):
+    def fit(self, x, y, epochs=1, batchsize=None, print_stride=1):
         """
         Learn from input data and labels.
 
@@ -96,6 +100,7 @@ class Network(object):
         :param y: (*array*) Training labels in [0, c), where c is the number of classes.
         :param epochs: (*int*) Number of fit epochs.
         :param batchsize: (*int*) Batch size of training data for each fit process.
+        :param print_stride: (*int*) Epochs print stride. Default is 1.
         """
         n = len(x)
         x = Nd4jUtil.toNDArray(x._array)
@@ -104,12 +109,11 @@ class Network(object):
             y = Nd4jUtil.toNDMatrix(y._array, self.nout)
         else:
             y = Nd4jUtil.toNDArray(y._array)
-        stride = 1
         ppi = 0
         for i in range(epochs):
             if i == ppi or i == epochs - 1:
                 print('Epoch %i' % (i + 1))
-                ppi += stride
+                ppi += print_stride
             if batchsize is None:
                 self._model.fit(x, y)
             else:
