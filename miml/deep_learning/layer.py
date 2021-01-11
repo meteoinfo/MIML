@@ -1,12 +1,16 @@
 
+from org.deeplearning4j.nn.conf.layers import ConvolutionLayer as JConvolutionLayer
 from org.deeplearning4j.nn.conf.layers import DenseLayer as JDenseLayer
 from org.deeplearning4j.nn.conf.layers import OutputLayer as JOutputLayer
-from org.deeplearning4j.nn.conf.layers import ConvolutionLayer as JConvolutionLayer
 from org.deeplearning4j.nn.conf.layers import SubsamplingLayer as JSubsamplingLayer
+from org.deeplearning4j.nn.conf.layers import BatchNormalization
 from org.nd4j.linalg.activations import Activation
 
-import network_util
 from .loss_function import LossFunction
+
+__all__ = ['DenseLayer','ConvolutionLayer','SubsamplingLayer','BatchNormalization',
+           'OutputLayer']
+
 
 class DenseLayer(object):
     '''
@@ -20,7 +24,7 @@ class DenseLayer(object):
     :param bias_init: (*int*) Initialize the bias.
     '''
 
-    def __init__(self, nin=2, nout=10, activation=Activation.RELU, weight_init=None, dropout=None,
+    def __init__(self, nin=None, nout=10, activation=Activation.RELU, weight_init=None, dropout=None,
                  bias_init=None):
         self.nin = nin
         self.nout = nout
@@ -28,8 +32,10 @@ class DenseLayer(object):
         self.weight_init = weight_init
         self.dropout = dropout
         self.bias_init = bias_init
-        conf = JDenseLayer.Builder().nIn(nin).nOut(nout) \
+        conf = JDenseLayer.Builder().nOut(nout) \
                 .activation(self.activation)
+        if not self.nin is None:
+            conf.nIn(self.nin)
         if not self.weight_init is None:
             conf.weightInit(self.weight_init)
         if not self.dropout is None:

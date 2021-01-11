@@ -1,16 +1,15 @@
+import mipylib.numeric as np
 from org.deeplearning4j.nn.conf import NeuralNetConfiguration
 from org.deeplearning4j.nn.multilayer import MultiLayerNetwork
-from org.deeplearning4j.nn.conf.inputs import InputType
 from org.deeplearning4j.optimize.listeners import ScoreIterationListener
+from org.nd4j.evaluation.classification import Evaluation
 from org.nd4j.linalg.api.ndarray import INDArray
 from org.nd4j.linalg.indexing import NDArrayIndex
-from org.nd4j.evaluation.classification import Evaluation
 from org.nd4j.linalg.util import FeatureUtil
-from org.nd4j.linalg.activations import Activation
+
 from org.meteothink.miml.nd4j import Nd4jUtil
-import mipylib.numeric as np
 from .layer import OutputLayer
-import network_util
+
 
 class Network(object):
     '''

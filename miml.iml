@@ -241,8 +241,8 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.locationtech.jts:jts-core:1.17.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.locationtech.proj4j:proj4j:1.1.2-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.slf4j:slf4j-simple:1.7.19" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.formdev:flatlaf:0.45" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.formdev:flatlaf-extras:0.45" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.formdev:flatlaf:0.46" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.formdev:flatlaf-extras:0.46" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.formdev:svgSalamander:1.1.2.4" level="project" />
     <orderEntry type="library" name="Maven: org.encog:encog-core:3.4" level="project" />
   </component>
