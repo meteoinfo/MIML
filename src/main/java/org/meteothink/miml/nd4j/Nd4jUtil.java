@@ -1,5 +1,6 @@
 package org.meteothink.miml.nd4j;
 
+import org.meteoinfo.ndarray.math.ArrayUtil;
 import org.nd4j.linalg.api.buffer.DataType;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.meteoinfo.ndarray.Array;
@@ -52,7 +53,7 @@ public class Nd4jUtil {
                     r = Array.factory(org.meteoinfo.ndarray.DataType.DOUBLE, shape, data);
                 } else if (n == 2) {
                     double[][] data = a.toDoubleMatrix();
-                    r = org.meteoinfo.math.ArrayUtil.array(data, org.meteoinfo.ndarray.DataType.DOUBLE);
+                    r = ArrayUtil.array(data, org.meteoinfo.ndarray.DataType.DOUBLE);
                 }
                 break;
             case FLOAT:
@@ -61,7 +62,7 @@ public class Nd4jUtil {
                     return Array.factory(org.meteoinfo.ndarray.DataType.FLOAT, shape, data);
                 } else if (n == 2) {
                     float[][] data = a.toFloatMatrix();
-                    r = org.meteoinfo.math.ArrayUtil.array(data, org.meteoinfo.ndarray.DataType.FLOAT);
+                    r = ArrayUtil.array(data, org.meteoinfo.ndarray.DataType.FLOAT);
                 }
                 break;
             case INT:
@@ -70,7 +71,7 @@ public class Nd4jUtil {
                     return Array.factory(org.meteoinfo.ndarray.DataType.INT, shape, data);
                 } else if (n == 2) {
                     int[][] data = a.toIntMatrix();
-                    r = org.meteoinfo.math.ArrayUtil.array(data, org.meteoinfo.ndarray.DataType.INT);
+                    r = ArrayUtil.array(data, org.meteoinfo.ndarray.DataType.INT);
                 }
                 break;
             case LONG:
@@ -79,7 +80,7 @@ public class Nd4jUtil {
                     return Array.factory(org.meteoinfo.ndarray.DataType.LONG, shape, data);
                 } else if (n == 2) {
                     long[][] data = a.toLongMatrix();
-                    r = org.meteoinfo.math.ArrayUtil.array(data, org.meteoinfo.ndarray.DataType.LONG);
+                    r = ArrayUtil.array(data, org.meteoinfo.ndarray.DataType.LONG);
                 }  
                 break;
         }

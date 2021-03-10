@@ -53,8 +53,8 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>MeteoInfoLib</artifactId>
-            <version>2.4.1</version>
+            <artifactId>meteoinfo-ndarray</artifactId>
+            <version>3.0.0</version>
             <scope>${scopes.type}</scope>
         </dependency>
         <dependency>
