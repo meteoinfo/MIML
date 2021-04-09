@@ -45,18 +45,8 @@ class SIB(Cluster):
         """
         self._model = PartitionClustering.run(self.runs, supF(x.tojarray('double'), self.k,
             self.max_iter))
+        self.labels_ = np.array(self._model.y)
         return self
-    
-    def fit_predict(self, x):
-        """
-        Fitting and cluster data.
-
-        :param x: (*array*) Input data.
-        
-        :returns: (*array*) The cluster labels.
-        """
-        self.fit(x)
-        return np.array(self._model.y)
         
         
 ##############################################

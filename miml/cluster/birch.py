@@ -41,28 +41,16 @@ class BIRCH(Cluster):
         for i in range(n):
             self._model.add(x[i,:])
         self._model.partition(self.k, self.min_pts)
-        return self
 
-    def fit_predict(self, x):
-        '''
-        Cluster a new instance to the nearest CF leaf. After building the CF tree, the user should 
-        call partition(int) method first to clustering leaves. Then they call this method to 
-        clustering new data.
-        
-        :param x: (*array*) A new instance.
-        
-        :returns: (*array*) the cluster label, which is the label of nearest CF leaf. Note that it 
-            may be Clustering Outler.
-        '''
-        self.fit(x)
-        
         if x.ndim == 1:
-            return self._model.predict(x)
+            y = self._model.predict(x)
         else:
             y = np.zeros(len(x), dtype='int')
             for i in range(len(x)):
                 y[i] = self._model.predict(x[i])
-            return y
+
+        self.labels_ = np.array(y)
+        return self
         
         
 ##############################################

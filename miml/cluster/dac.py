@@ -46,18 +46,8 @@ class DeterministicAnnealing(Cluster):
         """
         self._model = JDeterministicAnnealing.fit(x.tojarray('double'), self.k_max, self.alpha,
             self.max_iter, self.tol, self.split_tol)
+        self.labels_ = np.array(self._model.y)
         return self
-    
-    def fit_predict(self, x):
-        """
-        Fitting and cluster data.
-
-        :param x: (*array*) Input data.
-        
-        :returns: (*array*) The cluster labels.
-        """
-        self.fit(x)
-        return np.array(self._model.y)
         
         
 ##############################################

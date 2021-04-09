@@ -49,18 +49,8 @@ class CLARANS(Cluster):
         """
         distance = smile_util.get_distance(self.distance)
         self._model = JCLARANS.fit(x.tojarray('double'), distance, self.k, self.max_neighbor)
+        self.labels_ = np.array(self._model.y)
         return self
-    
-    def fit_predict(self, x):
-        """
-        Fitting and cluster data.
-
-        :param x: (*array*) Input data.
-        
-        :returns: (*array*) The cluster labels.
-        """
-        self.fit(x)
-        return np.array(self._model.y)
         
         
 ##############################################

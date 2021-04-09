@@ -75,20 +75,8 @@ class HierarchicalClustering(Cluster):
         proximity = smile_util.pdist(x)
         linkage = self._get_linkage(self.linkage, proximity)
         self._model = JHierarchicalClustering.fit(linkage)
+        self.labels_ = np.array(self._model.partition(self.k))
         return self
-    
-    def fit_predict(self, x):
-        """
-        Fitting and cluster data.
-
-        :param x: (*array*) Input data.
-        
-        :returns: (*array*) The cluster labels.
-        """
-        self.fit(x)
-        
-        r = self._model.partition(self.k)
-        return np.array(r)
         
         
 ##############################################

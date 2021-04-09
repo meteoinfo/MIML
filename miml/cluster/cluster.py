@@ -10,6 +10,7 @@ class Cluster(BaseEstimator):
     def __init__(self):
         self.estimator_type = 'cluster'
         self._model = None
+        self.labels_ = None
     
     def __str__(self):
         _str = self.__class__.__name__
@@ -38,7 +39,7 @@ class Cluster(BaseEstimator):
         
         :returns: (*array*) The cluster labels.
         """
-        pass
+        return self.fit(x).labels_
 
     def predict(self, x):
         """
@@ -46,12 +47,13 @@ class Cluster(BaseEstimator):
 
         Parameters
         ----------
-        X : array-like, new data to predict.
+        x : array-like, new data to predict.
 
         Returns
         -------
         y : array, index of the cluster each sample belongs to.
         """
+        x = np.array(x)
         if x.ndim == 2:
             r = SmileUtil.clusterPredict(self._model, x.tojarray('double'))
         else:

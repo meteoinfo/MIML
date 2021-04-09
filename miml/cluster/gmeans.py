@@ -21,6 +21,7 @@ class GMeans(Cluster):
         super(GMeans, self).__init__()
         
         self.k_max = k_max
+        self.cluster_centers_ = None
         
     def fit(self, x):
         """
@@ -31,18 +32,9 @@ class GMeans(Cluster):
         :returns: self.
         """
         self._model = JGMeans.fit(x.tojarray('double'), self.k_max)
+        self.labels_ = np.array(self._model.y)
+        self.cluster_centers_ = np.array(self._model.centroids)
         return self
-    
-    def fit_predict(self, x):
-        """
-        Fitting and cluster data.
-
-        :param x: (*array*) Input data.
-        
-        :returns: (*array*) The cluster labels.
-        """
-        self.fit(x)
-        return np.array(self._model.y)
         
         
 ##############################################

@@ -38,18 +38,8 @@ class DENCLUE(Cluster):
         :returns: self.
         """
         self._model = JDENCLUE.fit(x.tojarray('double'), self.sigma, self.m)
+        self.labels_ = np.array(self._model.y)
         return self
-    
-    def fit_predict(self, x):
-        """
-        Fitting and cluster data.
-
-        :param x: (*array*) Input data.
-        
-        :returns: (*array*) The cluster labels.
-        """
-        self.fit(x)
-        return np.array(self._model.y)
         
         
 ##############################################

@@ -39,7 +39,8 @@ class KMeans(Cluster):
         self.max_iter = max_iter
         self.tol = tol
         self.runs = runs
-        
+        self.cluster_centers_ = None
+
     def fit(self, x):
         """
         Fitting data.
@@ -50,18 +51,9 @@ class KMeans(Cluster):
         """
         self._model = PartitionClustering.run(self.runs, supF(x.tojarray('double'), self.k, self.max_iter, self.tol))
         #self._model = JKMeans.fit(x.tojarray('double'), self.k, self.max_iter, self.tol)
+        self.labels_ = np.array(self._model.y)
+        self.cluster_centers_ = np.array(self._model.centroids)
         return self
-    
-    def fit_predict(self, x):
-        """
-        Fitting and cluster data.
-
-        :param x: (*array*) Input data.
-        
-        :returns: (*array*) The cluster labels.
-        """
-        self.fit(x)
-        return np.array(self._model.y)
         
         
 ##############################################
