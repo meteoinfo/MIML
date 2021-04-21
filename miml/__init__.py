@@ -16,4 +16,4 @@ __version__ = '0.8'
 from .base import BaseEstimator
 
 __all__ = ['__version__','BaseEstimator','classification','cluster','datasets','neural_network','preprocessing',
-           'regression','utils','deep_learning','metrics','model_selection']
+           'regression','utils','deep_learning','metrics','model_selection','math']
