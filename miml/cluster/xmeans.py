@@ -22,6 +22,7 @@ class XMeans(Cluster):
         
         self.k_max = k_max
         self.cluster_centers_ = None
+        self.inertia_ = 0
         
     def fit(self, x):
         """
@@ -34,6 +35,7 @@ class XMeans(Cluster):
         self._model = JXMeans.fit(x.tojarray('double'), self.k_max)
         self.labels_ = np.array(self._model.y)
         self.cluster_centers_ = np.array(self._model.centroids)
+        self.inertia_ = self._model.distortion
         return self
         
         

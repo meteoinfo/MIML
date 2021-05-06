@@ -40,6 +40,7 @@ class KMeans(Cluster):
         self.tol = tol
         self.runs = runs
         self.cluster_centers_ = None
+        self.inertia_ = 0
 
     def fit(self, x):
         """
@@ -53,6 +54,7 @@ class KMeans(Cluster):
         #self._model = JKMeans.fit(x.tojarray('double'), self.k, self.max_iter, self.tol)
         self.labels_ = np.array(self._model.y)
         self.cluster_centers_ = np.array(self._model.centroids)
+        self.inertia_ = self._model.distortion
         return self
         
         
