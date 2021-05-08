@@ -134,8 +134,20 @@ public class SmileUtil {
         boolean isTuple = classifier instanceof DataFrameClassifier;
         if (isTuple) {            
             Tuple tuple;
+            int m = x[0].length;
+            StructField[] fields = new StructField[m + 1];
+            fields[0] = new StructField("class", DataTypes.IntegerType);
+            for (int i = 0; i < m; i++) {
+                fields[i + 1] = new StructField("V" + (i + 1), DataTypes.DoubleType);
+            }
+            StructType schema = DataTypes.struct(fields);
             for (int i = 0; i < n; i++) {
-                tuple = Tuple.of(x[i], null);
+                Object[] row = new Object[m + 1];
+                row[0] = 0;
+                for (int j = 0; j < m; j++) {
+                    row[j + 1] = x[i][j];
+                }
+                tuple = Tuple.of(row, schema);
                 posteriori = new double[k];
                 classifier.predict(tuple, posteriori);
                 probability[i] = posteriori;
