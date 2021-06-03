@@ -68,7 +68,7 @@ class MLPClassifer(Classifer):
         
         x = x.tojarray('double')
         y = y.tojarray('int')
-        for epoch in range(self.epochs):
+        for _ in range(self.epochs):
             permutation = MathEx.permutate(len(x))
             for i in permutation:
                 self._model.update(x[i], y[i])

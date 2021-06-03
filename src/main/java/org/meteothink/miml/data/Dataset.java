@@ -324,9 +324,9 @@ public class Dataset<E> implements Iterable<Datum<E>> {
             throw new IllegalArgumentException(DATASET_HAS_NO_RESPONSE);
         }
 
-        if (response.getType() != Attribute.Type.NOMINAL) {
+        /*if (response.getType() != Attribute.Type.NOMINAL) {
             throw new IllegalArgumentException(RESPONSE_NOT_NOMINAL);
-        }
+        }*/
 
         int n = data.size();
         if (a.length < n) {
