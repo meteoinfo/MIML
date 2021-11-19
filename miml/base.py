@@ -39,7 +39,7 @@ class BaseEstimator(object):
         return x
 
 class TransformerMixin:
-    """Mixin class for all transformers in scikit-learn."""
+    """Mixin class for all transformers in MIML."""
 
     def fit_transform(self, X, y=None, **fit_params):
         """

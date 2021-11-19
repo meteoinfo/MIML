@@ -8,6 +8,7 @@ from org.nd4j.linalg.indexing import NDArrayIndex
 from org.nd4j.linalg.util import FeatureUtil
 
 from org.meteothink.miml.nd4j import Nd4jUtil
+from org.meteothink.miml.dl4j import DL4jUtil
 from .layer import OutputLayer
 
 
@@ -35,6 +36,7 @@ class Network(object):
         self._model = None
         self.score_iter = None
         self.input_type = kwargs.pop('input_type', None)
+        self.cudnn_algo_mode = kwargs.pop('cudnn_algo_mode', None)
 
     def __str__(self):
         return self._model.summary()
@@ -80,6 +82,8 @@ class Network(object):
             confb.l2(self.l2)
         if not self.mini_batch is None:
             confb.miniBatch(self.mini_batch)
+        if not self.cudnn_algo_mode is None:
+            confb.cudnnAlgoMode(self.cudnn_algo_mode)
         confb = confb.list()
         for layer in self.layers:
             confb.layer(layer._layer)
@@ -101,6 +105,35 @@ class Network(object):
         :param batchsize: (*int*) Batch size of training data for each fit process.
         :param print_stride: (*int*) Epochs print stride. Default is 1.
         """
+        if x.ndim == 1:
+            x = x[:,np.newaxis]
+        x = Nd4jUtil.toNDArray(x._array)
+
+        if y.ndim == 1:
+            if self.nout == 1:
+                y = y[:, np.newaxis]
+                y = Nd4jUtil.toNDArray(y._array)
+            else:
+                #y = y.tojarray('int')
+                y = Nd4jUtil.toNDMatrix(y._array, self.nout)
+        else:
+            y = Nd4jUtil.toNDArray(y._array)
+
+        if batchsize is None:
+            DL4jUtil.fit(self._model, x, y, epochs, print_stride)
+        else:
+            DL4jUtil.fit(self._model, x, y, epochs, batchsize, print_stride)
+
+    def fit_bak(self, x, y, epochs=1, batchsize=None, print_stride=1):
+        """
+        Learn from input data and labels.
+
+        :param x: (*array*) Training samples. 2D array.
+        :param y: (*array*) Training labels in [0, c), where c is the number of classes.
+        :param epochs: (*int*) Number of fit epochs.
+        :param batchsize: (*int*) Batch size of training data for each fit process.
+        :param print_stride: (*int*) Epochs print stride. Default is 1.
+        """
         n = len(x)
         x = Nd4jUtil.toNDArray(x._array)
         if y.ndim == 1:
@@ -109,7 +142,7 @@ class Network(object):
         else:
             y = Nd4jUtil.toNDArray(y._array)
         ppi = 0
-        for i in range(epochs):
+        for i in xrange(epochs):
             if i == ppi or i == epochs - 1:
                 print('Epoch %i' % (i + 1))
                 ppi += print_stride
@@ -142,6 +175,8 @@ class Network(object):
         y : array of shape [n_samples] or [n_samples, n_outputs]
             Class labels for each data sample.
         """
+        if x.ndim == 1:
+            x = x[:,np.newaxis]
         x = Nd4jUtil.toNDArray(x._array)
         r = self._model.output(x)
         r = Nd4jUtil.toArray(r)

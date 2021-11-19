@@ -89,7 +89,7 @@ public class Nd4jUtil {
     }
 
     /**
-     * Creates an out come matrix from the specified inputs
+     * Creates an outcome matrix from the specified inputs
      *
      * @param index       the index of the label
      * @param numOutcomes the number of possible outcomes
@@ -107,7 +107,7 @@ public class Nd4jUtil {
     }
 
     /**
-     * Creates an out come matrix from the specified inputs
+     * Creates an outcome matrix from the specified inputs
      *
      * @param index       the index of the label
      * @param numOutcomes the number of possible outcomes

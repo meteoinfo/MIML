@@ -14,6 +14,9 @@ import warnings
 from itertools import chain, combinations
 from math import ceil, floor
 
+__all__ = ['BaseShuffleSplit','BaseCrossValidator','ShuffleSplit','StratifiedShuffleSplit','KFold',
+           'train_test_split']
+
 class BaseCrossValidator(with_metaclass(ABCMeta)):
     """Base class for all cross-validators
 
@@ -231,7 +234,8 @@ class BaseShuffleSplit(with_metaclass(ABCMeta)):
         return self.n_splits
 
     def __repr__(self):
-        return _build_repr(self)
+        #return _build_repr(self)
+        return "Base shuffle split"
 
 
 class ShuffleSplit(BaseShuffleSplit):
@@ -796,3 +800,37 @@ def train_test_split(*arrays, **options):
 
 # Tell nose that train_test_split is not a test
 train_test_split.__test__ = False
+
+def _build_repr(self):
+    # XXX This is copied from BaseEstimator's get_params
+    cls = self.__class__
+    init = getattr(cls.__init__, 'deprecated_original', cls.__init__)
+    # Ignore varargs, kw and default values and pop self
+    init_signature = signature(init)
+    # Consider the constructor parameters excluding 'self'
+    if init is object.__init__:
+        args = []
+    else:
+        args = sorted([p.name for p in init_signature.parameters.values()
+                       if p.name != 'self' and p.kind != p.VAR_KEYWORD])
+    class_name = self.__class__.__name__
+    params = dict()
+    for key in args:
+        # We need deprecation warnings to always be on in order to
+        # catch deprecated param values.
+        # This is set in utils/__init__.py but it gets overwritten
+        # when running under python3 somehow.
+        warnings.simplefilter("always", FutureWarning)
+        try:
+            with warnings.catch_warnings(record=True) as w:
+                value = getattr(self, key, None)
+                if value is None and hasattr(self, 'cvargs'):
+                    value = self.cvargs.get(key, None)
+            if len(w) and w[0].category == FutureWarning:
+                # if the parameter is deprecated, don't show it
+                continue
+        finally:
+            warnings.filters.pop(0)
+        params[key] = value
+
+    return '%s(%s)' % (class_name, _pprint(params, offset=len(class_name)))

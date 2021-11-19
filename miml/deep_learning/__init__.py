@@ -15,3 +15,4 @@ from org.deeplearning4j.nn.weights import WeightInit
 from org.deeplearning4j.nn.conf.distribution import UniformDistribution
 from org.deeplearning4j.nn.api import OptimizationAlgorithm as Optimizer
 from org.deeplearning4j.nn.conf.inputs import InputType
+from org.deeplearning4j.nn.conf.layers.ConvolutionLayer import AlgoMode
