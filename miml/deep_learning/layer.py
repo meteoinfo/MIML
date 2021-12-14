@@ -3,17 +3,19 @@ from org.deeplearning4j.nn.conf.layers import ConvolutionLayer as JConvolutionLa
 from org.deeplearning4j.nn.conf.layers import DenseLayer as JDenseLayer
 from org.deeplearning4j.nn.conf.layers import OutputLayer as JOutputLayer
 from org.deeplearning4j.nn.conf.layers import SubsamplingLayer as JSubsamplingLayer
+from org.deeplearning4j.nn.conf.layers import LSTM as JLSTM
+from org.deeplearning4j.nn.conf.layers import RnnOutputLayer as JRnnOutputLayer
 from org.deeplearning4j.nn.conf.layers import BatchNormalization
 from org.nd4j.linalg.activations import Activation
 
 from .loss_function import LossFunction
 
-__all__ = ['DenseLayer','ConvolutionLayer','SubsamplingLayer','BatchNormalization',
-           'OutputLayer']
+__all__ = ['ConvolutionLayer','DenseLayer','LSTMLayer',
+           'OutputLayer','SubsamplingLayer']
 
 
 class DenseLayer(object):
-    '''
+    """
     Dense layer.
 
     :param nin: (*int*) In node number.
@@ -22,7 +24,7 @@ class DenseLayer(object):
     :param weight_init: (*float*) Init weight.
     :param dropout: (*float*) Dropout connection.
     :param bias_init: (*int*) Initialize the bias.
-    '''
+    """
 
     def __init__(self, nin=None, nout=10, activation=Activation.RELU, weight_init=None, dropout=None,
                  bias_init=None):
@@ -45,14 +47,14 @@ class DenseLayer(object):
         self._layer = conf.build()
 
 class OutputLayer(object):
-    '''
+    """
     Output layer.
 
     :param loss: (*string*) Loss function name.
     :param nin: (*int*) In node number.
     :param nout: (*int*) Out node number.
     :param activation: (*string*) Activation name.
-    '''
+    """
 
     def __init__(self, loss=LossFunction.NEGATIVELOGLIKELIHOOD, nin=None, nout=2, activation=Activation.SOFTMAX,
                  weight_init=None, **kwargs):
@@ -70,7 +72,7 @@ class OutputLayer(object):
         self._layer = conf.build()
 
 class ConvolutionLayer(object):
-    '''
+    """
     Convolution layer.
 
     :param kernel_size: (*tuple*) Kernel size.
@@ -78,7 +80,7 @@ class ConvolutionLayer(object):
     :param nin: (*int*) In node number.
     :param nout: (*int*) Out node number.
     :param activation: (*string*) Activation name.
-    '''
+    """
 
     def __init__(self, kernel_size=(3,3), stride=(1,1), nin=None, nout=2, activation=Activation.IDENTITY):
         self.kernel_size = kernel_size
@@ -96,7 +98,7 @@ class ConvolutionLayer(object):
         self._layer = conf.build()
 
 class SubsamplingLayer(object):
-    '''
+    """
     Subsampling layer also referred to as pooling in convolution neural nets.
 
     Supports the following pooling types: MAX, AVG, SUM, PNORM.
@@ -104,7 +106,7 @@ class SubsamplingLayer(object):
     :param pooling_type: (*string*) Pooling type.
     :param kernel_size: (*tuple*) Kernel size.
     :param stride: (*tuple*) Stride.
-    '''
+    """
 
     def __init__(self, pooling_type='max', kernel_size=(3,3), stride=(1,1)):
         self.pooling_type = JSubsamplingLayer.PoolingType.valueOf(pooling_type.upper())
@@ -113,4 +115,48 @@ class SubsamplingLayer(object):
         conf = JSubsamplingLayer.Builder(self.pooling_type)
         conf.kernelSize(self.kernel_size)
         conf.stride(self.stride)
+        self._layer = conf.build()
+
+class LSTMLayer(object):
+    """
+    LSTM layer.
+
+    :param nin: (*int*) In node number.
+    :param nout: (*int*) Out node number.
+    :param activation: (*string*) Activation name.
+    """
+
+    def __init__(self, nin=None, nout=2, activation=Activation.TANH):
+        self.nin = nin
+        self.nout = nout
+        self.activation = activation
+        conf = JLSTM.Builder()
+        if not self.nin is None:
+            conf.nIn(self.nin)
+        if not self.nout is None:
+            conf.nOut(self.nout)
+        conf.activation(self.activation)
+        self._layer = conf.build()
+
+class RnnOutputLayer(object):
+    """
+    RNN output layer.
+
+    :param loss: (*LossFunction*) Loss function.
+    :param nin: (*int*) In node number.
+    :param nout: (*int*) Out node number.
+    :param activation: (*string*) Activation name.
+    """
+
+    def __init__(self, loss=LossFunction.MCXENT, nin=None, nout=2, activation=Activation.SOFTMAX):
+        self.loss = loss
+        self.nin = nin
+        self.nout = nout
+        self.activation = activation
+        conf = JRnnOutputLayer.Builder(loss)
+        if not self.nin is None:
+            conf.nIn(self.nin)
+        if not self.nout is None:
+            conf.nOut(self.nout)
+        conf.activation(self.activation)
         self._layer = conf.build()

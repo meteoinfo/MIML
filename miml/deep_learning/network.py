@@ -45,11 +45,11 @@ class Network(object):
         return self.__str__()
 
     def add(self, layer):
-        '''
+        """
         Add a layer
 
         :param layer: (*Layer*) The layer.
-        '''
+        """
         if self.layers is None:
             self.layers = []
         self.layers.append(layer)
@@ -57,11 +57,11 @@ class Network(object):
             self.nout = layer.nout
 
     def compile(self, score_iter=10):
-        '''
+        """
         Build the network.
 
         :param score_iter: (*int*) Number of parameter updates for printing score
-        '''
+        """
         confb = NeuralNetConfiguration.Builder() \
             .seed(self.seed)
         if not self.activation is None:

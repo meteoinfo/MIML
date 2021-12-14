@@ -49,8 +49,8 @@
         </dependency>
         <dependency>
             <groupId>org.nd4j</groupId>
-            <!-- <artifactId>nd4j-cuda-10.2-platform</artifactId> -->
-            <artifactId>nd4j-native-platform</artifactId>
+            <artifactId>nd4j-cuda-11.2-platform</artifactId>
+<!--            <artifactId>nd4j-native-platform</artifactId>-->
             <version>${dl4j.version}</version>
         </dependency>
         <dependency>
