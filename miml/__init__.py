@@ -11,7 +11,7 @@ import os
 #         if not fpath in sys.path:
 #             sys.path.append(fpath)
     
-__version__ = '0.8'
+__version__ = '1.0'
 
 from .base import BaseEstimator
 

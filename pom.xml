@@ -3,12 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.meteothink</groupId>
     <artifactId>miml</artifactId>
-    <version>0.8.3</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <dl4j.version>1.0.0-M1.1</dl4j.version>
+        <smile.version>2.6.0</smile.version>
         <!--  scope: compile for debug; provided for build-->
         <scopes.type>provided</scopes.type>
     </properties>
@@ -16,50 +18,50 @@
         <dependency>
             <groupId>com.github.haifengl</groupId>
             <artifactId>smile-core</artifactId>
-            <version>2.6.0</version>
+            <version>${smile.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.haifengl</groupId>
             <artifactId>smile-data</artifactId>
-            <version>2.6.0</version>
+            <version>${smile.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.haifengl</groupId>
             <artifactId>smile-interpolation</artifactId>
-            <version>2.6.0</version>
+            <version>${smile.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.haifengl</groupId>
             <artifactId>smile-io</artifactId>
-            <version>2.6.0</version>
+            <version>${smile.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-core -->
         <dependency>
             <groupId>org.deeplearning4j</groupId>
             <artifactId>deeplearning4j-core</artifactId>
-            <version>1.0.0-beta7</version>
+            <version>${dl4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.deeplearning4j</groupId>
             <artifactId>deeplearning4j-data</artifactId>
-            <version>1.0.0-beta7</version>
+            <version>${dl4j.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.nd4j</groupId>
             <!-- <artifactId>nd4j-cuda-10.2-platform</artifactId> -->
             <artifactId>nd4j-native-platform</artifactId>
-            <version>1.0.0-beta7</version>
+            <version>${dl4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.datavec</groupId>
             <artifactId>datavec-data-image</artifactId>
-            <version>1.0.0-beta7</version>
+            <version>${dl4j.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>meteoinfo-ndarray</artifactId>
-            <version>3.0.0</version>
+            <version>3.2.0</version>
             <scope>${scopes.type}</scope>
         </dependency>
         <dependency>
